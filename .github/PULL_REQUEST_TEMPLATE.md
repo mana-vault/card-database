@@ -6,9 +6,10 @@ Schema: docs/en/design.md
 
 ## Type of change
 
-- [ ] Add a new `card` — new `data/cards/<first_set>/<card_id>.json`
+- [ ] Add a new `card` — new `data/card/<first two of card_id>/<card_id>.json`
 - [ ] Fix data in an existing `card` or `print`
-- [ ] Add `print`s to the `data/prints/<set_code>/<lang>/` of an existing set
+- [ ] Official correction — append to the object's `history` per its schema
+- [ ] Add a `print` — new `data/print/<lang>/<set_code>/<number>.json`
 - [ ] Schema or documentation change
 
 ## What is changed?

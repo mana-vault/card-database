@@ -4,25 +4,35 @@ Translations: [日本語](docs/ja/contributing.md)
 
 Thanks for helping to improve the card database.
 
-| Way | What it involves |
+## Ways to contribute
+
+This repository keeps the card data in `data/`, its JSON Schemas in `schema/`, and the design
+documents in `docs/`. A contribution touches one of the areas:
+
+| Area | What it involves |
 | --- | --- |
-| Add a new `card` | write a `card file`. See `docs/en/design.md` for the schema and where files go |
-| Fix data in an existing `card` | typos, wrong values, or missing `print`s |
-| Report issues | anything that looks wrong on a `card` or in the schema |
+| `card` data | write a card file such as `data/card/li/lightning-bolt.json`. The lists in `data/component/` hold the values that a `card` references. |
+| `print` data | one file per print, such as `data/print/ja/mh3/170.json`. The set of the print must be registered already. |
+| Official corrections | when Wizards of the Coast publishes a correction, fix the values and append a record to the object's `history`. The record follows the schema. |
+| Schemas and docs | changes under `schema/` or `docs/`. If the design of the change is not settled, raise an issue first. |
 
 ## Process
 
-1. Check whether the `card` already exists under `data/cards/`.
-2. Follow `docs/en/design.md` for the file format and naming; `card file`s live at
-   `data/cards/<first_set>/<card_id>.json`.
-3. Open a pull request. Reference the `card_id` or the `set_code` in the PR description.
+1. Check what already exists for the `card`, the set, or the `translation` you are about to touch.
+2. Follow `docs/en/design.md` for the file format and where files live, and check the files you
+   edit against their schemas under `schema/`.
+3. Open a pull request, referencing the `card_id` or the `set_code`. For a schema or docs change,
+   link the issue that settled the design.
 
 ## Review criteria
 
 - Values match what is actually printed on the referenced `card`, including set, name, costs, and
   rarity.
 - Strings are written exactly as they appear on the card, including spacing and line breaks.
-- `card_id` follows the rules in `docs/en/design.md` and does not collide with an existing one.
+- Every file touched by the change validates against its schema in `schema/`.
+- A new `card_id` follows the rules in `docs/en/design.md` and does not collide with an existing
+  one.
+- An official correction appends its record to `history`, and past records are never rewritten.
 
 ## Ground rules
 
