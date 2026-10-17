@@ -1,0 +1,58 @@
+name: Card data report
+description: Report incorrect, missing, or broken card data
+labels: [data]
+body:
+  - type: input
+    id: card_id
+    attributes:
+      label: Card ID
+      description: The card this report is about (nullable if you propose a new one)
+      placeholder: lightning-bolt
+    validations:
+      required: false
+  - type: input
+    id: print
+    attributes:
+      label: Print (set / number / language)
+      description: If the problem concerns a specific printing
+      placeholder: "MH3 / 170 / ja"
+    validations:
+      required: false
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind of problem
+      options:
+        - Wrong value (name / cost / text / type line / colors / ...)
+        - Missing translation
+        - Missing printing
+        - Broken file or schema problem
+      default: 0
+    validations:
+      required: true
+  - type: textarea
+    id: detail
+    attributes:
+      label: What is wrong, and what is correct?
+      description: Include what the card actually says / shows, and where you can verify it (e.g., the official product or an official listing).
+    validations:
+      required: true
+  - type: checkboxes
+    id: rights
+    attributes:
+      label: Rights and policy
+      description: Both must be checked for an issue to be acted upon.
+      options:
+        - label: >
+            I contribute here under the repository's CC0 dedication (see LICENSE).
+            I waive copyright and related rights in my contribution to the maximum
+            extent permitted by applicable law; where a right is not waivable
+            (e.g., moral rights in some jurisdictions), I agree not to exercise or
+            assert it against this repository, its maintainers, or its users
+            (see the fallback grant in CC0 section 3).
+        - label: >
+            I have reviewed the Wizards of the Coast Fan Content Policy
+            (https://company.wizards.com/en/legal/fancontentpolicy) and confirm
+            that my contribution respects it.
+    validations:
+      required: true
