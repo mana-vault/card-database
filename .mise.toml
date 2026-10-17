@@ -1,0 +1,22 @@
+# Tools and tasks for this repository, managed with mise.
+
+[tools]
+# Markdown lint for the documentation. Runs in the prek hooks and CI.
+"npm:markdownlint-cli2" = "0.23.3"
+
+# The hook runner used in this repository (prek.toml).
+"ubi:j178/prek" = "0.5.5"
+
+[hooks]
+# Install the tools above automatically when you enter this project.
+# This behaves like direnv: it requires `mise activate` in your shell,
+# and the first run needs `mise trust` for this file.
+enter = "mise install"
+
+[tasks.lint]
+description = "Run markdownlint-cli2 over all Markdown files"
+run = "markdownlint-cli2 \"**/*.md\""
+
+[tasks.check]
+description = "Run the prek hooks over all files"
+run = "prek run --all-files"

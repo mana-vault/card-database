@@ -1,0 +1,18 @@
+// markdownlint-cli2 base configuration.
+// This ruleset is tuned for the English documentation (the canonical documents);
+// Japanese documents override it by docs/ja/.markdownlint.jsonc, and the GitHub
+// templates loosen a few rules of their own under .github/.
+{
+  "config": {
+    "default": true,
+
+    // Prose wrapping is a matter for the editor, not for linting; tables,
+    // headings and fenced code are long by nature.
+    "MD013": { "line_length": 100, "code_blocks": false, "tables": false, "headings": false },
+
+    // Files may open with the translations note or a preamble comment
+    // instead of a heading.
+    "MD041": false
+  },
+  "globs": ["**/*.md"]
+}

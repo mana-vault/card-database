@@ -1,0 +1,9 @@
+// Rules for the GitHub templates (overrides .markdownlint-cli2.jsonc).
+//
+// Templates are functional text for the PR and issue forms: their checkbox
+// wording is allowed to stay on one line, and the preamble is an HTML comment
+// rather than a heading.
+{
+  "MD013": false,
+  "MD041": false
+}

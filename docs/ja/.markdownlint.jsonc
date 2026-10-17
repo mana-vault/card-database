@@ -1,0 +1,9 @@
+// Rules for the Japanese documents (overrides .markdownlint-cli2.jsonc).
+//
+// Japanese prose has no word boundaries, so any column count is meaningless:
+// sentences are wrapped by their own rhythm, once written, and re-wrapping by
+// width would churn the files without helping readability. The rest of the
+// base ruleset applies as written for English.
+{
+  "MD013": false
+}
