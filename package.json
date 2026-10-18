@@ -5,10 +5,14 @@
   "type": "module",
   "scripts": {
     "check-id": "tsx scripts/check-id.ts",
+    "check-scripts": "biome ci .",
+    "format": "biome format --write .",
+    "lint": "biome lint .",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.5.15",
     "@types/node": "^26.6.5",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2",
