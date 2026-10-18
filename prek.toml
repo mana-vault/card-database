@@ -1,7 +1,4 @@
 # Hooks for this repository, run by prek (https://github.com/j178/prek).
-# Every hook runs one check over the files the commit touches; each check is the same
-# one as the mise task or the npm script of its name.
-# The tools come from mise, so the entries go through `mise exec`.
 
 [[repos]]
 repo = "local"
@@ -10,110 +7,96 @@ repo = "local"
 id = "check-md"
 name = "Lint Markdown"
 language = "system"
-entry = "mise exec -- markdownlint-cli2"
+entry = "mise run check-md"
 files = '\.md$'
+pass_filenames = false
 
 [[repos.hooks]]
 id = "check-workflows"
 name = "Validate the workflows"
 language = "system"
-entry = "mise exec -- actionlint"
+entry = "mise run check-workflows"
 files = '^\.github/workflows/.*\.ya?ml$'
+pass_filenames = false
 
 [[repos.hooks]]
 id = "check-schema"
 name = "Validate the schemas"
 language = "system"
-entry = "mise exec -- jsonschema metaschema"
+entry = "mise run check-schema"
 files = '^schema/.*\.json$'
+pass_filenames = false
 
 [[repos.hooks]]
-id = "check-component"
-name = "Validate the component lists"
+id = "check-data"
+name = "Validate the data against the schemas"
 language = "system"
-entry = "mise exec -- jsonschema validate schema/component.json"
-files = '^data/component/.*\.json$'
-
-[[repos.hooks]]
-id = "check-card"
-name = "Validate the cards"
-language = "system"
-entry = "mise exec -- jsonschema validate schema/card/normal.schema.json"
-files = '^data/card/.*\.json$'
-
-[[repos.hooks]]
-id = "check-card-translation"
-name = "Validate the card translations"
-language = "system"
-entry = "mise exec -- jsonschema validate schema/translation/normal.schema.json"
-files = '^data/translation/card/.*\.json$'
-
-[[repos.hooks]]
-id = "check-set-translation"
-name = "Validate the set translations"
-language = "system"
-entry = "mise exec -- jsonschema validate schema/translation/set.schema.json"
-files = '^data/translation/set/.*\.json$'
-
-[[repos.hooks]]
-id = "check-print"
-name = "Validate the prints"
-language = "system"
-entry = "mise exec -- jsonschema validate schema/print.json"
-files = '^data/print/.*\.json$'
-
-[[repos.hooks]]
-id = "check-set"
-name = "Validate the sets"
-language = "system"
-entry = "mise exec -- jsonschema validate schema/set.json"
-files = '^data/set/.*\.json$'
+entry = "mise run check-data"
+files = '^(data|schema)/.*\.json$|^\.mise\.toml$'
+pass_filenames = false
 
 [[repos.hooks]]
 id = "check-id"
 name = "Validate the ids and their references"
 language = "system"
-entry = "mise exec -- npm run check-id"
-files = '^(data/.*\.json|scripts/.*\.ts|package\.json)$'
+entry = "mise run check-id"
+files = '^(data/.*\.json|scripts/.*\.ts|package(-lock)?\.json)$'
 pass_filenames = false
 
 [[repos.hooks]]
 id = "typecheck"
 name = "Type-check the scripts"
 language = "system"
-entry = "mise exec -- npm run typecheck"
-files = '^(scripts/.*\.ts|tsconfig\.json|package\.json)$'
+entry = "mise run typecheck"
+files = '^(scripts/.*\.ts|tsconfig\.json|package(-lock)?\.json)$'
 pass_filenames = false
 
 [[repos.hooks]]
 id = "test"
 name = "Run the tests of the checks"
 language = "system"
-entry = "mise exec -- npm test"
-files = '^(scripts/.*\.ts|package\.json)$'
+entry = "mise run test"
+files = '^(scripts/.*\.ts|package(-lock)?\.json)$'
 pass_filenames = false
 
 [[repos.hooks]]
 id = "check-scripts"
 name = "Lint and format the scripts"
 language = "system"
-entry = "mise exec -- npm run check-scripts"
-files = '^(scripts/.*\.ts|biome\.json)$'
+entry = "mise run check-scripts"
+files = '^(scripts/.*\.ts|biome\.json|package(-lock)?\.json)$'
 pass_filenames = false
 
 [[repos.hooks]]
 id = "check-config"
 name = "Check the formatting of the configuration files"
 language = "system"
-entry = "mise exec -- dprint check"
+entry = "mise run check-config"
 files = '\.(json|jsonc|toml|ya?ml)$'
+pass_filenames = false
+
+[[repos.hooks]]
+id = "check-mise"
+name = "Validate the mise configuration"
+language = "system"
+entry = "mise run check-mise"
+files = '^\.mise\.toml$'
+pass_filenames = false
+
+[[repos.hooks]]
+id = "check-prek"
+name = "Validate the prek configuration"
+language = "system"
+entry = "mise run check-prek"
+files = '^prek\.toml$'
 pass_filenames = false
 
 [[repos.hooks]]
 id = "check-secrets"
 name = "Find secrets in the repository"
 language = "system"
-entry = "mise exec -- gitleaks dir . --no-banner --redact"
+entry = "mise run check-secrets"
+pass_filenames = false
 
 [[repos.hooks]]
 id = "check-dangerous-code"

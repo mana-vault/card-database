@@ -30,16 +30,11 @@ run = "semgrep scan . --config p/default --config p/typescript --metrics=off --e
 
 [tasks.check-data]
 description = "Validate the data against the schemas"
-# Each layer is named by the file pattern of its place in data/, so the check says
-# which files it takes rather than walking whatever a directory happens to hold.
-run = """
-jsonschema validate schema/component.json data/component/*.json
-jsonschema validate schema/set.json data/set/*.json
-jsonschema validate schema/print.json data/print/*/*/*.json
-jsonschema validate schema/card/normal.schema.json data/card/*/*.json
-jsonschema validate schema/translation/normal.schema.json data/translation/card/*/*/*.json
-jsonschema validate schema/translation/set.schema.json data/translation/set/*/*.json
-"""
+run = "jsonschema validate schema/data.schema.json data --continue"
+
+[tasks.check-id]
+description = "Validate the ids and their references"
+run = "npm run check-id"
 
 [tasks.check-md]
 description = "Lint Markdown"
@@ -57,6 +52,10 @@ run = "prek validate-config prek.toml"
 description = "Validate the schemas"
 run = "jsonschema metaschema schema"
 
+[tasks.check-scripts]
+description = "Lint and format the scripts"
+run = "npm run check-scripts"
+
 [tasks.check-secrets]
 description = "Find secrets in the repository"
 run = "gitleaks dir . --no-banner --redact"
@@ -64,6 +63,14 @@ run = "gitleaks dir . --no-banner --redact"
 [tasks.check-workflows]
 description = "Validate the workflows"
 run = "actionlint"
+
+[tasks.test]
+description = "Run the tests of the checks"
+run = "npm test"
+
+[tasks.typecheck]
+description = "Type-check the scripts"
+run = "npm run typecheck"
 
 [tasks.format-config]
 description = "Format the configuration files"
