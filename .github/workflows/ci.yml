@@ -2,12 +2,11 @@
 name: CI
 
 on:
-  push:
-    branches: [main]
   pull_request:
+  merge_group:
 
 jobs:
-  md:
+  check-md:
     name: Lint Markdown
     runs-on: ubuntu-latest
     steps:
@@ -15,7 +14,7 @@ jobs:
       - uses: jdx/mise-action@v5
       - run: mise run check-md
 
-  workflows:
+  check-workflows:
     name: Validate the workflows
     runs-on: ubuntu-latest
     steps:
@@ -23,7 +22,7 @@ jobs:
       - uses: jdx/mise-action@v5
       - run: mise run check-workflows
 
-  schema:
+  check-schema:
     name: Validate the schemas
     runs-on: ubuntu-latest
     steps:
@@ -31,7 +30,7 @@ jobs:
       - uses: jdx/mise-action@v5
       - run: mise run check-schema
 
-  data:
+  check-data:
     name: Validate the data against the schemas
     runs-on: ubuntu-latest
     steps:
@@ -39,7 +38,7 @@ jobs:
       - uses: jdx/mise-action@v5
       - run: mise run check-data
 
-  prek:
+  check-prek:
     name: Validate the prek configuration
     runs-on: ubuntu-latest
     steps:
@@ -47,7 +46,7 @@ jobs:
       - uses: jdx/mise-action@v5
       - run: mise run check-prek
 
-  mise:
+  check-mise:
     name: Validate the mise configuration
     runs-on: ubuntu-latest
     steps:
