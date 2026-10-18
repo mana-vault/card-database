@@ -1,0 +1,17 @@
+# Settings for editors. The formatters (biome for the scripts, dprint for the
+# configuration files) own the shape of what they cover; this covers what they do not
+# reach, so that a file is written the same way whichever editor is at hand.
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+
+# In Markdown two trailing spaces are a line break, so they stay.
+[*.md]
+trim_trailing_whitespace = false
