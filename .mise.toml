@@ -12,10 +12,6 @@ node = "lts"
 # the project, the way direnv does. The first run needs `mise trust`.
 enter = "mise install; npm install; prek install"
 
-[tasks.check]
-description = "Run the prek hooks over all files"
-run = "prek run --all-files"
-
 [tasks.check-data]
 description = "Validate the data against the schemas"
 # Each layer is named by the file pattern of its place in data/, so the check says
