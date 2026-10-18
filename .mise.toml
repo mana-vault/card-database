@@ -2,6 +2,9 @@
 
 [tools]
 node = "lts"
+python = "3.14"
+"aqua:astral-sh/uv" = "0.13.1"
+semgrep = "1.181.0"
 "aqua:dprint/dprint" = "0.63.0"
 "aqua:gitleaks/gitleaks" = "8.30.1"
 "aqua:j178/prek" = "0.5.5"
@@ -19,6 +22,11 @@ description = "Check the formatting of the configuration files"
 # dprint holds the plugins for JSON, TOML, and YAML, so one tool formats every
 # hand-written configuration file. Its configuration file names what it covers.
 run = "dprint check"
+
+[tasks.check-dangerous-code]
+description = "Look for dangerous code"
+# Python 3.15 makes Semgrep choose a stack limit that crashes; see https://github.com/semgrep/semgrep/issues/11979.
+run = "semgrep scan . --config p/default --config p/typescript --metrics=off --error"
 
 [tasks.check-data]
 description = "Validate the data against the schemas"
