@@ -20,27 +20,27 @@
     "mana_cost": {
       "type": "array",
       "description": "The mana symbols of the mana cost, in printed order. Each value is the id of a value in data/component/mana_symbol.json. Left out when the card has no mana cost.",
-      "items": { "$ref": "#/$defs/component_id" }
+      "items": { "$ref": "#/$defs/symbol_id" }
     },
     "colors": {
       "type": "array",
       "description": "The colors of the card. Each value is the id of a value in data/component/color.json. Left out when the card is colorless.",
-      "items": { "$ref": "#/$defs/component_id" }
+      "items": { "$ref": "#/$defs/word_id" }
     },
     "special_types": {
       "type": "array",
       "description": "The special types of the type line, in printed order. Each value is the id of a value in data/component/special_type.json. Left out when the type line has none.",
-      "items": { "$ref": "#/$defs/component_id" }
+      "items": { "$ref": "#/$defs/word_id" }
     },
     "card_types": {
       "type": "array",
       "description": "The card types of the type line, in printed order. Each value is the id of a value in data/component/card_type.json.",
-      "items": { "$ref": "#/$defs/component_id" }
+      "items": { "$ref": "#/$defs/word_id" }
     },
     "subtypes": {
       "type": "array",
       "description": "The subtypes of the type line, in printed order. Each value is the id of a value in data/component/subtype.json. Left out when the type line has none.",
-      "items": { "$ref": "#/$defs/component_id" }
+      "items": { "$ref": "#/$defs/word_id" }
     },
     "oracle_text": {
       "type": "string",
@@ -73,10 +73,15 @@
     }
   },
   "$defs": {
-    "component_id": {
+    "word_id": {
       "type": "string",
-      "pattern": "^[A-Za-z0-9][A-Za-z0-9_/'-]*$",
-      "description": "The id of a value in a list under data/component/."
+      "pattern": "^[a-z0-9][a-z0-9'-]*$",
+      "description": "The id of a value in a list under data/component/ whose value is a word."
+    },
+    "symbol_id": {
+      "type": "string",
+      "pattern": "^[^\\s{}]+$",
+      "description": "The id of a mana symbol in data/component/mana_symbol.json: the symbol as printed, without its braces. Numeric symbols such as 2 keep growing, and symbols such as ½ exist, so the shape stays open."
     },
     "history": {
       "type": "array",
