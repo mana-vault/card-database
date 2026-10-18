@@ -3,6 +3,7 @@
 [tools]
 node = "lts"
 "aqua:dprint/dprint" = "0.63.0"
+"aqua:gitleaks/gitleaks" = "8.30.1"
 "aqua:j178/prek" = "0.5.5"
 "aqua:rhysd/actionlint" = "1.7.12"
 "aqua:sourcemeta/jsonschema" = "17.2.1"
@@ -47,6 +48,10 @@ run = "prek validate-config prek.toml"
 [tasks.check-schema]
 description = "Validate the schemas"
 run = "jsonschema metaschema schema"
+
+[tasks.check-secrets]
+description = "Find secrets in the repository"
+run = "gitleaks dir . --no-banner --redact"
 
 [tasks.check-workflows]
 description = "Validate the workflows"
