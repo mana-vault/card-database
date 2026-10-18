@@ -1,0 +1,18 @@
+{
+  // The formatter of the hand-written configuration files. The data and the
+  // schemas under `data/` and `schema/` are hand-formatted too, but their shape
+  // belongs to the schemas, so they stay out of this.
+  "json": {},
+  "toml": {},
+  "yaml": {},
+  "excludes": [
+    "data/**",
+    "schema/**",
+    "**/*-lock.json"
+  ],
+  "plugins": [
+    "npm:@dprint/json@0.25.2",
+    "npm:@dprint/toml@0.9.0",
+    "npm:dprint-plugin-yaml@0.6.0"
+  ]
+}
