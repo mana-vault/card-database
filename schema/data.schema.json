@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Data",
+  "description": "The schema of every file under data.",
+  "oneOf": [
+    { "$ref": "component.json" },
+    { "$ref": "set.json" },
+    { "$ref": "print.json" },
+    { "$ref": "card/normal.schema.json" },
+    { "$ref": "translation/normal.schema.json" },
+    { "$ref": "translation/set.schema.json" }
+  ]
+}
