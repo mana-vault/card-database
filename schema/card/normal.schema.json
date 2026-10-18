@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Card, normal kind",
+  "description": "A file in data/card/. The ordinary kind: one face, its values held directly. Every part of the type line and the mana cost is held as the id of a value in a list under data/component/, in the order the paper prints it.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["card_id", "kind", "name", "card_types", "oracle_text"],
+  "properties": {
+    "card_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_-]+$"
+    },
+    "kind": {
+      "const": "normal"
+    },
+    "name": {
+      "type": "string",
+      "description": "The card name in English."
+    },
+    "mana_cost": {
+      "type": "array",
+      "description": "The mana symbols of the mana cost, in printed order. Each value is the id of a value in data/component/mana_symbol.json. Left out when the card has no mana cost.",
+      "items": { "$ref": "#/$defs/component_id" }
+    },
+    "colors": {
+      "type": "array",
+      "description": "The colors of the card. Each value is the id of a value in data/component/color.json. Left out when the card is colorless.",
+      "items": { "$ref": "#/$defs/component_id" }
+    },
+    "special_types": {
+      "type": "array",
+      "description": "The special types of the type line, in printed order. Each value is the id of a value in data/component/special_type.json. Left out when the type line has none.",
+      "items": { "$ref": "#/$defs/component_id" }
+    },
+    "card_types": {
+      "type": "array",
+      "description": "The card types of the type line, in printed order. Each value is the id of a value in data/component/card_type.json.",
+      "items": { "$ref": "#/$defs/component_id" }
+    },
+    "subtypes": {
+      "type": "array",
+      "description": "The subtypes of the type line, in printed order. Each value is the id of a value in data/component/subtype.json. Left out when the type line has none.",
+      "items": { "$ref": "#/$defs/component_id" }
+    },
+    "oracle_text": {
+      "type": "string",
+      "description": "The rules text on the Oracle reference."
+    },
+    "power": {
+      "type": "string",
+      "description": "Power, when the card is a creature; e.g. 2.5 or *."
+    },
+    "toughness": {
+      "type": "string",
+      "description": "Toughness, when the card is a creature."
+    },
+    "loyalty": {
+      "oneOf": [
+        { "type": "integer" },
+        { "type": "string" }
+      ],
+      "description": "Starting loyalty, when the card is a planeswalker."
+    },
+    "defense": {
+      "oneOf": [
+        { "type": "integer" },
+        { "type": "string" }
+      ],
+      "description": "Defense, when the card is a battle."
+    },
+    "history": {
+      "$ref": "#/$defs/history"
+    }
+  },
+  "$defs": {
+    "component_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_/'-]*$",
+      "description": "The id of a value in a list under data/component/."
+    },
+    "history": {
+      "type": "array",
+      "description": "Records of official corrections. Appended only; past records are never rewritten.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["target", "was", "corrected_at"],
+        "properties": {
+          "target": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "field": { "type": "string" },
+              "face": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "The number of the face, counted from 0, when the corrected value sits inside a face."
+              }
+            },
+            "required": ["field"]
+          },
+          "was": {
+            "type": "string",
+            "description": "What the value said immediately before this correction."
+          },
+          "note": {
+            "type": "string"
+          },
+          "corrected_at": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "description": "The date the value changed in this repository."
+          }
+        }
+      }
+    }
+  }
+}

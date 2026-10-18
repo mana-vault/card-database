@@ -21,9 +21,10 @@ colors, a type line, and rules text. The type line is composed of special types,
 subtypes. Depending on the card type, power and toughness, loyalty, or defense is added. The rules
 also allow one card to carry several faces, as transform, split, adventure, and battle do.
 
-This database names this collection of components a `card`. The values of a `card` are English: the
-game is published by Wizards of the Coast, and English is the basis. The component names follow the
-official rules. No product or language information enters a `card`.
+This database names this collection of components a `card`. A `card` holds the type line and the
+mana cost as their parts, so that no value has to be read out of a printed line. The values of a
+`card` are English: the game is published by Wizards of the Coast, and English is the basis. The
+component names follow the official rules. No product or language information enters a `card`.
 
 Cards come in kinds: the ordinary kind, and the kinds that carry several faces, such as transform,
 modal double-faced, split, adventure, and battle. The shape of the values is fixed per kind, and is
@@ -51,9 +52,9 @@ Languages print their own names and texts on the paper. Collaboration releases c
 another name. The appearance of a `card` in one product is named a `print`.
 
 A `print` is kept as data of its own, apart from the `card`: the set, the collector number, the
-language, the rarity, the artist, and the image URL. A `print` names the `card` it belongs to. The
-values printed on the paper are not held here; they are assembled from the `card` and the
-`translation`.
+language, the rarity, the artist, and the image URL. A `print` points at the `card` it belongs to by
+its id. The values printed on the paper are not held here; they are assembled from the `card` and
+the `translation`.
 
 ## Directory layout
 
@@ -74,14 +75,12 @@ data/
     ja/mh3/170.json
   set/
     mh3.json
-  history/
-    card/li/lightning-bolt.json
-    translation/card/lightning-bolt/ja.json
 docs/
   en/…, ja/…
 ```
 
-`data/component/` holds one list per component:
+`data/component/` holds one list per component. An entry pairs the id with the value that Wizards of
+the Coast defines:
 
 | Component | File | Example values |
 | --- | --- | --- |
@@ -94,7 +93,8 @@ docs/
 A list grows only when Wizards of the Coast defines new values.
 
 `data/card/` holds the `card`s. A `card` is assembled by referencing the values of these lists by
-name. Folders split by the first two characters of the `card_id`; the file of Lightning Bolt is
+id. An id stays the same for good, so a correction to a value never invalidates the cards that point
+at it. Folders split by the first two characters of the `card_id`; the file of Lightning Bolt is
 `card/li/lightning-bolt.json`. No data content enters the folder names; the split only keeps every
 folder growing evenly.
 
@@ -125,13 +125,16 @@ schema of `data/component/` is `schema/component.json`; that of `data/card/` is 
 which holds one file per kind of `card`, the ordinary kind being
 `schema/card/normal.schema.json`. A `translation` holds its schema
 per kind as well, and since the shape of a `translation` does not depend on the language, languages
-do not split it. A `print` and a set correspond to `schema/print.json` and `schema/set.json`.
+do not split it. A set's `translation` is about a different thing than a card's, so it holds its own
+schema, `schema/translation/set.schema.json`. A `print` and a set correspond to `schema/print.json`
+and `schema/set.json`.
 
 ```text
 schema/
   component.json
   card/normal.schema.json
   translation/normal.schema.json
+  translation/set.schema.json
   print.json
   set.json
 ```

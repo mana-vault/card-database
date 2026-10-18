@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Print",
+  "description": "A file in data/print/, one print per file, such as data/print/ja/mh3/170.json. The record of one appearance of a card in one product. The values printed on the paper are held by the card and the translation, not here.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["card_id", "set_code", "number", "rarity"],
+  "properties": {
+    "card_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_-]+$",
+      "description": "The card the print belongs to."
+    },
+    "lang": {
+      "type": "string",
+      "description": "The language printed on the paper, such as ja."
+    },
+    "set_code": {
+      "type": "string",
+      "description": "The code of the product, in its official spelling, such as MH3."
+    },
+    "number": {
+      "type": "string",
+      "description": "The collector number as printed, including letters and symbols; e.g. 170 or 170★."
+    },
+    "rarity": {
+      "type": "string",
+      "description": "The rarity of the print."
+    },
+    "artist": {
+      "type": "string",
+      "description": "The artist credited on the print, if announced."
+    },
+    "image": {
+      "type": "string",
+      "description": "The URL of the image of this print, when it is published."
+    }
+  }
+}

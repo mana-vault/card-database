@@ -11,7 +11,7 @@ documents in `docs/`. A contribution touches one of the areas:
 
 | Area | What it involves |
 | --- | --- |
-| `card` data | write a card file such as `data/card/li/lightning-bolt.json`. The lists in `data/component/` hold the values that a `card` references. |
+| `card` data | write a card file such as `data/card/li/lightning-bolt.json`. The lists in `data/component/` hold the values that a `card` references by id. |
 | `print` data | one file per print, such as `data/print/ja/mh3/170.json`. The set of the print must be registered already. |
 | Official corrections | when Wizards of the Coast publishes a correction, fix the values and append a record to the object's `history`. The record follows the schema. |
 | Schemas and docs | changes under `schema/` or `docs/`. If the design of the change is not settled, raise an issue first. |
