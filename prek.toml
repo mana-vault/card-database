@@ -114,4 +114,10 @@ id = "check-secrets"
 name = "Find secrets in the repository"
 language = "system"
 entry = "mise exec -- gitleaks dir . --no-banner --redact"
+
+[[repos.hooks]]
+id = "check-dangerous-code"
+name = "Look for dangerous code"
+language = "system"
+entry = "mise run check-dangerous-code"
 pass_filenames = false
