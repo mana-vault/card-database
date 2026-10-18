@@ -14,5 +14,7 @@
     // instead of a heading.
     "MD041": false
   },
-  "globs": ["**/*.md"]
+  "globs": ["**/*.md"],
+  // Installed packages bring their own documents, which are not ours to lint.
+  "ignores": ["node_modules/**"]
 }

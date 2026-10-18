@@ -8,9 +8,9 @@ node = "lts"
 "npm:markdownlint-cli2" = "0.23.3"
 
 [hooks]
-# Install the tools and wire prek into git whenever you enter the project, the way
-# direnv does. The first run needs `mise trust`.
-enter = "mise install; prek install"
+# Install the tools and the npm packages, and wire prek into git, whenever you enter
+# the project, the way direnv does. The first run needs `mise trust`.
+enter = "mise install; npm install; prek install"
 
 [tasks.check]
 description = "Run the prek hooks over all files"
