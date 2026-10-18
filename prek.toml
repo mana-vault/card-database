@@ -78,6 +78,22 @@ files = '^(data/.*\.json|scripts/.*\.ts|package\.json)$'
 pass_filenames = false
 
 [[repos.hooks]]
+id = "typecheck"
+name = "Type-check the scripts"
+language = "system"
+entry = "mise exec -- npm run typecheck"
+files = '^(scripts/.*\.ts|tsconfig\.json|package\.json)$'
+pass_filenames = false
+
+[[repos.hooks]]
+id = "test"
+name = "Run the tests of the checks"
+language = "system"
+entry = "mise exec -- npm test"
+files = '^(scripts/.*\.ts|package\.json)$'
+pass_filenames = false
+
+[[repos.hooks]]
 id = "check-scripts"
 name = "Lint and format the scripts"
 language = "system"
