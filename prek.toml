@@ -76,3 +76,11 @@ language = "system"
 entry = "mise exec -- npm run check-id"
 files = '^(data/.*\.json|scripts/.*\.ts|package\.json)$'
 pass_filenames = false
+
+[[repos.hooks]]
+id = "check-scripts"
+name = "Lint and format the scripts"
+language = "system"
+entry = "mise exec -- npm run check-scripts"
+files = '^(scripts/.*\.ts|biome\.json)$'
+pass_filenames = false

@@ -81,3 +81,12 @@ jobs:
       - uses: jdx/mise-action@v5
       - run: npm ci
       - run: npm run check-id
+
+  check-scripts:
+    name: Lint and format the scripts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: jdx/mise-action@v5
+      - run: npm ci
+      - run: npm run check-scripts
