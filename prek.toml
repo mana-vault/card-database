@@ -84,3 +84,11 @@ language = "system"
 entry = "mise exec -- npm run check-scripts"
 files = '^(scripts/.*\.ts|biome\.json)$'
 pass_filenames = false
+
+[[repos.hooks]]
+id = "check-config"
+name = "Check the formatting of the configuration files"
+language = "system"
+entry = "mise exec -- dprint check"
+files = '\.(json|jsonc|toml|ya?ml)$'
+pass_filenames = false
