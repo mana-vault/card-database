@@ -1,3 +1,4 @@
+# CI runs one check per job, all in parallel.
 name: CI
 
 on:
@@ -6,10 +7,58 @@ on:
   pull_request:
 
 jobs:
-  lint:
-    name: markdownlint
+  md:
+    name: Lint Markdown
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: jdx/mise-action@v2
+      - uses: actions/checkout@v7
+      - uses: jdx/mise-action@v5
+      - run: mise run check-md
+
+  workflows:
+    name: Validate the workflows
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: jdx/mise-action@v5
+      - run: mise run check-workflows
+
+  schema:
+    name: Validate the schemas
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: jdx/mise-action@v5
+      - run: mise run check-schema
+
+  data:
+    name: Validate the data against the schemas
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: jdx/mise-action@v5
+      - run: mise run check-data
+
+  prek:
+    name: Validate the prek configuration
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: jdx/mise-action@v5
+      - run: mise run check-prek
+
+  mise:
+    name: Validate the mise configuration
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: jdx/mise-action@v5
+      - run: mise run check-mise
+
+  hooks:
+    name: Run the prek hooks over all files
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: jdx/mise-action@v5
       - run: prek run --all-files

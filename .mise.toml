@@ -1,22 +1,50 @@
-# Tools and tasks for this repository, managed with mise.
+# Tools and checks for this repository, managed with mise (https://mise.jdx.dev/).
 
 [tools]
-# Markdown lint for the documentation. Runs in the prek hooks and CI.
+node = "lts"
+"aqua:j178/prek" = "0.5.5"
+"aqua:rhysd/actionlint" = "1.7.12"
+"aqua:sourcemeta/jsonschema" = "17.2.1"
 "npm:markdownlint-cli2" = "0.23.3"
 
-# The hook runner used in this repository (prek.toml).
-"ubi:j178/prek" = "0.5.5"
-
 [hooks]
-# Install the tools above automatically when you enter this project.
-# This behaves like direnv: it requires `mise activate` in your shell,
-# and the first run needs `mise trust` for this file.
-enter = "mise install"
-
-[tasks.lint]
-description = "Run markdownlint-cli2 over all Markdown files"
-run = "markdownlint-cli2 \"**/*.md\""
+# Install the tools and wire prek into git whenever you enter the project, the way
+# direnv does. The first run needs `mise trust`.
+enter = "mise install; prek install"
 
 [tasks.check]
 description = "Run the prek hooks over all files"
 run = "prek run --all-files"
+
+[tasks.check-data]
+description = "Validate the data against the schemas"
+# Each layer is named by the file pattern of its place in data/, so the check says
+# which files it takes rather than walking whatever a directory happens to hold.
+run = """
+jsonschema validate schema/component.json data/component/*.json
+jsonschema validate schema/set.json data/set/*.json
+jsonschema validate schema/print.json data/print/*/*/*.json
+jsonschema validate schema/card/normal.schema.json data/card/*/*.json
+jsonschema validate schema/translation/normal.schema.json data/translation/card/*/*/*.json
+jsonschema validate schema/translation/set.schema.json data/translation/set/*/*.json
+"""
+
+[tasks.check-md]
+description = "Lint Markdown"
+run = 'markdownlint-cli2 "**/*.md"'
+
+[tasks.check-mise]
+description = "Validate the mise configuration"
+run = "mise doctor"
+
+[tasks.check-prek]
+description = "Validate the prek configuration"
+run = "prek validate-config prek.toml"
+
+[tasks.check-schema]
+description = "Validate the schemas"
+run = "jsonschema metaschema schema"
+
+[tasks.check-workflows]
+description = "Validate the workflows"
+run = "actionlint"

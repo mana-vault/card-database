@@ -1,11 +1,69 @@
 # Hooks for this repository, run by prek (https://github.com/j178/prek).
-repos = [
-  { repo = "local", hooks = [
-      { id = "markdownlint-cli2",
-        name = "markdownlint-cli2",
-        language = "system",
-        entry = "mise exec -- markdownlint-cli2",
-        files = '\.md$',
-        require_serial = true },
-  ] },
-]
+# Every hook runs the same check as its mise task, over the files the commit touches.
+# The tools come from mise, so the entries go through `mise exec`.
+
+[[repos]]
+repo = "local"
+
+[[repos.hooks]]
+id = "check-md"
+name = "Lint Markdown"
+language = "system"
+entry = "mise exec -- markdownlint-cli2"
+files = '\.md$'
+
+[[repos.hooks]]
+id = "check-workflows"
+name = "Validate the workflows"
+language = "system"
+entry = "mise exec -- actionlint"
+files = '^\.github/workflows/.*\.ya?ml$'
+
+[[repos.hooks]]
+id = "check-schema"
+name = "Validate the schemas"
+language = "system"
+entry = "mise exec -- jsonschema metaschema"
+files = '^schema/.*\.json$'
+
+[[repos.hooks]]
+id = "check-component"
+name = "Validate the component lists"
+language = "system"
+entry = "mise exec -- jsonschema validate schema/component.json"
+files = '^data/component/.*\.json$'
+
+[[repos.hooks]]
+id = "check-card"
+name = "Validate the cards"
+language = "system"
+entry = "mise exec -- jsonschema validate schema/card/normal.schema.json"
+files = '^data/card/.*\.json$'
+
+[[repos.hooks]]
+id = "check-card-translation"
+name = "Validate the card translations"
+language = "system"
+entry = "mise exec -- jsonschema validate schema/translation/normal.schema.json"
+files = '^data/translation/card/.*\.json$'
+
+[[repos.hooks]]
+id = "check-set-translation"
+name = "Validate the set translations"
+language = "system"
+entry = "mise exec -- jsonschema validate schema/translation/set.schema.json"
+files = '^data/translation/set/.*\.json$'
+
+[[repos.hooks]]
+id = "check-print"
+name = "Validate the prints"
+language = "system"
+entry = "mise exec -- jsonschema validate schema/print.json"
+files = '^data/print/.*\.json$'
+
+[[repos.hooks]]
+id = "check-set"
+name = "Validate the sets"
+language = "system"
+entry = "mise exec -- jsonschema validate schema/set.json"
+files = '^data/set/.*\.json$'
