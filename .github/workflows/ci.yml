@@ -55,6 +55,33 @@ jobs:
       - uses: jdx/mise-action@v5
       - run: mise run check-mise
 
+  typecheck:
+    name: Type-check the scripts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: jdx/mise-action@v5
+      - run: npm ci
+      - run: npm run typecheck
+
+  test:
+    name: Run the tests of the checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: jdx/mise-action@v5
+      - run: npm ci
+      - run: npm test
+
+  check-id:
+    name: Validate the ids and their references
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: jdx/mise-action@v5
+      - run: npm ci
+      - run: npm run check-id
+
   hooks:
     name: Run the prek hooks over all files
     runs-on: ubuntu-latest
