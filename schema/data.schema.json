@@ -6,7 +6,7 @@
     { "$ref": "component.schema.json" },
     { "$ref": "card/component/type_line/subtype.schema.json" },
     { "$ref": "card/card.schema.json" },
-    { "$ref": "translation/translation.schema.json" },
+    { "$ref": "language/language.schema.json" },
     { "$ref": "print.json" },
     { "$ref": "set.json" }
   ]

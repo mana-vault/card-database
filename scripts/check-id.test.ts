@@ -90,7 +90,6 @@ function sound(): Tree {
       {
         card_id: "lightning-bolt",
         layout: "normal",
-        name: "Lightning Bolt",
         mana_cost: ["R"],
         type_line: { card_types: ["instant"] },
         rules_text: {
@@ -129,7 +128,7 @@ function sound(): Tree {
       },
     ],
     [
-      "data/translation/card/li/lightning-bolt/ja.json",
+      "data/language/card/li/lightning-bolt/ja.json",
       {
         card_id: "lightning-bolt",
         lang: "ja",
@@ -143,7 +142,7 @@ function sound(): Tree {
       },
     ],
     [
-      "data/translation/set/sta/ja.json",
+      "data/language/set/sta/ja.json",
       { set_code: "STA", lang: "ja", name: "ミスティカルアーカイブ" },
     ],
   ]);
@@ -253,16 +252,13 @@ test("references on each face of a multi-face layout are checked", () => {
   const card = at(tree, path);
   tree.delete(path);
   card.layout = "modal_double_faced";
-  delete card.name;
   delete card.mana_cost;
   delete card.type_line;
   delete card.rules_text;
   card.front = {
-    name: "Front",
     type_line: { card_types: ["instant"] },
   };
   card.back = {
-    name: "Back",
     type_line: { card_types: ["creature"], subtypes: ["mystic"] },
   };
   tree.set("data/card/modal_double_faced/li/lightning-bolt.json", card);
@@ -627,26 +623,26 @@ test("two prints that claim the same set, language, and number are reported", ()
   expect(problemsOf(tree)).toContain("appears twice");
 });
 
-test("a card translation whose card has no file is reported", () => {
+test("a card's language values whose card has no file are reported", () => {
   const tree = sound();
-  at(tree, "data/translation/card/li/lightning-bolt/ja.json").card_id = "shock";
+  at(tree, "data/language/card/li/lightning-bolt/ja.json").card_id = "shock";
   expect(problemsOf(tree)).toContain("the card shock has no file");
 });
 
-test("a card translation that does not live where its id says is reported", () => {
+test("a card's language values that do not live where the id says are reported", () => {
   const tree = sound();
-  tree.delete("data/translation/card/li/lightning-bolt/ja.json");
-  tree.set("data/translation/card/xx/lightning-bolt/ja.json", {
-    ...at(sound(), "data/translation/card/li/lightning-bolt/ja.json"),
+  tree.delete("data/language/card/li/lightning-bolt/ja.json");
+  tree.set("data/language/card/xx/lightning-bolt/ja.json", {
+    ...at(sound(), "data/language/card/li/lightning-bolt/ja.json"),
   });
   expect(problemsOf(tree)).toContain(
     "the folder does not match the id lightning-bolt",
   );
 });
 
-test("a translation of an ability the card does not have is reported", () => {
+test("language values for an ability the card does not have are reported", () => {
   const tree = sound();
-  at(tree, "data/translation/card/li/lightning-bolt/ja.json").rules_text = {
+  at(tree, "data/language/card/li/lightning-bolt/ja.json").rules_text = {
     abilities: [{ ability_id: "static", text: "..." }],
   };
   expect(problemsOf(tree)).toContain(
@@ -654,9 +650,9 @@ test("a translation of an ability the card does not have is reported", () => {
   );
 });
 
-test("two translations of the same ability are reported", () => {
+test("two texts for the same ability are reported", () => {
   const tree = sound();
-  at(tree, "data/translation/card/li/lightning-bolt/ja.json").rules_text = {
+  at(tree, "data/language/card/li/lightning-bolt/ja.json").rules_text = {
     abilities: [
       { ability_id: "spell", text: "..." },
       { ability_id: "spell", text: "..." },
@@ -665,9 +661,9 @@ test("two translations of the same ability are reported", () => {
   expect(problemsOf(tree)).toContain("the ability id spell appears twice");
 });
 
-test("a set translation whose set has no file is reported", () => {
+test("a set's language values whose set has no file are reported", () => {
   const tree = sound();
-  at(tree, "data/translation/set/sta/ja.json").set_code = "MKM";
+  at(tree, "data/language/set/sta/ja.json").set_code = "MKM";
   expect(problemsOf(tree)).toContain("the set MKM has no file");
 });
 
@@ -711,4 +707,101 @@ test("a correction whose path is not a JSON Pointer is reported", () => {
     { path: "rarity", was: "common", corrected_at: "2024-06-05" },
   ];
   expect(problemsOf(tree)).toContain("history: rarity is not a JSON Pointer");
+});
+
+test("an unless step passes when its nested effect uses a declared target", () => {
+  const tree = sound();
+  const card = at(tree, "data/card/normal/li/lightning-bolt.json");
+  card.rules_text = {
+    abilities: [
+      {
+        ability_id: "spell",
+        kind: "spell",
+        body: {
+          targets: [
+            {
+              target_id: "recipient",
+              subject: { kind: "any_target" },
+              minimum: 1,
+              maximum: 1,
+            },
+          ],
+          steps: [
+            {
+              kind: "unless",
+              player: "that_player",
+              cost: { kind: "mana", symbols: ["R"] },
+              steps: [{ kind: "effect", effect: damage() }],
+            },
+          ],
+        },
+      },
+    ],
+  };
+  expect(check(tree)).toEqual([]);
+});
+
+test("an effect inside an unless step is checked against the declared target", () => {
+  const tree = sound();
+  const card = at(tree, "data/card/normal/li/lightning-bolt.json");
+  card.rules_text = {
+    abilities: [
+      {
+        ability_id: "spell",
+        kind: "spell",
+        body: {
+          steps: [
+            {
+              kind: "unless",
+              player: "that_player",
+              cost: { kind: "mana", symbols: ["R"] },
+              steps: [{ kind: "effect", effect: damage("missing") }],
+            },
+          ],
+        },
+      },
+    ],
+  };
+  expect(problemsOf(tree)).toContain(
+    "target_ref missing is not declared in ability spell",
+  );
+});
+
+test("a color filter on a subject is checked by ID", () => {
+  const tree = sound();
+  const card = at(tree, "data/card/normal/li/lightning-bolt.json");
+  card.rules_text = {
+    abilities: [
+      {
+        ability_id: "spell",
+        kind: "spell",
+        body: {
+          steps: [
+            {
+              kind: "effect",
+              effect: {
+                kind: "one_shot",
+                operation: {
+                  kind: "keyword_action",
+                  action_id: "scry",
+                  arguments: {
+                    kind: "subject",
+                    subject: {
+                      kind: "object",
+                      zones: ["hand"],
+                      controller: "you",
+                      color: { operator: "has_any", color_ids: ["purple"] },
+                    },
+                  },
+                },
+              },
+            },
+          ],
+        },
+      },
+    ],
+  };
+  expect(problemsOf(tree)).toContain(
+    "color_ids: purple is not an id in data/card/component/color.json",
+  );
 });

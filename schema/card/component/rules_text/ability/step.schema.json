@@ -3,6 +3,7 @@
   "title": "Ability step",
   "oneOf": [
     { "$ref": "effect_step.schema.json" },
-    { "$ref": "mode_group.schema.json" }
+    { "$ref": "mode_group.schema.json" },
+    { "$ref": "unless.schema.json" }
   ]
 }

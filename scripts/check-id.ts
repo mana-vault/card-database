@@ -56,10 +56,9 @@ const CARD =
 const SET = /^data\/set\/([a-z0-9]+)\.json$/;
 const PRINT =
   /^data\/print\/(?!component\/)([a-z0-9-]+)\/([a-z0-9]+)\/([^/]+)\.json$/;
-const CARD_TRANSLATION =
-  /^data\/translation\/card\/([a-z0-9]{2})\/([a-z0-9_-]+)\/([a-z0-9-]+)\.json$/;
-const SET_TRANSLATION =
-  /^data\/translation\/set\/([a-z0-9]+)\/([a-z0-9-]+)\.json$/;
+const CARD_LANGUAGE =
+  /^data\/language\/card\/([a-z0-9]{2})\/([a-z0-9_-]+)\/([a-z0-9-]+)\.json$/;
+const SET_LANGUAGE = /^data\/language\/set\/([a-z0-9]+)\/([a-z0-9-]+)\.json$/;
 
 function componentPath(listName: string): string {
   const [owner, ...parts] = listName.split("/");
@@ -282,13 +281,13 @@ export function check(files: FileTree): string[] {
   }
 
   for (const path of paths) {
-    const match = CARD_TRANSLATION.exec(path);
+    const match = CARD_LANGUAGE.exec(path);
     if (!match) continue;
 
-    const translation = files.get(path);
-    if (!isRecord(translation)) continue;
-    const cardID = stringField(translation, "card_id");
-    const lang = stringField(translation, "lang");
+    const language = files.get(path);
+    if (!isRecord(language)) continue;
+    const cardID = stringField(language, "card_id");
+    const lang = stringField(language, "lang");
     if (cardID === undefined || lang === undefined) continue;
     if (!cardIds.has(cardID)) add(path, `the card ${cardID} has no file`);
     if (match[1] !== cardID.slice(0, 2))
@@ -298,7 +297,7 @@ export function check(files: FileTree): string[] {
     if (match[3] !== lang)
       add(path, `the file name does not match the language ${lang}`);
 
-    const rulesText = translation.rules_text;
+    const rulesText = language.rules_text;
     if (isRecord(rulesText)) {
       const seen = new Set<string>();
       for (const ability of records(rulesText.abilities)) {
@@ -318,13 +317,13 @@ export function check(files: FileTree): string[] {
   }
 
   for (const path of paths) {
-    const match = SET_TRANSLATION.exec(path);
+    const match = SET_LANGUAGE.exec(path);
     if (!match) continue;
 
-    const translation = files.get(path);
-    if (!isRecord(translation)) continue;
-    const setCode = stringField(translation, "set_code");
-    const lang = stringField(translation, "lang");
+    const language = files.get(path);
+    if (!isRecord(language)) continue;
+    const setCode = stringField(language, "set_code");
+    const lang = stringField(language, "lang");
     if (setCode === undefined || lang === undefined) continue;
     if (!setCodes.has(setCode)) add(path, `the set ${setCode} has no file`);
     if (match[1] !== setCode.toLowerCase())
@@ -344,8 +343,8 @@ export function check(files: FileTree): string[] {
       CARD.test(path) ||
       SET.test(path) ||
       PRINT.test(path) ||
-      CARD_TRANSLATION.test(path) ||
-      SET_TRANSLATION.test(path);
+      CARD_LANGUAGE.test(path) ||
+      SET_LANGUAGE.test(path);
     if (path.startsWith("data/") && !knownPath)
       add(path, "no layer of data/ covers this file");
   }
@@ -403,7 +402,7 @@ function checkCardFaces(
     }
     if (!isRecord(value)) return;
 
-    if (typeof value.name === "string" && isRecord(value.type_line)) {
+    if (isRecord(value.type_line)) {
       const cardFields: [CardField, string][] = [
         ["mana_cost", CARD_FIELDS.mana_cost],
         ["color_indicator", CARD_FIELDS.color_indicator],
@@ -527,13 +526,25 @@ function checkBody(
     targets.add(targetID);
   }
 
-  for (const step of records(body.steps)) {
+  checkSteps(path, body.steps, targets, ownerID, add);
+}
+
+function checkSteps(
+  path: string,
+  steps: unknown,
+  targets: Set<string>,
+  ownerID: string,
+  add: (path: string, message: string) => void,
+): void {
+  for (const step of records(steps)) {
     const kind = stringField(step, "kind");
     if (kind === "effect") {
       const effect = step.effect;
       if (isRecord(effect)) checkEffect(path, effect, targets, ownerID, add);
     } else if (kind === "mode_selection") {
       checkModeGroup(path, step, targets, ownerID, add);
+    } else if (kind === "unless") {
+      checkSteps(path, step.steps, targets, ownerID, add);
     }
   }
 }

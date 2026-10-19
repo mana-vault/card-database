@@ -15,6 +15,7 @@
       }
     },
     "controller": { "enum": ["you", "opponent", "any_player"] },
-    "type_line": { "$ref": "type_line_filter.schema.json" }
+    "type_line": { "$ref": "type_line_filter.schema.json" },
+    "color": { "$ref": "color_filter.schema.json" }
   }
 }

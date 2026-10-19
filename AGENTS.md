@@ -2,7 +2,8 @@
 
 Read `docs/en/design.md` before changing card data, schemas, or their structure.
 
-Keep English card text in `card`. Store card text in other languages under `translation/`.
+The `card` holds structure only. Store the words of every language, English
+included, under `language/`.
 Translate documentation in other languages from English. Preserve meaning and write naturally.
 
 When adding or changing a Magic term in `README.md`, `docs/`, `data/`, or `schema/`, check its

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Unless step",
+  "description": "Steps taken unless a player pays a cost (CR 118.12, 118.12a). The rule reads '[do something] unless [a player does something else]', which means the same as '[a player may do something else]. If that player doesn't, [do something]'.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "player", "cost", "steps"],
+  "properties": {
+    "kind": { "const": "unless" },
+    "player": { "enum": ["you", "opponent", "that_player"] },
+    "cost": { "$ref": "../cost/cost.schema.json" },
+    "steps": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "step.schema.json" }
+    }
+  }
+}

@@ -1,10 +1,10 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Translation of a card",
-  "description": "A file in data/translation/card/, such as data/translation/card/li/lightning-bolt/ja.json. The values of one card as one language prints them, written only where they differ from the English. The type line keeps its supertypes, card types, and subtypes, and the rules text keeps one entry per ability.",
+  "title": "Language values of a card",
+  "description": "A file in data/language/card/, such as data/language/card/li/lightning-bolt/en.json. The name, type line, rules text, and flavor text of one card as one language prints them. The type line keeps its supertypes, card types, and subtypes, and the rules text keeps one entry per ability.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["lang", "card_id"],
+  "required": ["lang", "card_id", "name"],
   "properties": {
     "card_id": {
       "type": "string",
@@ -12,7 +12,7 @@
     },
     "lang": {
       "type": "string",
-      "description": "The language of this translation, such as ja."
+      "description": "The language of these values, such as ja."
     },
     "name": {
       "type": "string",
@@ -30,7 +30,7 @@
     },
     "history": {
       "type": "array",
-      "description": "Records of official corrections to this translation. Appended only; past records are never rewritten.",
+      "description": "Records of official corrections to these values. Appended only; past records are never rewritten.",
       "items": { "$ref": "../correction.schema.json" }
     }
   },

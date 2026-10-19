@@ -1,7 +1,6 @@
 {
   "card_id": "lightning-bolt",
   "layout": "normal",
-  "name": "Lightning Bolt",
   "mana_cost": ["R"],
   "type_line": {
     "card_types": ["instant"]

@@ -3,12 +3,8 @@
   "title": "Face",
   "description": "The characteristic values of one card face. A layout either places these fields on the card record or groups them under face names. The layout schema closes the property set with unevaluatedProperties. Referenced from card/normal.schema.json.",
   "type": "object",
-  "required": ["name", "type_line"],
+  "required": ["type_line"],
   "properties": {
-    "name": {
-      "type": "string",
-      "description": "The card name in English."
-    },
     "mana_cost": {
       "type": "array",
       "description": "The mana-symbol IDs that make up this face's mana cost. Left out when the face has no mana cost.",
@@ -26,10 +22,6 @@
     },
     "rules_text": {
       "$ref": "rules_text/rules_text.schema.json"
-    },
-    "flavor_text": {
-      "type": "string",
-      "description": "The flavor text in English. Left out when the face prints none."
     },
     "power": {
       "$ref": "#/$defs/printed_number",

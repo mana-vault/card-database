@@ -24,7 +24,7 @@ body:
       label: Kind of problem
       options:
         - Wrong value (name / cost / text / type line / colors / ...)
-        - Missing translation
+        - Missing language values
         - Missing printing
         - Broken file or schema problem
       default: 0

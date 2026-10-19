@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Correction",
-  "description": "One record of an official correction, as a card, a print, or a translation appends it to its history. Referenced from card/normal.schema.json, print.json, translation/card.schema.json, and translation/set.schema.json.",
+  "description": "One record of an official correction, as a card, a print, or a language file appends it to its history. Referenced from card/normal.schema.json, print.json, language/card.schema.json, and language/set.schema.json.",
   "type": "object",
   "additionalProperties": false,
   "required": ["path", "corrected_at"],

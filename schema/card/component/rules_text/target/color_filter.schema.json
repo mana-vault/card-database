@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Color filter",
+  "description": "A color requirement on a subject (CR 105, 202.2). An object is the color or colors of the mana symbols in its mana cost.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["operator", "color_ids"],
+  "properties": {
+    "operator": { "enum": ["has_any", "has_all", "has_none"] },
+    "color_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[a-z0-9]+(_[a-z0-9]+)*$" }
+    }
+  }
+}

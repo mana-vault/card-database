@@ -8,6 +8,7 @@
   "properties": {
     "kind": { "const": "keyword_action" },
     "action_id": { "type": "string", "pattern": "^[a-z0-9]+(_[a-z0-9]+)*$" },
-    "arguments": { "$ref": "keyword_action_arguments.schema.json" }
+    "arguments": { "$ref": "keyword_action_arguments.schema.json" },
+    "target_ref": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_-]*$" }
   }
 }

@@ -6,6 +6,10 @@
   "required": ["kind", "effect"],
   "properties": {
     "kind": { "const": "effect" },
-    "effect": { "$ref": "../effect/effect.schema.json" }
+    "effect": { "$ref": "../effect/effect.schema.json" },
+    "optional": {
+      "type": "boolean",
+      "description": "Whether the player this effect names may choose not to follow it (CR 608.2d)."
+    }
   }
 }
