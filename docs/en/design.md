@@ -94,8 +94,8 @@ data/
     en/
       card/
         component/
-          type_line/
-          ability/
+          layout.json
+          rarity.json
           ...
         entity/sta/42.json
       set/sta.json
@@ -116,11 +116,11 @@ holds the paper, one folder per language: the words a paper of that language sho
 
 #### Component lists
 
-`data/oracle/card/component/` holds one list per kind of component, and `data/platform.json` the
-list of the platforms. Each entry holds the id that card and print data reference, and no more: a
-list is an id list.
+`data/oracle/card/component/` holds one list per kind of component. Each entry holds the id that
+card and print data reference; the word each language shows for the id lives in that language's
+name list, under `data/print/<lang>/card/component/`, in the same shape: an id and its value.
 
-| Component | File | Established terms |
+| Component | File | Example values |
 | --- | --- | --- |
 | Layouts | `layout.json` | `Normal`, `Split`, `Modal double-faced` |
 | Colors | `color.json` | `white`, `blue`, `black`, `red`, `green` |
@@ -134,24 +134,16 @@ list is an id list.
 | Counter types | `counter_type.json` | `+1/+1`, `Loyalty`, `Poison` |
 | Rarities | `rarity.json` | `Common`, `Rare`, `Mythic rare` |
 
-The lists whose values a paper shows — the type-line lists, the ability lists, and the action list
-— have a name list per language under `data/print/<lang>/card/component/`, in the shape of an id
-and its value. The other lists name terms no paper prints — a layout, a color, a mana symbol, a
-counter type, a rarity, a platform — and hold no value: what an API shows for these ids is that
-API's concern. The term each id names is the established one, the form other databases of the game
-also use.
-
 A list that serves one part of a card sits in a folder named for that part: type-line lists in
 `type_line/`, ability lists in `ability/`, and action lists in `action/`. Each subtype entry also
 lists the card types it can accompany. `layout.json` holds the `card`'s own `layout`; `color.json`,
 `mana_symbol.json`, and `counter_type.json` serve several parts, so they stay directly under
 `component/`.
 
-A list gains an id when Wizards of the Coast defines a new value. The id never changes afterwards,
-so correcting a term, in a name list or an API, leaves every reference alone.
+A list takes a new value when Wizards of the Coast defines one. The id and its value stay a pair for
+good: correcting the value leaves the id alone.
 
-A mana symbol's notation is its id in braces (CR 107.4): the symbol `{R}` has the id `R`, and a
-numeric symbol uses the number itself, so the numeric ids have no entry in `mana_symbol.json`.
+Numeric mana symbols use the number itself as the id and are not listed in `mana_symbol.json`.
 
 #### Cards
 
@@ -186,10 +178,9 @@ Japanese words of the Lightning Bolt print with the collector number 105 are
 `data/print/ja/card/entity/sta/105.json`. Flavor text is not here: a reprint can change it, so it
 belongs to the `print`.
 
-The words of the component values a paper shows — the type-line and ability words — and of the
-sets live beside the card's words, under `card/` and `set/`: a component's name list is
-`card/component/<list>.json`, and a set's name is `set/<code>.json`. Both pair the id with the word
-the language shows. The Japanese name of
+The words of the component values and of the sets live beside the card's words, under `card/` and
+`set/`: a component's name list is `card/component/<list>.json`, and a set's name is
+`set/<code>.json`. Both pair the id with the word the language shows. The Japanese name of
 Strixhaven Mystical Archive is `data/print/ja/set/sta.json`.
 
 #### Sets
@@ -268,10 +259,10 @@ schema/
   correction.schema.json
 ```
 
-Most schema paths follow the data paths. `schema/component.schema.json` governs the name lists
-under `data/print/<lang>/card/component/`, and `schema/oracle/card/component/list.schema.json` the
-id lists: the component lists under `data/oracle/card/component/` and the platform list
-`data/platform.json`. The subtype list has its own schema because each subtype
+Most schema paths follow the data paths. `schema/component.schema.json` governs the lists that pair
+an id with a value: `data/platform.json` and the name lists under
+`data/print/<lang>/card/component/`. `schema/oracle/card/component/list.schema.json` governs the id
+lists under `data/oracle/card/component/`. The subtype list has its own schema because each subtype
 also names the card types it can accompany. The layout schema
 `schema/oracle/card/normal.schema.json` governs `data/oracle/card/normal/`.
 
@@ -286,7 +277,7 @@ Where the shape of a file depends on something else, another file picks the sche
 `face.schema.json` defines one face's characteristics, and `type_line.schema.json` defines its type
 line. Under `rules_text/`, schemas are grouped by the rule concept they describe.
 
-`schema/component.schema.json` holds the shape of a name list, and
+`schema/component.schema.json` holds the shape of an id-and-value list, and
 `schema/oracle/card/component/list.schema.json` the shape of an id list.
 `type_line/subtype.schema.json` also checks the card types associated with each subtype.
 
