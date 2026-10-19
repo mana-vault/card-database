@@ -45,6 +45,11 @@
     "image": {
       "type": "string",
       "description": "The URL of the image of this print, when it is published."
+    },
+    "history": {
+      "type": "array",
+      "description": "Records of official corrections to this print. Appended only; past records are never rewritten.",
+      "items": { "$ref": "correction.schema.json" }
     }
   }
 }

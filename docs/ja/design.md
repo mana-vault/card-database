@@ -212,8 +212,10 @@ schema/
 
 #### その他のファイル
 
-`schema/correction.schema.json` は公式訂正の記録1件の形式を定めます。カードと翻訳の `history` には、この形式の記録を追加します。プリントとセットの形式は、それぞれ `schema/print.json` と `schema/set.json` で定めます。
+`schema/correction.schema.json` は公式訂正の記録1件の形式を定めます。カード、プリント、翻訳の `history` には、この形式の記録を追加します。プリントとセットの形式は、それぞれ `schema/print.json` と `schema/set.json` で定めます。
 
 ## 公式の訂正
 
-Wizards of the Coast がカードのテキストを訂正した場合は、該当する値を修正し、その値を持つカードまたは翻訳の `history` に記録を追加します。過去の記録は書き換えず、そのまま残します。
+Wizards of the Coast が訂正を出したときは、その値を修正し、値を持つデータの `history` に記録を追加します。過去の記録は書き換えず、そのまま残します。
+
+記録は、直した値を `path` で指します。`path` は、そのデータの根から見た JSON Pointer（RFC 6901）です。`path` に並べるのはフィールド名だけで、リストの中は指しません。配列はまるごと直します。`was` には直す前に `path` が持っていた値、`source` には公式の告知、`corrected_at` にはここで値が変わった日を持ちます。

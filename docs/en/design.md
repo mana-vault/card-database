@@ -261,12 +261,17 @@ A `translation` has one schema for a card and another for a set:
 
 #### The other files
 
-`schema/correction.schema.json` holds one record of an official correction, which a `card` and a
-`translation` both append to their `history`. `schema/print.json` and `schema/set.json` govern a
-`print` and a set.
+`schema/correction.schema.json` holds one record of an official correction, which a `card`, a
+`print`, and a `translation` append to their `history`. `schema/print.json` and `schema/set.json`
+govern a `print` and a set.
 
 ## Official corrections
 
-When Wizards of the Coast publishes a correction to a card's text, the edit fixes the value and
-appends a record to the `history` of the object that holds it, in the shape its schema defines.
-Records are appended, never written over, so every past value stays visible in the data.
+When Wizards of the Coast publishes a correction, the edit fixes the value and appends a record to
+the `history` of the object that holds it. Records are appended, never written over, so every past
+value stays visible in the data.
+
+A record names the corrected value with a `path`, a JSON Pointer (RFC 6901) from the root of that
+object. The path names fields only and never steps into a list, so an array is corrected as a whole.
+`was` holds the value the path held before the correction, `source` the official announcement, and
+`corrected_at` the date the value changed here.
