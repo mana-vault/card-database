@@ -1,0 +1,17 @@
+[
+  {
+    "id": "common"
+  },
+  {
+    "id": "uncommon"
+  },
+  {
+    "id": "rare"
+  },
+  {
+    "id": "mythic_rare"
+  },
+  {
+    "id": "special"
+  }
+]

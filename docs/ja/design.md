@@ -15,9 +15,9 @@
 
 Magic のルールでは、カードはカード名、マナ・コスト、色、タイプ行、ルール・テキストからなるゲームのオブジェクトです。タイプ行は、特殊タイプ、カード・タイプ、サブタイプで構成されます。カード・タイプに応じて、パワーとタフネス、忠誠度、バトルの守備値なども持ちます。両面カードや分割カードのように、通常とは異なる構成のカードもあります。
 
-このデータベースでは、これらの情報をまとめて`カード`と呼びます。`カード`は、印刷されたものではなく、ルールにしたがって構造化して収録します。マナ・コストとタイプ行はコンポーネントの一覧を id で参照し、ルール・テキストはルールが定めた単位（能力、コスト、対象、効果など）に分けます。コンポーネントの名前には公式ルールの用語を使い、紙面に印刷される言葉は言語ごとに収録します。商品や言語の情報は`カード`本体には含めません。
+このデータベースでは、これらの情報をまとめて`カード`と呼びます。`カード`は、印刷されたものではなく、ルールにしたがって構造化して収録します。マナ・コストとタイプ行はコンポーネントの一覧を id で参照し、ルール・テキストはルールが定めた単位（能力、コスト、対象、効果など）に分けます。紙面に示す言葉は、フレイバー・テキストを除いて`print/<lang>/`の下に言語ごとに収録します。英語もその一つです。商品や言語の情報は`カード`本体には含めません。
 
-カードのデータ形式は`レイアウト`によって異なります。`カード`には、`data/card/component/layout.json` に登録された id で`レイアウト`を指定します。通常のカードは各項目をカード本体に収録します。両面カードでは表面と裏面、分割カードではそれぞれの半分を分けて収録します。面ごとに値を分ける場合は、面の名前を付けた項目に収録します。レイアウトごとに専用のスキーマを使います。
+カードのデータ形式は`レイアウト`によって異なります。`カード`には、`data/oracle/card/component/layout.json` に登録された id で`レイアウト`を指定します。通常のカードは各項目をカード本体に収録します。両面カードでは表面と裏面、分割カードではそれぞれの半分を分けて収録します。面ごとに値を分ける場合は、面の名前を付けた項目に収録します。レイアウトごとに専用のスキーマを使います。
 
 カードを一度登録したら、その `card_id` は変えません。
 
@@ -34,8 +34,9 @@ Magic のルールでは、カードはカード名、マナ・コスト、色�
 - レアリティ
 - イラストレーター
 - 画像の URL
+- フレイバー・テキスト
 
-`プリント`は、収録された`カード`を id で参照します。紙面に印刷された値は`プリント`には収録しません。
+`プリント`は、収録された`カード`を id で参照します。フレイバー・テキストは再録で変わることがあるため`プリント`に収録し、紙面に印刷されるそのほかの言葉は、`プリント`と対になるカードの言葉のファイルから読みます。複数の面を持つカードは面ごとに独自のフレイバー・テキストを示すので、カードが面を収録するのと同じ形で、`プリント`にも面ごとに収録します。
 
 レアリティは`カード`ではなく`プリント`ごとに決まるので、カードのレアリティは`プリント`を並べて読みます。フォーマットのリーガル判定は`プリント`から導き、このデータベースには保存しません。common の`プリント`があればパウパーで使えますが、禁止されているカードは除きます。
 
@@ -45,39 +46,51 @@ Magic のルールでは、カードはカード名、マナ・コスト、色�
 
 ```text
 data/
-  card/
-    component/
-      layout.json
-      color.json
-      mana_symbol.json
-      counter_type.json
-      type_line/
-        supertype.json
-        card_type.json
-        subtype.json
-      ability/
-        ability_word.json
-        keyword_ability.json
-      action/
-        keyword_action.json
-    normal/li/lightning-bolt.json
-  language/
-    card/li/lightning-bolt/en.json
-    card/li/lightning-bolt/ja.json
-    set/sta/ja.json
+  oracle/
+    card/
+      component/
+        layout.json
+        color.json
+        mana_symbol.json
+        counter_type.json
+        rarity.json
+        type_line/
+          supertype.json
+          card_type.json
+          subtype.json
+        ability/
+          ability_word.json
+          keyword_ability.json
+        action/
+          keyword_action.json
+      normal/li/lightning-bolt.json
+    set/
+      sta.json
+  platform.json
   print/
-    component/
-      rarity.json
-      platform.json
-    en/sta/42.json
-    ja/sta/105.json
-  set/
-    sta.json
+    en/
+      card/
+        component/
+          layout.json
+          rarity.json
+          ...
+        entity/sta/42.json
+      set/sta.json
+      sta/42.json
+    ja/
+      card/
+        component/
+          ...
+        entity/sta/105.json
+      set/sta.json
+      sta/105.json
 ```
+
+変わらないデータと、紙そのものを分けて収録します。`data/oracle/` には、`カード`とセットを、言葉を一切含まずに構造として収録します。`data/platform.json` は媒体の一覧です。`data/print/` は紙そのもので、言語ごとにフォルダを分け、その言語の紙面が示す言葉（`card/` と `set/`）と、プリント自体（セットごとのフォルダ）を収録します。
 
 #### コンポーネントの一覧
 
-`data/card/component/` の各一覧には、カードから参照する id と、その id に対応する値を登録します。値は Wizards of the Coast が定めたものです。
+`data/oracle/card/component/` に、コンポーネントの種類ごとに一覧を置きます。各項目は、カードやプリントのデータが参照する id を持ちます。その id に対応する言葉は、`data/print/<lang>/card/component/` の下にある、その言語の名称の一覧に収録します。形式は同じで、id と値の組です。
 
 | コンポーネント | ファイル | 値の例 |
 | --- | --- | --- |
@@ -91,6 +104,7 @@ data/
 | 能力語 | `ability/ability_word.json` | `Landfall`、`Metalcraft`、`Threshold` |
 | キーワード処理 | `action/keyword_action.json` | `Scry`、`Destroy`、`Exile` |
 | カウンターの種類 | `counter_type.json` | `+1/+1`、`Loyalty`、`Poison` |
+| レアリティ | `rarity.json` | `Common`、`Rare`、`Mythic rare` |
 
 タイプ行に使う一覧は `type_line/` に、能力に使う一覧は `ability/` に、処理に使う一覧は `action/` に置きます。サブタイプの各項目には、そのサブタイプを使えるカード・タイプも収録します。`layout.json` はカードのレイアウトを決めます。`color.json`、`mana_symbol.json`、`counter_type.json` は複数の項目に使うため、`component/` の直下に置きます。
 
@@ -108,28 +122,31 @@ Wizards of the Coast が新しい値を定めたときに、その値を一覧�
 
 そのほかの項目には、カードにある値を収録します。コンポーネントの一覧にある値は id で指定します。色はマナ・コスト、色指標、特性定義能力から定まるため、独立した値としては保存しません。
 
-カードのファイルは、`data/card/<layout>/<card_id の先頭2文字>/<card_id>.json` に置きます。たとえば、《稲妻》の英語名は Lightning Bolt で、`card_id` は `lightning-bolt`、`layout` は `normal` です。そのデータは `data/card/normal/li/lightning-bolt.json` に置きます。
+カードのファイルは、`data/oracle/card/<layout>/<card_id の先頭2文字>/<card_id>.json` に置きます。たとえば、《稲妻》の英語名は Lightning Bolt で、`card_id` は `lightning-bolt`、`layout` は `normal` です。そのデータは `data/oracle/card/normal/li/lightning-bolt.json` に置きます。
 
-#### 言語
+#### 言葉
 
-言語ファイルには、ある言語の紙面に刷られる言葉（カード名、タイプ行、ルール・テキスト、フレイバー・テキスト）を収録します。値を持つ対象に応じて `card/` または `set/` の下に置きます。各ファイルには、次の項目が必要です。
+紙面が示す言葉は、`print/<lang>/` の下に、フォルダ名で示した言語で収録します。同じ見え方のプリントは、どれも同じ言葉を示します。カードの言葉は `card/entity/<set>/<number>.json` に、その言葉を示すプリントのファイル名に合わせて置きます。各ファイルには、次の項目が必要です。
 
 - `lang`
-- 対象の id（カードなら `card_id`、セットなら `set_code`）
+- `card_id`
+- `set_code`
+- `number`
 
-カードの言語ファイルは、カードと同じく `card_id` の先頭2文字で分けます。《稲妻》の日本語版の値は `data/language/card/li/lightning-bolt/ja.json` に収録します。タイプ行の特殊タイプ、カード・タイプ、サブタイプはそれぞれ別の項目に、ルール・テキストは能力ごとに収録します。セットの言語ファイルは、セットごとにファイルを一つ作ります。たとえば、Strixhaven Mystical Archive の日本語名は `data/language/set/sta/ja.json` に収録します。
+ファイルには、カード名、タイプ行、ルール・テキストを収録します。タイプ行の特殊タイプ、カード・タイプ、サブタイプはそれぞれ別の項目に、ルール・テキストは能力ごとに収録します。《稲妻》のコレクター番号105の日本語版プリントの言葉は、`data/print/ja/card/entity/sta/105.json` に収録します。フレイバー・テキストは再録で変わることがあるため、ここには収録せず、`プリント`に収録します。
+
+コンポーネントの値の言葉と、セットの名前も、カードの言葉の隣に置きます。コンポーネントの名称は `card/component/<一覧名>.json` に、セットの名前は `set/<set_code を小文字にしたもの>.json` に置き、どちらも id とその言語で示す言葉の組を収録します。たとえば、Strixhaven Mystical Archive の日本語名は `data/print/ja/set/sta.json` に収録します。
 
 #### セット
 
 セットごとにファイルを一つ作ります。各ファイルには、次の項目が必要です。
 
 - `set_code`
-- `name`
 - `released_at`
 
-たとえば、Strixhaven Mystical Archive の `set_code` は `STA` です。セットのデータは `data/set/sta.json` に置きます。
+たとえば、Strixhaven Mystical Archive の `set_code` は `STA` です。セットのデータは `data/oracle/set/sta.json` に置きます。セットの名前も言葉なので、カードの言葉と同じく言語ごとに収録します。日本語名は `data/print/ja/set/sta.json` に置きます。
 
-リポジトリ内で使う `set_code` ごとに、`data/set/` にセットのファイルを置きます。
+リポジトリ内で使う `set_code` ごとに、`data/oracle/set/` にセットのファイルを置きます。
 
 #### プリント
 
@@ -137,11 +154,12 @@ Wizards of the Coast が新しい値を定めたときに、その値を一覧�
 
 - `card_id`
 - `set_code`
+- `lang`
 - `number`
 - `rarity`
 - `platforms`
 
-プリントを登録する前に、対応するカードとセットのデータを登録してください。レアリティは `data/print/component/rarity.json` の id で指定します。プリントごとの値なので、同じカードでもセットによって異なることがあります。媒体は `data/print/component/platform.json` の id で指定します（`paper`、`magic_online` など）。たとえば、Strixhaven Mystical Archive の日本語版に《稲妻》がコレクター番号105で収録されている場合、ファイルは `data/print/ja/sta/105.json` です。
+プリントを登録する前に、対応するカードとセットのデータに加えて、そのプリントが示す言葉のファイルを登録してください。レアリティは `data/oracle/card/component/rarity.json` の id で指定します。プリントごとの値なので、同じカードでもセットによって異なることがあります。媒体は `data/platform.json` の id で指定します（`paper`、`magic_online` など）。フレイバー・テキストがある場合は、その印刷の言語で `flavor_text` に収録します。たとえば、Strixhaven Mystical Archive の日本語版に《稲妻》がコレクター番号105で収録されている場合、ファイルは `data/print/ja/sta/105.json` です。
 
 カードのプリントは、すべて登録してください。リーガル判定はプリントから読むため、common のプリントが抜けていると、使えるカードが使えないように見えます。
 
@@ -153,58 +171,59 @@ Wizards of the Coast が新しい値を定めたときに、その値を一覧�
 schema/
   data.schema.json
   component.schema.json
-  card/
-    card.schema.json
-    normal.schema.json
-    component/
-      face.schema.json
-      type_line.schema.json
-      type_line/
-        subtype.schema.json
-      rules_text/
-        rules_text.schema.json
-        ability/
-        condition/
-          conditions/
-          events/
-        cost/
-        effect/
-          continuous/
-            text_tokens/
-          operation/
-            keyword_action_arguments/
-            mana_production/
-        target/
-        value/
-          durations/
-  language/
-    language.schema.json
+  oracle/
+    set.json
+    card/
+      card.schema.json
+      normal.schema.json
+      component/
+        list.schema.json
+        face.schema.json
+        type_line.schema.json
+        type_line/
+          subtype.schema.json
+        rules_text/
+          rules_text.schema.json
+          ability/
+          condition/
+            conditions/
+            events/
+          cost/
+          effect/
+            continuous/
+              text_tokens/
+            operation/
+              keyword_action_arguments/
+              mana_production/
+          target/
+          value/
+            durations/
+  print/
+    print.json
     card.schema.json
     set.schema.json
-  print.json
-  set.json
   correction.schema.json
 ```
 
-スキーマの多くは `data/` の構成に対応します。`schema/component.schema.json` は `data/card/component/` と `data/print/component/` の一覧を定めます。サブタイプの一覧には、そのサブタイプを使えるカード・タイプもあるため、専用スキーマ `schema/card/component/type_line/subtype.schema.json` を使います。`schema/card/normal.schema.json` は `data/card/normal/` のカードを定めます。
+スキーマの多くは `data/` の構成に対応します。`schema/component.schema.json` は、id と値の組からなる一覧、つまり `data/platform.json` と `data/print/<lang>/card/component/` の名称の一覧を定めます。`schema/oracle/card/component/list.schema.json` は、`data/oracle/card/component/` の id の一覧を定めます。サブタイプの一覧には、そのサブタイプを使えるカード・タイプもあるため、専用スキーマ `schema/oracle/card/component/type_line/subtype.schema.json` を使います。`schema/oracle/card/normal.schema.json` は `data/oracle/card/normal/` のカードを定めます。
 
 `schema/data.schema.json` では、`data/` にあるファイルの種類ごとに、適用するスキーマを指定します。
 
-ファイルの形式がカードのレイアウトや対象によって変わる場合は、適用するスキーマを選ぶファイルを使います。`schema/card/card.schema.json` はレイアウトに応じてカードのスキーマを選び、`schema/language/language.schema.json` は対象に応じてカード用またはセット用のスキーマを選びます。
+ファイルの形式がカードのレイアウトによって変わる場合は、適用するスキーマを選ぶファイルを使います。`schema/oracle/card/card.schema.json` はレイアウトに応じてカードのスキーマを選びます。
 
 #### カード
 
 `face.schema.json` はカード1面分の特性、`type_line.schema.json` はタイプ行の形式を定めます。ルール情報の各スキーマは `rules_text/` の下で、概念ごとに分けています。
 
-`schema/component.schema.json` はコンポーネントの一覧の形式を定めます。一覧の各項目には、id とその id に対応する値を収録します。
+`schema/component.schema.json` は id と値の組からなる一覧の形式を、`schema/oracle/card/component/list.schema.json` は id の一覧の形式を定めます。一覧の各項目には、id と、対応する値を収録します。
 
-#### 言語
+#### 言葉
 
-カードの言語データには `schema/language/card.schema.json`、セットの言語データには `schema/language/set.schema.json` を使います。
+言葉のファイルには、カード用の `schema/print/card.schema.json` と、セット用の `schema/print/set.schema.json` を使います。
 
 #### その他のファイル
 
-`schema/correction.schema.json` は公式訂正の記録1件の形式を定めます。カード、プリント、言語の `history` には、この形式の記録を追加します。プリントとセットの形式は、それぞれ `schema/print.json` と `schema/set.json` で定めます。
+`schema/correction.schema.json` は公式訂正の記録1件の形式を定めます。カード、プリント、言葉のファイルの `history` には、この形式の記録を追加します。プリントとセットの形式は、それぞれ `schema/print/print.json` と `schema/oracle/set.json` で定めます。
 
 ## 公式の訂正
 

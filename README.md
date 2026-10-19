@@ -4,18 +4,19 @@ Structured card data for Magic: The Gathering, published as plain JSON files.
 
 Translations: [日本語](docs/ja/readme.md)
 
-The data comes in three kinds.
+The data comes in two layers.
 
-- A `card` holds the components the game's rules define as structure: its mana cost, colors, type
-  line, and rules text, and each face of a multi-faced card.
-- A language file holds the words one language's paper shows: the name, the type line, the rules
-  text, and the flavor text.
-- A `print` is one appearance of a `card` in a product: set, collector number, language, platform,
-  rarity, and the artist.
+- `data/oracle/` holds a `card` as the structure the game's rules define: its mana cost, colors, type
+  line, and rules text, and each face of a multi-faced card. The sets are held here too. Not a word
+  of any language is held here.
+- `data/print/` holds the paper, one folder per language. A `print` is one appearance of a `card` in
+  a product: set, collector number, language, platform, rarity, the artist, and the flavor text the
+  appearance shows. Beside the prints, each language holds the words its papers show: the name, the
+  type line, and the rules text of each print's card, and the names of the components and the sets.
 
-Every `print` references the `card` it belongs to, and the words on its paper are the language
-file's. The schema and the file formats are documented in
-[`docs/en/design.md`](docs/en/design.md).
+Every `print` references the `card` it belongs to, and pairs with the words file of the same
+appearance. The flavor text belongs to the `print`. The schema and the file formats are documented
+in [`docs/en/design.md`](docs/en/design.md).
 
 See [CONTRIBUTING](CONTRIBUTING.md) to add or fix card data, and [LICENSE](LICENSE) for what is and
 is not licensed here.

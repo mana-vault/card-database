@@ -6,7 +6,7 @@ Schema: docs/en/design.md
 
 ## Type of change
 
-- [ ] Add a new `card` — new `data/card/<layout>/<first two of card_id>/<card_id>.json`
+- [ ] Add a new `card` — new `data/oracle/card/<layout>/<first two of card_id>/<card_id>.json`
 - [ ] Fix data in an existing `card` or `print`
 - [ ] Official correction — append to the object's `history` per its schema
 - [ ] Add a `print` — new `data/print/<lang>/<set_code>/<number>.json`

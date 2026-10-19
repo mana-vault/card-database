@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Component list",
-  "description": "One vocabulary list under data/card/component/ or data/print/component/. Each entry pairs an id with its English value. IDs are unique within a list and do not change when a value is corrected.",
+  "description": "A list that pairs an id with a value: the platform list at data/platform.json, and the words one language shows for the component ids, under data/print/<lang>/card/component/. IDs are unique within a list and do not change when a value is corrected.",
   "type": "array",
   "items": {
     "type": "object",

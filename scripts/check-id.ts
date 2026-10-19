@@ -50,19 +50,22 @@ type TypeLineField = keyof typeof TYPE_LINE_FIELDS;
 /** Paths under data/, mapped to the parsed contents of each file. */
 export type FileTree = Map<string, unknown>;
 
-const COMPONENT = /^data\/(card|print)\/component\/(.+)\.json$/;
+const ORACLE_COMPONENT = /^data\/oracle\/card\/component\/(.+)\.json$/;
+const NAME_COMPONENT =
+  /^data\/print\/([a-z0-9-]+)\/card\/component\/(.+)\.json$/;
+const PLATFORM = /^data\/platform\.json$/;
 const CARD =
-  /^data\/card\/(?!component\/)([a-z][a-z0-9_]*)\/([a-z0-9]{2})\/([a-z0-9_-]+)\.json$/;
-const SET = /^data\/set\/([a-z0-9]+)\.json$/;
+  /^data\/oracle\/card\/(?!component\/)([a-z][a-z0-9_]*)\/([a-z0-9]{2})\/([a-z0-9_-]+)\.json$/;
+const SET = /^data\/oracle\/set\/([a-z0-9]+)\.json$/;
 const PRINT =
-  /^data\/print\/(?!component\/)([a-z0-9-]+)\/([a-z0-9]+)\/([^/]+)\.json$/;
-const CARD_LANGUAGE =
-  /^data\/language\/card\/([a-z0-9]{2})\/([a-z0-9_-]+)\/([a-z0-9-]+)\.json$/;
-const SET_LANGUAGE = /^data\/language\/set\/([a-z0-9]+)\/([a-z0-9-]+)\.json$/;
+  /^data\/print\/(?!card\/|set\/)([a-z0-9-]+)\/([a-z0-9]+)\/([^/]+)\.json$/;
+const WORDS =
+  /^data\/print\/([a-z0-9-]+)\/card\/entity\/([a-z0-9]+)\/([^/]+)\.json$/;
+const SET_NAME = /^data\/print\/([a-z0-9-]+)\/set\/([a-z0-9]+)\.json$/;
 
 function componentPath(listName: string): string {
-  const [owner, ...parts] = listName.split("/");
-  return `data/${owner}/component/${parts.join("/")}.json`;
+  if (listName === "platform") return "data/platform.json";
+  return `data/oracle/card/component/${listName.slice("card/".length)}.json`;
 }
 
 function hasComponentId(
@@ -127,10 +130,10 @@ export function check(files: FileTree): string[] {
   const subtypeCardTypes = new Map<string, SubtypeDefinition>();
 
   for (const path of paths) {
-    const match = COMPONENT.exec(path);
-    if (!match) continue;
+    const oracle = ORACLE_COMPONENT.exec(path);
+    if (!oracle && !PLATFORM.test(path)) continue;
 
-    const listName = `${match[1]}/${match[2]}`;
+    const listName = oracle ? `card/${oracle[1]}` : "platform";
     const ids = new Set<string>();
     const entries = files.get(path);
     for (const entry of records(entries)) {
@@ -148,6 +151,22 @@ export function check(files: FileTree): string[] {
       }
     }
     componentIds.set(listName, ids);
+  }
+
+  for (const path of paths) {
+    const match = NAME_COMPONENT.exec(path);
+    if (!match) continue;
+
+    const listName = `card/${match[2]}`;
+    const ids = new Set<string>();
+    for (const entry of records(files.get(path))) {
+      const id = stringField(entry, "id");
+      if (id === undefined) continue;
+      if (ids.has(id)) add(path, `the id ${id} appears twice`);
+      ids.add(id);
+      if (!hasComponentId(componentIds, listName, id))
+        add(path, `${id} is not an id in ${componentPath(listName)}`);
+    }
   }
 
   const cardTypeIds = componentIds.get("card/type_line/card_type") ?? new Set();
@@ -245,6 +264,22 @@ export function check(files: FileTree): string[] {
       add(path, `the file name does not match the code ${code}`);
   }
 
+  const wordsCards = new Map<string, string | undefined>();
+  for (const path of paths) {
+    const match = WORDS.exec(path);
+    if (!match) continue;
+
+    const words = files.get(path);
+    if (!isRecord(words)) continue;
+    const setCode = stringField(words, "set_code");
+    const lang = stringField(words, "lang");
+    const number = stringField(words, "number");
+    const cardID = stringField(words, "card_id");
+    if (setCode === undefined || lang === undefined || number === undefined)
+      continue;
+    wordsCards.set(`${setCode}|${lang}|${number}`, cardID);
+  }
+
   const printKeys = new Set<string>();
   for (const path of paths) {
     const match = PRINT.exec(path);
@@ -270,8 +305,10 @@ export function check(files: FileTree): string[] {
     printKeys.add(key);
     if (!cardIds.has(cardID)) add(path, `the card ${cardID} has no file`);
     if (!setCodes.has(setCode)) add(path, `the set ${setCode} has no file`);
-    known(path, "print/rarity", rarity);
-    checkValues(path, "platforms", "print/platform", print.platforms);
+    if (!wordsCards.has(key))
+      add(path, `the words of the print ${key} have no file`);
+    known(path, "card/rarity", rarity);
+    checkValues(path, "platforms", "platform", print.platforms);
     if (match[1] !== lang)
       add(path, `the language folder does not match ${lang}`);
     if (match[2] !== setCode.toLowerCase())
@@ -281,23 +318,35 @@ export function check(files: FileTree): string[] {
   }
 
   for (const path of paths) {
-    const match = CARD_LANGUAGE.exec(path);
+    const match = WORDS.exec(path);
     if (!match) continue;
 
-    const language = files.get(path);
-    if (!isRecord(language)) continue;
-    const cardID = stringField(language, "card_id");
-    const lang = stringField(language, "lang");
-    if (cardID === undefined || lang === undefined) continue;
+    const words = files.get(path);
+    if (!isRecord(words)) continue;
+    const cardID = stringField(words, "card_id");
+    const setCode = stringField(words, "set_code");
+    const lang = stringField(words, "lang");
+    const number = stringField(words, "number");
+    if (cardID === undefined || setCode === undefined) continue;
+    if (lang === undefined || number === undefined) continue;
     if (!cardIds.has(cardID)) add(path, `the card ${cardID} has no file`);
-    if (match[1] !== cardID.slice(0, 2))
-      add(path, `the folder does not match the id ${cardID}`);
-    if (match[2] !== cardID)
-      add(path, `the card folder does not match ${cardID}`);
-    if (match[3] !== lang)
-      add(path, `the file name does not match the language ${lang}`);
+    if (!setCodes.has(setCode)) add(path, `the set ${setCode} has no file`);
+    const key = `${setCode}|${lang}|${number}`;
+    if (!printKeys.has(key)) add(path, `the print ${key} has no file`);
+    const printCard = wordsCards.get(key);
+    if (printCard !== undefined && printCard !== cardID)
+      add(
+        path,
+        `the card ${cardID} does not match the print's card ${printCard}`,
+      );
+    if (match[1] !== lang)
+      add(path, `the language folder does not match ${lang}`);
+    if (match[2] !== setCode.toLowerCase())
+      add(path, `the set folder does not match ${setCode}`);
+    if (match[3] !== number)
+      add(path, `the file name does not match the number ${number}`);
 
-    const rulesText = language.rules_text;
+    const rulesText = words.rules_text;
     if (isRecord(rulesText)) {
       const seen = new Set<string>();
       for (const ability of records(rulesText.abilities)) {
@@ -317,19 +366,19 @@ export function check(files: FileTree): string[] {
   }
 
   for (const path of paths) {
-    const match = SET_LANGUAGE.exec(path);
+    const match = SET_NAME.exec(path);
     if (!match) continue;
 
-    const language = files.get(path);
-    if (!isRecord(language)) continue;
-    const setCode = stringField(language, "set_code");
-    const lang = stringField(language, "lang");
+    const words = files.get(path);
+    if (!isRecord(words)) continue;
+    const setCode = stringField(words, "set_code");
+    const lang = stringField(words, "lang");
     if (setCode === undefined || lang === undefined) continue;
     if (!setCodes.has(setCode)) add(path, `the set ${setCode} has no file`);
-    if (match[1] !== setCode.toLowerCase())
+    if (match[1] !== lang)
+      add(path, `the language folder does not match ${lang}`);
+    if (match[2] !== setCode.toLowerCase())
       add(path, `the set folder does not match ${setCode}`);
-    if (match[2] !== lang)
-      add(path, `the file name does not match the language ${lang}`);
   }
 
   for (const path of paths) {
@@ -339,12 +388,14 @@ export function check(files: FileTree): string[] {
 
   for (const path of paths) {
     const knownPath =
-      COMPONENT.test(path) ||
+      ORACLE_COMPONENT.test(path) ||
+      NAME_COMPONENT.test(path) ||
+      PLATFORM.test(path) ||
       CARD.test(path) ||
       SET.test(path) ||
       PRINT.test(path) ||
-      CARD_LANGUAGE.test(path) ||
-      SET_LANGUAGE.test(path);
+      WORDS.test(path) ||
+      SET_NAME.test(path);
     if (path.startsWith("data/") && !knownPath)
       add(path, "no layer of data/ covers this file");
   }

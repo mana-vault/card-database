@@ -1,0 +1,18 @@
+{
+  "lang": "ja",
+  "card_id": "lightning-bolt",
+  "set_code": "STA",
+  "number": "105",
+  "name": "稲妻",
+  "type_line": {
+    "card_types": ["インスタント"]
+  },
+  "rules_text": {
+    "abilities": [
+      {
+        "ability_id": "spell",
+        "text": "クリーチャー１体かプレインズウォーカー１体かプレイヤー１人を対象とする。稲妻はそれに３点のダメージを与える。"
+      }
+    ]
+  }
+}

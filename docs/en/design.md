@@ -23,13 +23,14 @@ The rules also allow one card to carry several faces or parts.
 
 This database names this collection of components a `card`. A `card` holds them as structure, not as
 printed text: the mana cost and the type line as references to the component lists, and the rules
-text as the concepts the rules name, such as abilities, costs, targets, and effects. The component
-names are the official terms, and the words a paper prints are held per language, under `language/`.
+text as the concepts the rules name, such as abilities, costs, targets, and effects. The words a
+paper shows are held per language, under `print/<lang>/`, English included, except the flavor text,
+which belongs to the `print`.
 No product or language information enters a `card`.
 
 Cards come in `layout`s. Most cards are ordinary, and the others carry several faces or parts, such
 as double-faced, split, and adventure cards. A `card` names its `layout` by the id of a value in
-`data/card/component/layout.json`. The shape of the values is fixed per `layout`, and is never
+`data/oracle/card/component/layout.json`. The shape of the values is fixed per `layout`, and is never
 shared as one shape across the `layout`s. An ordinary `card` holds its components directly. The
 `layout`s with several faces hold the values per face, in fields named for the face. Each `layout`
 has its own schema.
@@ -51,9 +52,12 @@ A `print` is kept apart from the `card`, and holds:
 - the rarity
 - the artist
 - the image URL
+- the flavor text it shows
 
-A `print` points at the `card` it belongs to by its id. The values printed on the paper are not held
-here.
+A `print` points at the `card` it belongs to by its id. The flavor text is held here, because a
+reprint can carry a different one; the other words the paper shows come from the card's words file,
+which a print pairs with. A card with several faces shows one flavor text per face, so the `print`
+holds them the same way the card holds its faces.
 
 Rarity belongs to each `print`, not to the `card`, so a card's rarities are read from its prints. A
 format's legality is worked out from those prints and is not stored here: a card with a common print
@@ -65,39 +69,56 @@ is Pauper-legal, unless the format bans it.
 
 ```text
 data/
-  card/
-    component/
-      layout.json
-      color.json
-      mana_symbol.json
-      counter_type.json
-      type_line/
-        supertype.json
-        card_type.json
-        subtype.json
-      ability/
-        ability_word.json
-        keyword_ability.json
-      action/
-        keyword_action.json
-    normal/li/lightning-bolt.json
-  language/
-    card/li/lightning-bolt/en.json
-    card/li/lightning-bolt/ja.json
-    set/sta/ja.json
+  oracle/
+    card/
+      component/
+        layout.json
+        color.json
+        mana_symbol.json
+        counter_type.json
+        rarity.json
+        type_line/
+          supertype.json
+          card_type.json
+          subtype.json
+        ability/
+          ability_word.json
+          keyword_ability.json
+        action/
+          keyword_action.json
+      normal/li/lightning-bolt.json
+    set/
+      sta.json
+  platform.json
   print/
-    component/
-      rarity.json
-      platform.json
-    en/sta/42.json
-    ja/sta/105.json
-  set/
-    sta.json
+    en/
+      card/
+        component/
+          layout.json
+          rarity.json
+          ...
+        entity/sta/42.json
+      set/sta.json
+      sta/42.json
+    ja/
+      card/
+        component/
+          ...
+        entity/sta/105.json
+      set/sta.json
+      sta/105.json
 ```
+
+The fixed data and the paper are held apart. `data/oracle/` holds the `card`s and the sets as
+structure, without a word of any language. `data/platform.json` lists the platforms. `data/print/`
+holds the paper, one folder per language: the words a paper of that language shows (`card/` and
+`set/`), and the prints themselves, in folders by set.
 
 #### Component lists
 
-`data/card/component/` pairs each id with the value that Wizards of the Coast defines:
+`data/oracle/card/component/` holds one list per kind of component. Each entry holds the id that
+card and print data reference; the word each language shows for the id lives in that language's
+name list, under `data/print/<lang>/card/component/`, in the same shape: an id and its value.
 
 | Component | File | Example values |
 | --- | --- | --- |
@@ -111,6 +132,7 @@ data/
 | Ability words | `ability/ability_word.json` | `Landfall`, `Metalcraft`, `Threshold` |
 | Keyword actions | `action/keyword_action.json` | `Scry`, `Destroy`, `Exile` |
 | Counter types | `counter_type.json` | `+1/+1`, `Loyalty`, `Poison` |
+| Rarities | `rarity.json` | `Common`, `Rare`, `Mythic rare` |
 
 A list that serves one part of a card sits in a folder named for that part: type-line lists in
 `type_line/`, ability lists in `ability/`, and action lists in `action/`. Each subtype entry also
@@ -137,32 +159,40 @@ characteristic-defining abilities; it is not stored as a separate value.
 
 The first folder of a card file is the `layout`, and below it come the first two characters of the
 `card_id`. Lightning Bolt has the `card_id` `lightning-bolt`, so it sits in
-`data/card/normal/li/lightning-bolt.json`.
+`data/oracle/card/normal/li/lightning-bolt.json`.
 
-#### Language
+#### Words
 
-A language file holds the words one language's paper shows: the name, the type line, the rules
-text, and the flavor text. It sits under `card/` or `set/`, whichever holds the thing it describes.
-It needs:
+The words a paper shows live under `print/<lang>/`, in the language the folder names, and every
+print of the same appearance shows them the same way. A card's words sit in
+`card/entity/<set>/<number>.json`, named for the print that shows them. The file needs:
 
 - `lang`
-- the id of the thing it describes: `card_id` for a card, `set_code` for a set
+- `card_id`
+- `set_code`
+- `number`
 
-A card's language file uses the same folders as the card: the Japanese values of Lightning Bolt
-are `data/language/card/li/lightning-bolt/ja.json`. It records the supertypes, card types, and
-subtypes of the type line in separate fields, and the rules text in one entry per ability. A set's
-language file is one file per set: the Japanese values of Strixhaven Mystical Archive are
-`data/language/set/sta/ja.json`.
+It holds the name, the type line, and the rules text, and records the supertypes, card types, and
+subtypes of the type line in separate fields, and the rules text in one entry per ability. The
+Japanese words of the Lightning Bolt print with the collector number 105 are
+`data/print/ja/card/entity/sta/105.json`. Flavor text is not here: a reprint can change it, so it
+belongs to the `print`.
+
+The words of the component values and of the sets live beside the card's words, under `card/` and
+`set/`: a component's name list is `card/component/<list>.json`, and a set's name is
+`set/<code>.json`. Both pair the id with the word the language shows. The Japanese name of
+Strixhaven Mystical Archive is `data/print/ja/set/sta.json`.
 
 #### Sets
 
 Each set has one file. A set file needs:
 
 - `set_code`
-- `name`
 - `released_at`
 
-Strixhaven Mystical Archive uses `STA` as its `set_code`. Its data is in `data/set/sta.json`.
+Strixhaven Mystical Archive uses `STA` as its `set_code`. Its data is in `data/oracle/set/sta.json`.
+The name of a set is a word, so it is held per language, like the words of a card: the English name
+is `data/print/en/set/sta.json`.
 
 Every `set_code` used anywhere in the repository has a file here.
 
@@ -176,11 +206,12 @@ One `print` per file, in folders by language, then by set. A `print` file needs:
 - `rarity`
 - `platforms`
 
-The `card` and the set it names must already have files. Rarity is an id from
-`data/print/component/rarity.json` and belongs to each `print`, so it may differ between sets.
-Platforms are ids from `data/print/component/platform.json`, such as `paper` and `magic_online`.
-Lightning Bolt appears in Strixhaven Mystical Archive as the Japanese print with collector number
-105, so that file is `data/print/ja/sta/105.json`.
+The `card` and the set it names must already have files, and the card's words for this print must
+have one under `card/entity/`. Rarity is an id from `data/oracle/card/component/rarity.json` and
+belongs to each `print`, so it may differ between sets. Platforms are ids from `data/platform.json`,
+such as `paper` and `magic_online`. A `print` also holds the flavor text this appearance shows, in
+the language of the print, when it has one. Lightning Bolt appears in Strixhaven Mystical Archive
+as the Japanese print with collector number 105, so that file is `data/print/ja/sta/105.json`.
 
 Register every `print` of a card. Format legality is read from the prints, so a card that has only
 a rare print here and a common print left out would look illegal.
@@ -194,69 +225,72 @@ The content of each file is governed by a schema written in the
 schema/
   data.schema.json
   component.schema.json
-  card/
-    card.schema.json
-    normal.schema.json
-    component/
-      face.schema.json
-      type_line.schema.json
-      type_line/
-        subtype.schema.json
-      rules_text/
-        rules_text.schema.json
-        ability/
-        condition/
-          conditions/
-          events/
-        cost/
-        effect/
-          continuous/
-            text_tokens/
-          operation/
-            keyword_action_arguments/
-            mana_production/
-        target/
-        value/
-          durations/
-  language/
-    language.schema.json
+  oracle/
+    set.json
+    card/
+      card.schema.json
+      normal.schema.json
+      component/
+        list.schema.json
+        face.schema.json
+        type_line.schema.json
+        type_line/
+          subtype.schema.json
+        rules_text/
+          rules_text.schema.json
+          ability/
+          condition/
+            conditions/
+            events/
+          cost/
+          effect/
+            continuous/
+              text_tokens/
+            operation/
+              keyword_action_arguments/
+              mana_production/
+          target/
+          value/
+            durations/
+  print/
+    print.json
     card.schema.json
     set.schema.json
-  print.json
-  set.json
   correction.schema.json
 ```
 
-Most schema paths follow the data paths. `schema/component.schema.json` governs the component
-lists under both `data/card/component/` and `data/print/component/`. The subtype list has its own
-schema because each subtype also names the card types it can accompany. The layout schema
-`schema/card/normal.schema.json` governs `data/card/normal/`.
+Most schema paths follow the data paths. `schema/component.schema.json` governs the lists that pair
+an id with a value: `data/platform.json` and the name lists under
+`data/print/<lang>/card/component/`. `schema/oracle/card/component/list.schema.json` governs the id
+lists under `data/oracle/card/component/`. The subtype list has its own schema because each subtype
+also names the card types it can accompany. The layout schema
+`schema/oracle/card/normal.schema.json` governs `data/oracle/card/normal/`.
 
 `schema/data.schema.json` is the schema of every file under `data/`: for each kind of file it names
 the schema that governs it.
 
 Where the shape of a file depends on something else, another file picks the schema:
-`schema/card/card.schema.json` picks by `layout`, and `schema/language/language.schema.json` by the
-thing the values belong to.
+`schema/oracle/card/card.schema.json` picks by `layout`.
 
 #### Cards
 
 `face.schema.json` defines one face's characteristics, and `type_line.schema.json` defines its type
 line. Under `rules_text/`, schemas are grouped by the rule concept they describe.
 
-`schema/component.schema.json` holds the shape of a component list: an id and its value.
+`schema/component.schema.json` holds the shape of an id-and-value list, and
+`schema/oracle/card/component/list.schema.json` the shape of an id list.
 `type_line/subtype.schema.json` also checks the card types associated with each subtype.
 
-#### Language
+#### Words
 
-A language file has one schema for a card and another for a set:
-`schema/language/card.schema.json` and `schema/language/set.schema.json`.
+A words file has one schema for a card and another for a set:
+`schema/print/card.schema.json` and `schema/print/set.schema.json`.
 
 #### The other files
 
 `schema/correction.schema.json` holds one record of an official correction, which a `card`, a
-`print`, and a language file append to their `history`. `schema/print.json` and `schema/set.json`
-govern a `print` and a set.
+`print`, and a words file append to their `history`. `schema/print/print.json` and
+`schema/oracle/set.json` govern a `print` and a set.
 
 ## Official corrections
 

@@ -1,0 +1,590 @@
+[
+  {
+    "id": "deathtouch"
+  },
+  {
+    "id": "defender"
+  },
+  {
+    "id": "double_strike"
+  },
+  {
+    "id": "enchant"
+  },
+  {
+    "id": "equip"
+  },
+  {
+    "id": "first_strike"
+  },
+  {
+    "id": "flash"
+  },
+  {
+    "id": "flying"
+  },
+  {
+    "id": "haste"
+  },
+  {
+    "id": "hexproof"
+  },
+  {
+    "id": "indestructible"
+  },
+  {
+    "id": "intimidate"
+  },
+  {
+    "id": "landwalk"
+  },
+  {
+    "id": "lifelink"
+  },
+  {
+    "id": "protection"
+  },
+  {
+    "id": "reach"
+  },
+  {
+    "id": "shroud"
+  },
+  {
+    "id": "trample"
+  },
+  {
+    "id": "vigilance"
+  },
+  {
+    "id": "ward"
+  },
+  {
+    "id": "banding"
+  },
+  {
+    "id": "rampage"
+  },
+  {
+    "id": "cumulative_upkeep"
+  },
+  {
+    "id": "flanking"
+  },
+  {
+    "id": "phasing"
+  },
+  {
+    "id": "buyback"
+  },
+  {
+    "id": "shadow"
+  },
+  {
+    "id": "cycling"
+  },
+  {
+    "id": "echo"
+  },
+  {
+    "id": "horsemanship"
+  },
+  {
+    "id": "fading"
+  },
+  {
+    "id": "kicker"
+  },
+  {
+    "id": "flashback"
+  },
+  {
+    "id": "madness"
+  },
+  {
+    "id": "fear"
+  },
+  {
+    "id": "morph"
+  },
+  {
+    "id": "amplify"
+  },
+  {
+    "id": "provoke"
+  },
+  {
+    "id": "storm"
+  },
+  {
+    "id": "affinity"
+  },
+  {
+    "id": "entwine"
+  },
+  {
+    "id": "modular"
+  },
+  {
+    "id": "sunburst"
+  },
+  {
+    "id": "bushido"
+  },
+  {
+    "id": "soulshift"
+  },
+  {
+    "id": "splice"
+  },
+  {
+    "id": "offering"
+  },
+  {
+    "id": "ninjutsu"
+  },
+  {
+    "id": "epic"
+  },
+  {
+    "id": "convoke"
+  },
+  {
+    "id": "dredge"
+  },
+  {
+    "id": "transmute"
+  },
+  {
+    "id": "bloodthirst"
+  },
+  {
+    "id": "haunt"
+  },
+  {
+    "id": "replicate"
+  },
+  {
+    "id": "forecast"
+  },
+  {
+    "id": "graft"
+  },
+  {
+    "id": "recover"
+  },
+  {
+    "id": "ripple"
+  },
+  {
+    "id": "split_second"
+  },
+  {
+    "id": "suspend"
+  },
+  {
+    "id": "vanishing"
+  },
+  {
+    "id": "absorb"
+  },
+  {
+    "id": "aura_swap"
+  },
+  {
+    "id": "delve"
+  },
+  {
+    "id": "fortify"
+  },
+  {
+    "id": "frenzy"
+  },
+  {
+    "id": "gravestorm"
+  },
+  {
+    "id": "poisonous"
+  },
+  {
+    "id": "transfigure"
+  },
+  {
+    "id": "champion"
+  },
+  {
+    "id": "changeling"
+  },
+  {
+    "id": "evoke"
+  },
+  {
+    "id": "hideaway"
+  },
+  {
+    "id": "prowl"
+  },
+  {
+    "id": "reinforce"
+  },
+  {
+    "id": "conspire"
+  },
+  {
+    "id": "persist"
+  },
+  {
+    "id": "wither"
+  },
+  {
+    "id": "retrace"
+  },
+  {
+    "id": "devour"
+  },
+  {
+    "id": "exalted"
+  },
+  {
+    "id": "unearth"
+  },
+  {
+    "id": "cascade"
+  },
+  {
+    "id": "annihilator"
+  },
+  {
+    "id": "level_up"
+  },
+  {
+    "id": "rebound"
+  },
+  {
+    "id": "umbra_armor"
+  },
+  {
+    "id": "infect"
+  },
+  {
+    "id": "battle_cry"
+  },
+  {
+    "id": "living_weapon"
+  },
+  {
+    "id": "undying"
+  },
+  {
+    "id": "miracle"
+  },
+  {
+    "id": "soulbond"
+  },
+  {
+    "id": "overload"
+  },
+  {
+    "id": "scavenge"
+  },
+  {
+    "id": "unleash"
+  },
+  {
+    "id": "cipher"
+  },
+  {
+    "id": "evolve"
+  },
+  {
+    "id": "extort"
+  },
+  {
+    "id": "fuse"
+  },
+  {
+    "id": "bestow"
+  },
+  {
+    "id": "tribute"
+  },
+  {
+    "id": "dethrone"
+  },
+  {
+    "id": "hidden_agenda"
+  },
+  {
+    "id": "outlast"
+  },
+  {
+    "id": "prowess"
+  },
+  {
+    "id": "dash"
+  },
+  {
+    "id": "exploit"
+  },
+  {
+    "id": "menace"
+  },
+  {
+    "id": "renown"
+  },
+  {
+    "id": "awaken"
+  },
+  {
+    "id": "devoid"
+  },
+  {
+    "id": "ingest"
+  },
+  {
+    "id": "myriad"
+  },
+  {
+    "id": "surge"
+  },
+  {
+    "id": "skulk"
+  },
+  {
+    "id": "emerge"
+  },
+  {
+    "id": "escalate"
+  },
+  {
+    "id": "melee"
+  },
+  {
+    "id": "crew"
+  },
+  {
+    "id": "fabricate"
+  },
+  {
+    "id": "partner"
+  },
+  {
+    "id": "undaunted"
+  },
+  {
+    "id": "improvise"
+  },
+  {
+    "id": "aftermath"
+  },
+  {
+    "id": "embalm"
+  },
+  {
+    "id": "eternalize"
+  },
+  {
+    "id": "afflict"
+  },
+  {
+    "id": "ascend"
+  },
+  {
+    "id": "assist"
+  },
+  {
+    "id": "jump_start"
+  },
+  {
+    "id": "mentor"
+  },
+  {
+    "id": "afterlife"
+  },
+  {
+    "id": "riot"
+  },
+  {
+    "id": "spectacle"
+  },
+  {
+    "id": "escape"
+  },
+  {
+    "id": "companion"
+  },
+  {
+    "id": "mutate"
+  },
+  {
+    "id": "encore"
+  },
+  {
+    "id": "boast"
+  },
+  {
+    "id": "foretell"
+  },
+  {
+    "id": "demonstrate"
+  },
+  {
+    "id": "daybound"
+  },
+  {
+    "id": "nightbound"
+  },
+  {
+    "id": "disturb"
+  },
+  {
+    "id": "decayed"
+  },
+  {
+    "id": "cleave"
+  },
+  {
+    "id": "training"
+  },
+  {
+    "id": "compleated"
+  },
+  {
+    "id": "reconfigure"
+  },
+  {
+    "id": "blitz"
+  },
+  {
+    "id": "casualty"
+  },
+  {
+    "id": "enlist"
+  },
+  {
+    "id": "read_ahead"
+  },
+  {
+    "id": "ravenous"
+  },
+  {
+    "id": "squad"
+  },
+  {
+    "id": "space_sculptor"
+  },
+  {
+    "id": "visit"
+  },
+  {
+    "id": "prototype"
+  },
+  {
+    "id": "living_metal"
+  },
+  {
+    "id": "more_than_meets_the_eye"
+  },
+  {
+    "id": "for_mirrodin"
+  },
+  {
+    "id": "toxic"
+  },
+  {
+    "id": "backup"
+  },
+  {
+    "id": "bargain"
+  },
+  {
+    "id": "craft"
+  },
+  {
+    "id": "disguise"
+  },
+  {
+    "id": "solved"
+  },
+  {
+    "id": "plot"
+  },
+  {
+    "id": "saddle"
+  },
+  {
+    "id": "spree"
+  },
+  {
+    "id": "freerunning"
+  },
+  {
+    "id": "gift"
+  },
+  {
+    "id": "offspring"
+  },
+  {
+    "id": "impending"
+  },
+  {
+    "id": "exhaust"
+  },
+  {
+    "id": "max_speed"
+  },
+  {
+    "id": "start_your_engines"
+  },
+  {
+    "id": "harmonize"
+  },
+  {
+    "id": "mobilize"
+  },
+  {
+    "id": "job_select"
+  },
+  {
+    "id": "tiered"
+  },
+  {
+    "id": "station"
+  },
+  {
+    "id": "warp"
+  },
+  {
+    "id": "infinity"
+  },
+  {
+    "id": "mayhem"
+  },
+  {
+    "id": "web_slinging"
+  },
+  {
+    "id": "firebending"
+  },
+  {
+    "id": "sneak"
+  },
+  {
+    "id": "increment"
+  },
+  {
+    "id": "paradigm"
+  },
+  {
+    "id": "power_up"
+  },
+  {
+    "id": "teamwork"
+  },
+  {
+    "id": "storied"
+  },
+  {
+    "id": "bands_with_other"
+  }
+]

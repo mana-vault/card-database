@@ -1,0 +1,44 @@
+[
+  {
+    "id": "normal"
+  },
+  {
+    "id": "split"
+  },
+  {
+    "id": "flip"
+  },
+  {
+    "id": "leveler"
+  },
+  {
+    "id": "nonmodal_double_faced"
+  },
+  {
+    "id": "modal_double_faced"
+  },
+  {
+    "id": "meld"
+  },
+  {
+    "id": "adventure"
+  },
+  {
+    "id": "class"
+  },
+  {
+    "id": "prototype"
+  },
+  {
+    "id": "case"
+  },
+  {
+    "id": "omen"
+  },
+  {
+    "id": "station"
+  },
+  {
+    "id": "preparation"
+  }
+]

@@ -3,7 +3,8 @@
 Read `docs/en/design.md` before changing card data, schemas, or their structure.
 
 The `card` holds structure only. Store the words of every language, English
-included, under `language/`.
+included, under `data/print/<lang>/`, except a `print`'s flavor text, which
+belongs to the `print`.
 Translate documentation in other languages from English. Preserve meaning and write naturally.
 
 When adding or changing a Magic term in `README.md`, `docs/`, `data/`, or `schema/`, check its

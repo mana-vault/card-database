@@ -1,6 +1,0 @@
-{
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Language",
-  "description": "A file in data/language/, such as data/language/card/li/lightning-bolt/ja.json or data/language/set/mh3/ja.json. The values of one language's paper. A language file takes the shape of the thing it holds the values of, so this file points at one schema per kind.",
-  "oneOf": [{ "$ref": "card.schema.json" }, { "$ref": "set.schema.json" }]
-}

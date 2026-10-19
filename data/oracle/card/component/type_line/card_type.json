@@ -1,0 +1,47 @@
+[
+  {
+    "id": "artifact"
+  },
+  {
+    "id": "battle"
+  },
+  {
+    "id": "conspiracy"
+  },
+  {
+    "id": "creature"
+  },
+  {
+    "id": "dungeon"
+  },
+  {
+    "id": "enchantment"
+  },
+  {
+    "id": "instant"
+  },
+  {
+    "id": "kindred"
+  },
+  {
+    "id": "land"
+  },
+  {
+    "id": "phenomenon"
+  },
+  {
+    "id": "plane"
+  },
+  {
+    "id": "planeswalker"
+  },
+  {
+    "id": "scheme"
+  },
+  {
+    "id": "sorcery"
+  },
+  {
+    "id": "vanguard"
+  }
+]

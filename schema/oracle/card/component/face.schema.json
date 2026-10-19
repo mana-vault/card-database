@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Face",
+  "description": "The characteristic values of one card face. A layout either places these fields on the card record or groups them under face names. The layout schema closes the property set with unevaluatedProperties. Referenced from card/normal.schema.json.",
+  "type": "object",
+  "required": ["type_line"],
+  "properties": {
+    "mana_cost": {
+      "type": "array",
+      "description": "The mana-symbol IDs that make up this face's mana cost. Left out when the face has no mana cost.",
+      "items": { "$ref": "#/$defs/symbol_id" }
+    },
+    "color_indicator": {
+      "type": "array",
+      "description": "The color indicator on this face. Each value is the id of a color in data/oracle/card/component/color.json. Color itself is derived from the mana cost, this indicator, and characteristic-defining abilities (CR 105.2).",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/word_id" }
+    },
+    "type_line": {
+      "$ref": "type_line.schema.json"
+    },
+    "rules_text": {
+      "$ref": "rules_text/rules_text.schema.json"
+    },
+    "power": {
+      "$ref": "#/$defs/printed_number",
+      "description": "Power, when the face prints one. Left out when the face prints none."
+    },
+    "toughness": {
+      "$ref": "#/$defs/printed_number",
+      "description": "Toughness, when the face prints one. Left out when the face prints none."
+    },
+    "loyalty": {
+      "$ref": "#/$defs/printed_number",
+      "description": "Starting loyalty, when the face prints one. Left out when the face prints none."
+    },
+    "defense": {
+      "$ref": "#/$defs/printed_number",
+      "description": "Defense, when the face prints one. Left out when the face prints none."
+    },
+    "hand_modifier": {
+      "type": "integer",
+      "description": "The hand modifier, when the face has one. Left out when the face has none."
+    },
+    "life_modifier": {
+      "type": "integer",
+      "description": "The life modifier, when the face has one. Left out when the face has none."
+    }
+  },
+  "$defs": {
+    "word_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9_'-]*$",
+      "description": "The id of a value in a list under data/oracle/card/component/, whose word a language shows."
+    },
+    "symbol_id": {
+      "type": "string",
+      "pattern": "^[^\\s{}]+$",
+      "description": "The ID of a mana symbol in data/oracle/card/component/mana_symbol.json, written without braces. Generic numeric symbols use the number itself as the ID (for example, 2); the shape also allows symbols such as ½."
+    },
+    "printed_number": {
+      "oneOf": [{ "type": "number" }, { "type": "string" }],
+      "description": "A number printed on the face, or the printed form when it is not a fixed number, such as * or 1+*."
+    }
+  }
+}
