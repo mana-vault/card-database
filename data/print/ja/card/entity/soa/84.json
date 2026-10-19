@@ -1,0 +1,20 @@
+{
+  "lang": "ja",
+  "card_id": "force-of-will",
+  "set_code": "SOA",
+  "number": "84",
+  "name": "意志の力",
+  "type_line": {
+    "card_types": [
+      "インスタント"
+    ]
+  },
+  "rules_text": {
+    "abilities": [
+      {
+        "ability_id": "spell",
+        "text": "この呪文のマナ・コストを支払うのではなく、「１点のライフを支払い、あなたの手札にある青のカード１枚を追放する。」を選んでもよい。\n呪文１つを対象とする。それを打ち消す。"
+      }
+    ]
+  }
+}

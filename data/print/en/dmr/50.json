@@ -1,0 +1,14 @@
+{
+  "card_id": "force-of-will",
+  "set_code": "DMR",
+  "lang": "en",
+  "number": "50",
+  "rarity": "mythic_rare",
+  "platforms": [
+    "paper",
+    "arena",
+    "magic_online"
+  ],
+  "artist": "Donato Giancola",
+  "flavor_text": "\"Your artillery will burn itself out before I allow my focus to waver.\""
+}

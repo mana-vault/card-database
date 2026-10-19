@@ -1,0 +1,88 @@
+{
+  "card_id": "force-of-will",
+  "layout": "normal",
+  "mana_cost": [
+    "3",
+    "U",
+    "U",
+    "U"
+  ],
+  "type_line": {
+    "card_types": [
+      "instant"
+    ]
+  },
+  "rules_text": {
+    "abilities": [
+      {
+        "ability_id": "spell",
+        "kind": "spell",
+        "casting_costs": {
+          "alternative": [
+            {
+              "kind": "composite",
+              "operator": "all_of",
+              "costs": [
+                {
+                  "kind": "pay_life",
+                  "amount": {
+                    "kind": "fixed",
+                    "value": 1
+                  }
+                },
+                {
+                  "kind": "action",
+                  "action_id": "exile",
+                  "arguments": {
+                    "kind": "subject",
+                    "subject": {
+                      "kind": "object",
+                      "zones": [
+                        "hand"
+                      ],
+                      "controller": "you",
+                      "color": {
+                        "operator": "has_any",
+                        "color_ids": [
+                          "blue"
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "body": {
+          "targets": [
+            {
+              "target_id": "spell",
+              "subject": {
+                "kind": "stack_object"
+              },
+              "minimum": 1,
+              "maximum": 1
+            }
+          ],
+          "steps": [
+            {
+              "kind": "effect",
+              "effect": {
+                "kind": "one_shot",
+                "operation": {
+                  "kind": "keyword_action",
+                  "action_id": "counter",
+                  "target_ref": "spell",
+                  "arguments": {
+                    "kind": "none"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

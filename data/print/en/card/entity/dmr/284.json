@@ -1,0 +1,20 @@
+{
+  "lang": "en",
+  "card_id": "force-of-will",
+  "set_code": "DMR",
+  "number": "284",
+  "name": "Force of Will",
+  "type_line": {
+    "card_types": [
+      "Instant"
+    ]
+  },
+  "rules_text": {
+    "abilities": [
+      {
+        "ability_id": "spell",
+        "text": "You may pay 1 life and exile a blue card from your hand rather than pay this spell's mana cost.\nCounter target spell."
+      }
+    ]
+  }
+}
