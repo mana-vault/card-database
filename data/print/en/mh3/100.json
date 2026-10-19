@@ -1,0 +1,13 @@
+{
+  "card_id": "marionette-apprentice",
+  "set_code": "MH3",
+  "lang": "en",
+  "number": "100",
+  "rarity": "uncommon",
+  "platforms": [
+    "paper",
+    "arena",
+    "magic_online"
+  ],
+  "artist": "Steve Ellis"
+}
