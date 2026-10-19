@@ -1,0 +1,23 @@
+{
+  "lang": "en",
+  "card_id": "force-of-will",
+  "set_code": "ALL",
+  "number": "28",
+  "name": "Force of Will",
+  "type_line": {
+    "card_types": [
+      "Summon"
+    ],
+    "subtypes": [
+      "Djinn"
+    ]
+  },
+  "rules_text": {
+    "abilities": [
+      {
+        "ability_id": "spell",
+        "text": "You may pay 1 life and exile a blue card from your hand instead of paying Force of Will's mana cost.\nCounters target spell."
+      }
+    ]
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "card_id": "rhystic-study",
+  "layout": "normal",
+  "mana_cost": [
+    "2",
+    "U"
+  ],
+  "type_line": {
+    "card_types": [
+      "enchantment"
+    ]
+  },
+  "rules_text": {
+    "abilities": [
+      {
+        "ability_id": "triggered",
+        "kind": "triggered",
+        "trigger": {
+          "event": {
+            "kind": "cast_spell",
+            "controller": "opponent"
+          }
+        },
+        "body": {
+          "steps": [
+            {
+              "kind": "unless",
+              "player": "that_player",
+              "cost": {
+                "kind": "mana",
+                "symbols": [
+                  "1"
+                ]
+              },
+              "steps": [
+                {
+                  "kind": "effect",
+                  "effect": {
+                    "kind": "one_shot",
+                    "operation": {
+                      "kind": "draw_cards",
+                      "amount": {
+                        "kind": "fixed",
+                        "value": 1
+                      },
+                      "player": "you"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

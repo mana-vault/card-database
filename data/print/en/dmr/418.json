@@ -1,0 +1,14 @@
+{
+  "card_id": "force-of-will",
+  "set_code": "DMR",
+  "lang": "en",
+  "number": "418",
+  "rarity": "mythic_rare",
+  "platforms": [
+    "paper",
+    "arena",
+    "magic_online"
+  ],
+  "artist": "Richard Kane Ferguson",
+  "flavor_text": "\"Weren't you ever taught that it's rude to interrupt?\""
+}

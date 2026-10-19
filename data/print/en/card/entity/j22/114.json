@@ -1,0 +1,20 @@
+{
+  "lang": "en",
+  "card_id": "rhystic-study",
+  "set_code": "J22",
+  "number": "114",
+  "name": "Rhystic Study",
+  "type_line": {
+    "card_types": [
+      "Enchantment"
+    ]
+  },
+  "rules_text": {
+    "abilities": [
+      {
+        "ability_id": "triggered",
+        "text": "Whenever an opponent casts a spell, unless they pay {1}, draw a card."
+      }
+    ]
+  }
+}

@@ -1,4 +1,11 @@
 [
-  { "id": "paper" },
-  { "id": "magic_online" }
+  {
+    "id": "paper"
+  },
+  {
+    "id": "arena"
+  },
+  {
+    "id": "magic_online"
+  }
 ]
