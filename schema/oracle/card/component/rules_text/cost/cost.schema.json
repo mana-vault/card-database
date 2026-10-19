@@ -6,6 +6,7 @@
     { "$ref": "no_cost.schema.json" },
     { "$ref": "mana_cost.schema.json" },
     { "$ref": "pay_life.schema.json" },
+    { "$ref": "loyalty_cost.schema.json" },
     { "$ref": "action_cost.schema.json" },
     { "$ref": "composite_cost.schema.json" }
   ]

@@ -3,6 +3,7 @@
   "title": "Target subject",
   "oneOf": [
     { "$ref": "any_target.schema.json" },
+    { "$ref": "any_of.schema.json" },
     { "$ref": "player_target.schema.json" },
     { "$ref": "object_target.schema.json" },
     { "$ref": "stack_target.schema.json" }
