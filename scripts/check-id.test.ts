@@ -74,6 +74,10 @@ function sound(): Tree {
       list(["common", "Common"], ["rare", "Rare"]),
     ],
     [
+      "data/print/component/platform.json",
+      list(["paper", "Paper"], ["magic_online", "Magic Online"]),
+    ],
+    [
       "data/set/sta.json",
       {
         set_code: "STA",
@@ -118,6 +122,7 @@ function sound(): Tree {
         lang: "ja",
         number: "105",
         rarity: "rare",
+        platforms: ["paper"],
       },
     ],
     [
@@ -574,6 +579,14 @@ test("a print whose rarity has no component ID is reported", () => {
   );
 });
 
+test("a print whose platform has no component ID is reported", () => {
+  const tree = sound();
+  at(tree, "data/print/ja/sta/105.json").platforms = ["cardboard"];
+  expect(problemsOf(tree)).toContain(
+    "platforms: cardboard is not an id in data/print/component/platform.json",
+  );
+});
+
 test("prints of a card may have different rarities in different sets", () => {
   const tree = sound();
   tree.set("data/set/mkm.json", {
@@ -587,6 +600,7 @@ test("prints of a card may have different rarities in different sets", () => {
     lang: "en",
     number: "1",
     rarity: "common",
+    platforms: ["paper", "magic_online"],
   });
   expect(check(tree)).toEqual([]);
 });

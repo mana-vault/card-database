@@ -4,5 +4,6 @@
   "lang": "en",
   "number": "42",
   "rarity": "rare",
+  "platforms": ["paper", "magic_online"],
   "artist": "Anato Finnstark"
 }

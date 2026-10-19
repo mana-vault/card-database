@@ -261,6 +261,7 @@ export function check(files: FileTree): string[] {
     if (!cardIds.has(cardID)) add(path, `the card ${cardID} has no file`);
     if (!setCodes.has(setCode)) add(path, `the set ${setCode} has no file`);
     known(path, "print/rarity", rarity);
+    checkValues(path, "platforms", "print/platform", print.platforms);
     if (match[1] !== lang)
       add(path, `the language folder does not match ${lang}`);
     if (match[2] !== setCode.toLowerCase())
