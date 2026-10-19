@@ -40,9 +40,9 @@ What one language's paper shows is held as a `translation`: the pair of the thin
 values and the language, writing only the values that differ from the English. The values on a paper
 come from laying that language's `translation` over the English values.
 
-A card's `translation` keeps the parts of the type line and one entry per ability, so each translated
-value stays tied to the part it translates. Values that no language changes, such as power and
-toughness, are not repeated.
+A card's `translation` records the supertypes, card types, and subtypes of its type line in separate
+fields, and its rules text in one entry per ability. The Japanese values of Lightning Bolt, for
+example, record `インスタント` as its card type and its rules text under the `spell` ability.
 
 Two kinds of thing own values so far: the `card`, and the set. A set's name too differs per
 language: Strixhaven Mystical Archive is `ミスティカルアーカイブ` in Japanese.

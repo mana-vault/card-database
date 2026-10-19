@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Translation of a card",
-  "description": "A file in data/translation/card/, such as data/translation/card/li/lightning-bolt/ja.json. The values of one card as one language prints them, written only where they differ from the English. The type line keeps the parts of the card's type line, and the rules text keeps one entry per ability, so each value stays tied to the part it translates.",
+  "description": "A file in data/translation/card/, such as data/translation/card/li/lightning-bolt/ja.json. The values of one card as one language prints them, written only where they differ from the English. The type line keeps its supertypes, card types, and subtypes, and the rules text keeps one entry per ability.",
   "type": "object",
   "additionalProperties": false,
   "required": ["lang", "card_id"],
@@ -38,7 +38,7 @@
     "type_line": {
       "type": "object",
       "additionalProperties": false,
-      "description": "The parts of the type line as this language prints them.",
+      "description": "The supertypes, card types, and subtypes as this language prints them.",
       "properties": {
         "supertypes": {
           "type": "array",
