@@ -71,8 +71,8 @@ data/
     en/
       card/
         component/
-          layout.json
-          rarity.json
+          type_line/
+          ability/
           ...
         entity/sta/42.json
       set/sta.json
@@ -90,9 +90,9 @@ data/
 
 #### コンポーネントの一覧
 
-`data/oracle/card/component/` に、コンポーネントの種類ごとに一覧を置きます。各項目は、カードやプリントのデータが参照する id を持ちます。その id に対応する言葉は、`data/print/<lang>/card/component/` の下にある、その言語の名称の一覧に収録します。形式は同じで、id と値の組です。
+`data/oracle/card/component/` に、コンポーネントの種類ごとに一覧を置き、媒体の一覧を `data/platform.json` に置きます。各項目は、カードやプリントのデータが参照する id だけを持ち、一覧は id の一覧です。
 
-| コンポーネント | ファイル | 値の例 |
+| コンポーネント | ファイル | 公式の用語 |
 | --- | --- | --- |
 | レイアウト | `layout.json` | `Normal`、`Split`、`Modal double-faced` |
 | 色 | `color.json` | `white`、`blue`、`black`、`red`、`green` |
@@ -106,11 +106,13 @@ data/
 | カウンターの種類 | `counter_type.json` | `+1/+1`、`Loyalty`、`Poison` |
 | レアリティ | `rarity.json` | `Common`、`Rare`、`Mythic rare` |
 
+紙面が示す値の一覧、つまりタイプ行の3つと能力の2つと処理の1つには、言語ごとの名称の一覧を `data/print/<lang>/card/component/` の下に置きます。形式は id と値の組です。そのほかの一覧、レイアウト、色、マナ記号、カウンターの種類、レアリティ、媒体は、紙に印刷されない用語の名指しなので値を持ちません。これらの id に対して API が何を表示するかは、API の役割です。id が名指す用語は、このゲームの他のデータベースでも使われている正式なものです。
+
 タイプ行に使う一覧は `type_line/` に、能力に使う一覧は `ability/` に、処理に使う一覧は `action/` に置きます。サブタイプの各項目には、そのサブタイプを使えるカード・タイプも収録します。`layout.json` はカードのレイアウトを決めます。`color.json`、`mana_symbol.json`、`counter_type.json` は複数の項目に使うため、`component/` の直下に置きます。
 
-Wizards of the Coast が新しい値を定めたときに、その値を一覧に追加します。値を修正しても、対応する id は変えません。
+Wizards of the Coast が新しい値を定めたときに、その id を一覧に加えます。id は一度決めたら変えません。用語を後で訂正しても、id を参照するデータはそのままです。
 
-数字のマナ・シンボルは `mana_symbol.json` に登録せず、その数字を id として使います。
+マナ記号の表記は、id を波括弧で囲んだものです（CR 107.4）。たとえば `{R}` の id は `R` で、数字のマナ記号はその数字を id として使うため、`mana_symbol.json` には登録しません。
 
 #### カード
 
@@ -135,7 +137,7 @@ Wizards of the Coast が新しい値を定めたときに、その値を一覧�
 
 ファイルには、カード名、タイプ行、ルール・テキストを収録します。タイプ行の特殊タイプ、カード・タイプ、サブタイプはそれぞれ別の項目に、ルール・テキストは能力ごとに収録します。《稲妻》のコレクター番号105の日本語版プリントの言葉は、`data/print/ja/card/entity/sta/105.json` に収録します。フレイバー・テキストは再録で変わることがあるため、ここには収録せず、`プリント`に収録します。
 
-コンポーネントの値の言葉と、セットの名前も、カードの言葉の隣に置きます。コンポーネントの名称は `card/component/<一覧名>.json` に、セットの名前は `set/<set_code を小文字にしたもの>.json` に置き、どちらも id とその言語で示す言葉の組を収録します。たとえば、Strixhaven Mystical Archive の日本語名は `data/print/ja/set/sta.json` に収録します。
+紙面が示すコンポーネントの値の言葉（タイプ行と能力の言葉）と、セットの名前も、カードの言葉の隣に置きます。コンポーネントの名称は `card/component/<一覧名>.json` に、セットの名前は `set/<set_code を小文字にしたもの>.json` に置き、どちらも id とその言語で示す言葉の組を収録します。たとえば、Strixhaven Mystical Archive の日本語名は `data/print/ja/set/sta.json` に収録します。
 
 #### セット
 
@@ -205,7 +207,7 @@ schema/
   correction.schema.json
 ```
 
-スキーマの多くは `data/` の構成に対応します。`schema/component.schema.json` は、id と値の組からなる一覧、つまり `data/platform.json` と `data/print/<lang>/card/component/` の名称の一覧を定めます。`schema/oracle/card/component/list.schema.json` は、`data/oracle/card/component/` の id の一覧を定めます。サブタイプの一覧には、そのサブタイプを使えるカード・タイプもあるため、専用スキーマ `schema/oracle/card/component/type_line/subtype.schema.json` を使います。`schema/oracle/card/normal.schema.json` は `data/oracle/card/normal/` のカードを定めます。
+スキーマの多くは `data/` の構成に対応します。`schema/component.schema.json` は、`data/print/<lang>/card/component/` の名称の一覧を定めます。`schema/oracle/card/component/list.schema.json` は、id の一覧、つまり `data/oracle/card/component/` のコンポーネントの一覧と、`data/platform.json` の媒体の一覧を定めます。サブタイプの一覧には、そのサブタイプを使えるカード・タイプもあるため、専用スキーマ `schema/oracle/card/component/type_line/subtype.schema.json` を使います。`schema/oracle/card/normal.schema.json` は `data/oracle/card/normal/` のカードを定めます。
 
 `schema/data.schema.json` では、`data/` にあるファイルの種類ごとに、適用するスキーマを指定します。
 
@@ -215,7 +217,7 @@ schema/
 
 `face.schema.json` はカード1面分の特性、`type_line.schema.json` はタイプ行の形式を定めます。ルール情報の各スキーマは `rules_text/` の下で、概念ごとに分けています。
 
-`schema/component.schema.json` は id と値の組からなる一覧の形式を、`schema/oracle/card/component/list.schema.json` は id の一覧の形式を定めます。一覧の各項目には、id と、対応する値を収録します。
+`schema/component.schema.json` は名称の一覧の形式を、`schema/oracle/card/component/list.schema.json` は id の一覧の形式を定めます。名称の一覧の各項目には、id とその言語で示す言葉を収録します。
 
 #### 言葉
 

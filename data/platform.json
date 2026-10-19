@@ -1,4 +1,4 @@
 [
-  { "id": "paper", "value": "Paper" },
-  { "id": "magic_online", "value": "Magic Online" }
+  { "id": "paper" },
+  { "id": "magic_online" }
 ]

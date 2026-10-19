@@ -61,15 +61,15 @@ function sound(): Tree {
     ],
     ["data/oracle/card/component/type_line/supertype.json", ids("legendary")],
     ["data/oracle/card/component/rarity.json", ids("common", "rare")],
-    ["data/print/en/card/component/color.json", list(["red", "Red"])],
     [
-      "data/print/en/card/component/rarity.json",
-      list(["common", "Common"], ["rare", "Rare"]),
+      "data/print/en/card/component/type_line/card_type.json",
+      list(
+        ["creature", "Creature"],
+        ["instant", "Instant"],
+        ["kindred", "Kindred"],
+      ),
     ],
-    [
-      "data/platform.json",
-      list(["paper", "Paper"], ["magic_online", "Magic Online"]),
-    ],
+    ["data/platform.json", ids("paper", "magic_online")],
     [
       "data/oracle/set/sta.json",
       {
@@ -693,11 +693,11 @@ test("words of a card whose print has no file are reported", () => {
 test("a component name for an id that has no catalog entry is reported", () => {
   const tree = sound();
   tree.set(
-    "data/print/en/card/component/rarity.json",
-    list(["common", "Common"], ["mythic", "Mythic"]),
+    "data/print/en/card/component/type_line/card_type.json",
+    list(["creature", "Creature"], ["mystic", "Mystic"]),
   );
   expect(problemsOf(tree)).toContain(
-    "mythic is not an id in data/oracle/card/component/rarity.json",
+    "mystic is not an id in data/oracle/card/component/type_line/card_type.json",
   );
 });
 
