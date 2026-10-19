@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Attack event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind"],
+  "properties": {
+    "kind": { "enum": ["attacks", "becomes_blocked"] },
+    "subject": { "$ref": "../../target/target_subject.schema.json" }
+  }
+}

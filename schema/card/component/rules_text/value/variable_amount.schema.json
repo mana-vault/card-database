@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Variable amount",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "variable"],
+  "properties": {
+    "kind": { "const": "variable" },
+    "variable": { "enum": ["X", "Y"] }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Subjects argument",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "subjects"],
+  "properties": {
+    "kind": { "const": "subjects" },
+    "subjects": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "../../../target/target_subject.schema.json" }
+    }
+  }
+}

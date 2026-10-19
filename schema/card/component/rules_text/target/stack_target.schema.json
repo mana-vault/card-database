@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Stack target",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind"],
+  "properties": {
+    "kind": { "const": "stack_object" },
+    "controller": { "enum": ["you", "opponent", "any_player"] },
+    "card_type_ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[a-z0-9]+(_[a-z0-9]+)*$" }
+    }
+  }
+}

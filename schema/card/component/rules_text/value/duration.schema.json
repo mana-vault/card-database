@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Duration",
+  "oneOf": [
+    { "$ref": "durations/indefinite.schema.json" },
+    { "$ref": "durations/turn_boundary.schema.json" },
+    { "$ref": "durations/while_condition.schema.json" }
+  ]
+}

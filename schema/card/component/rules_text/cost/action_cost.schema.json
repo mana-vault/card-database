@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Action cost",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "action_id", "arguments"],
+  "properties": {
+    "kind": { "const": "action" },
+    "action_id": { "type": "string", "pattern": "^[a-z0-9]+(_[a-z0-9]+)*$" },
+    "arguments": { "$ref": "../effect/operation/keyword_action_arguments.schema.json" }
+  }
+}

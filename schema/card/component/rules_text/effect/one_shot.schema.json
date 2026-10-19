@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "One-shot effect",
+  "description": "An effect that happens once and has no duration (CR 610).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "operation"],
+  "properties": {
+    "kind": { "const": "one_shot" },
+    "operation": { "$ref": "operation/operation.schema.json" }
+  }
+}

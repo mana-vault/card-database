@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Mana-symbol token",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "mana_symbol_id"],
+  "properties": {
+    "kind": { "const": "mana_symbol" },
+    "mana_symbol_id": { "type": "string", "pattern": "^[^\\s{}]+$" }
+  }
+}

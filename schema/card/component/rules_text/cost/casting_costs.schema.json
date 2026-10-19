@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Casting costs",
+  "description": "Additional and alternative costs associated with casting a spell (CR 118.8–118.9). These are separate from its mana-cost characteristic and from its resolving effects.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "additional": { "type": "array", "items": { "$ref": "cost.schema.json" } },
+    "alternative": { "type": "array", "items": { "$ref": "cost.schema.json" } }
+  }
+}

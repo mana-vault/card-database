@@ -4,12 +4,18 @@ Structured card data for Magic: The Gathering, published as plain JSON files.
 
 Translations: [日本語](docs/ja/readme.md)
 
-The data has two sides. A `card` is the object as the game's rules define it: name, mana cost,
-colors, type line, rules text, and each face for multi-faced cards, in English only. A `print` is
-one appearance of a `card` in a product: set, collector number, language, rarity, and artwork —
-plus the name and texts as actually printed for its language, carried as plain fields of the `print`
-whenever they differ from the canonical English. Every `print` references the `card` it belongs to.
-The schema and the file formats are documented in [`docs/en/design.md`](docs/en/design.md).
+The data comes in three kinds.
+
+- A `card` is the object as the game's rules define it: its name, mana cost, type line, rules text,
+  and each face of a multi-faced card, in English only.
+- A `translation` holds the values of one language's paper, written only where they differ from the
+  English.
+- A `print` is one appearance of a `card` in a product: set, collector number, language, rarity, and
+  the artist.
+
+Every `print` references the `card` it belongs to, and the values on its paper are put together from
+the `card` and that language's `translation`. The schema and the file formats are documented in
+[`docs/en/design.md`](docs/en/design.md).
 
 See [CONTRIBUTING](CONTRIBUTING.md) to add or fix card data, and [LICENSE](LICENSE) for what is and
 is not licensed here.

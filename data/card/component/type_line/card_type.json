@@ -1,0 +1,17 @@
+[
+  { "id": "artifact", "value": "Artifact" },
+  { "id": "battle", "value": "Battle" },
+  { "id": "conspiracy", "value": "Conspiracy" },
+  { "id": "creature", "value": "Creature" },
+  { "id": "dungeon", "value": "Dungeon" },
+  { "id": "enchantment", "value": "Enchantment" },
+  { "id": "instant", "value": "Instant" },
+  { "id": "kindred", "value": "Kindred" },
+  { "id": "land", "value": "Land" },
+  { "id": "phenomenon", "value": "Phenomenon" },
+  { "id": "plane", "value": "Plane" },
+  { "id": "planeswalker", "value": "Planeswalker" },
+  { "id": "scheme", "value": "Scheme" },
+  { "id": "sorcery", "value": "Sorcery" },
+  { "id": "vanguard", "value": "Vanguard" }
+]

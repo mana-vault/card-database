@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Damage event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind"],
+  "properties": {
+    "kind": { "const": "damage" },
+    "source": { "$ref": "../../target/target_subject.schema.json" },
+    "recipient": { "$ref": "../../target/target_subject.schema.json" },
+    "combat": { "type": "boolean" }
+  }
+}

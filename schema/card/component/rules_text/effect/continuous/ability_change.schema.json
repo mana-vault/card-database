@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Ability change",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "operation", "keyword_ability_id"],
+  "properties": {
+    "kind": { "const": "ability_change" },
+    "operation": { "enum": ["grant", "remove"] },
+    "keyword_ability_id": { "type": "string", "pattern": "^[a-z0-9]+(_[a-z0-9]+)*$" }
+  }
+}

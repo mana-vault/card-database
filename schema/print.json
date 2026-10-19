@@ -25,7 +25,8 @@
     },
     "rarity": {
       "type": "string",
-      "description": "The rarity of the print."
+      "pattern": "^[a-z0-9]+(_[a-z0-9]+)*$",
+      "description": "The id of a rarity in data/print/component/rarity.json. Rarity belongs to this print and may differ between prints of the same card."
     },
     "artist": {
       "type": "string",

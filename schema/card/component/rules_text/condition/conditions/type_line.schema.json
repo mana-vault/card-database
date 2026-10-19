@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Type-line condition",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "subject", "operator"],
+  "properties": {
+    "kind": { "const": "type_line" },
+    "subject": { "$ref": "../../target/target_subject.schema.json" },
+    "operator": { "enum": ["has_any", "has_all", "has_none"] },
+    "card_types": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^[a-z0-9]+(_[a-z0-9]+)*$" } },
+    "subtypes": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^[^\\s{}]+$" } },
+    "supertypes": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^[a-z0-9]+(_[a-z0-9]+)*$" } }
+  },
+  "anyOf": [
+    { "required": ["card_types"] },
+    { "required": ["subtypes"] },
+    { "required": ["supertypes"] }
+  ]
+}

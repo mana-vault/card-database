@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Text change operation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["from", "to"],
+  "properties": {
+    "from": { "$ref": "text_token.schema.json" },
+    "to": { "$ref": "text_token.schema.json" }
+  }
+}

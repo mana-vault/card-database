@@ -1,13 +1,13 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Data",
-  "description": "The schema of every file under data.",
+  "description": "The schema of every file under data. Each file takes the shape of the thing it holds, so this file points at one schema per kind.",
   "oneOf": [
-    { "$ref": "component.json" },
-    { "$ref": "set.json" },
+    { "$ref": "component.schema.json" },
+    { "$ref": "card/component/type_line/subtype.schema.json" },
+    { "$ref": "card/card.schema.json" },
+    { "$ref": "translation/translation.schema.json" },
     { "$ref": "print.json" },
-    { "$ref": "card/normal.schema.json" },
-    { "$ref": "translation/normal.schema.json" },
-    { "$ref": "translation/set.schema.json" }
+    { "$ref": "set.json" }
   ]
 }

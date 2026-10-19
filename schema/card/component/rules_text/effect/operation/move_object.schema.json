@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Move object",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "subject", "destination"],
+  "properties": {
+    "kind": { "const": "move_object" },
+    "subject": { "$ref": "../../target/target_subject.schema.json" },
+    "destination": { "enum": ["battlefield", "stack", "graveyard", "exile", "hand", "library", "ante", "command"] },
+    "owner_controls": { "type": "boolean" },
+    "tapped": { "type": "boolean" }
+  }
+}

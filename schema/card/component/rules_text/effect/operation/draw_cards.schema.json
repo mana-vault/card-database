@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Draw cards",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "amount", "player"],
+  "properties": {
+    "kind": { "const": "draw_cards" },
+    "amount": { "$ref": "../../value/amount.schema.json" },
+    "player": { "enum": ["you", "target_player", "each_player"] }
+  }
+}

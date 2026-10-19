@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Condition-bound duration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "condition"],
+  "properties": {
+    "kind": { "const": "while_condition" },
+    "condition": { "$ref": "../../condition/condition.schema.json" }
+  }
+}

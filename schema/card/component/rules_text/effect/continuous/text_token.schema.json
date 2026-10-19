@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Rule-text token",
+  "oneOf": [
+    { "$ref": "text_tokens/card_type.schema.json" },
+    { "$ref": "text_tokens/subtype.schema.json" },
+    { "$ref": "text_tokens/supertype.schema.json" },
+    { "$ref": "text_tokens/color.schema.json" },
+    { "$ref": "text_tokens/mana_symbol.schema.json" },
+    { "$ref": "text_tokens/card_name.schema.json" }
+  ]
+}

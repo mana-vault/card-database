@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Mode",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["mode_id", "body"],
+  "properties": {
+    "mode_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9_-]*$"
+    },
+    "additional_cost": { "$ref": "../cost/cost.schema.json" },
+    "body": { "$ref": "body.schema.json" }
+  }
+}

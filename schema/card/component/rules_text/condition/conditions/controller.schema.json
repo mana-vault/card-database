@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Controller condition",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "subject", "relation"],
+  "properties": {
+    "kind": { "const": "controller" },
+    "subject": { "$ref": "../../target/target_subject.schema.json" },
+    "relation": { "enum": ["you", "opponent", "any_player", "same_controller"] }
+  }
+}

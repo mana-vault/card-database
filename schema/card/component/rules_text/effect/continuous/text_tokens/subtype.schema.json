@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Subtype token",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "subtype_id"],
+  "properties": {
+    "kind": { "const": "subtype" },
+    "subtype_id": { "type": "string", "pattern": "^[^\\s{}]+$" }
+  }
+}

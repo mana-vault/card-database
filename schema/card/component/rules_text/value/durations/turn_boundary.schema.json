@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Turn-boundary duration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "boundary"],
+  "properties": {
+    "kind": { "const": "turn_boundary" },
+    "boundary": { "enum": ["end_of_turn", "end_of_combat", "beginning_of_next_end_step"] }
+  }
+}

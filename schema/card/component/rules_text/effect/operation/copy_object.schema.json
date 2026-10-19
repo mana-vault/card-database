@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Copy object",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "source", "amount"],
+  "properties": {
+    "kind": { "const": "copy_object" },
+    "source": { "$ref": "../../target/target_subject.schema.json" },
+    "amount": { "$ref": "../../value/amount.schema.json" },
+    "token": { "type": "boolean" }
+  }
+}

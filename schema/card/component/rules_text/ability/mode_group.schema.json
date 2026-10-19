@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Mode selection",
+  "description": "A choice among modes of a spell or ability (CR 700.2). A mode is an ability-body construct, not an effect class.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "mode_group_id", "selection", "modes"],
+  "properties": {
+    "kind": { "const": "mode_selection" },
+    "mode_group_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9_-]*$"
+    },
+    "selection": { "$ref": "mode_selection.schema.json" },
+    "modes": {
+      "type": "array",
+      "minItems": 2,
+      "items": { "$ref": "mode.schema.json" }
+    }
+  }
+}

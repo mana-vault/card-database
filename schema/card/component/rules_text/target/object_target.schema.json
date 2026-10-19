@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Object target",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "zones"],
+  "properties": {
+    "kind": { "const": "object" },
+    "zones": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": ["battlefield", "stack", "graveyard", "exile", "hand", "library", "ante", "command"]
+      }
+    },
+    "controller": { "enum": ["you", "opponent", "any_player"] },
+    "type_line": { "$ref": "type_line_filter.schema.json" }
+  }
+}

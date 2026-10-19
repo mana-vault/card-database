@@ -1,0 +1,7 @@
+[
+  { "id": "basic", "value": "Basic" },
+  { "id": "legendary", "value": "Legendary" },
+  { "id": "ongoing", "value": "Ongoing" },
+  { "id": "snow", "value": "Snow" },
+  { "id": "world", "value": "World" }
+]

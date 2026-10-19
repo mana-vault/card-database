@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Characteristic comparison",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "subject", "characteristic", "operator", "value"],
+  "properties": {
+    "kind": { "const": "statistic" },
+    "subject": { "$ref": "../../target/target_subject.schema.json" },
+    "characteristic": { "enum": ["power", "toughness", "loyalty", "defense", "mana_value"] },
+    "operator": { "enum": ["equal", "not_equal", "greater_than", "less_than", "at_least", "at_most"] },
+    "value": { "$ref": "../../value/amount.schema.json" }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Component list",
+  "description": "One vocabulary list under data/card/component/ or data/print/component/. Each entry pairs an id with its English value. IDs are unique within a list and do not change when a value is corrected.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["id", "value"],
+    "properties": {
+      "id": {
+        "type": "string",
+        "pattern": "^[^\\s{}]+$",
+        "description": "The stable identifier referenced by card or print data."
+      },
+      "value": {
+        "type": "string",
+        "description": "The value named by Wizards of the Coast."
+      }
+    }
+  }
+}

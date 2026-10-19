@@ -1,0 +1,6 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Card",
+  "description": "A file in data/card/, such as data/card/normal/li/lightning-bolt.json. A card is the unit this database looks at, and the shape of its values is fixed by its layout, so this file points at one schema per layout.",
+  "oneOf": [{ "$ref": "normal.schema.json" }]
+}

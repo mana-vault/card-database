@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Supertype token",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "supertype_id"],
+  "properties": {
+    "kind": { "const": "supertype" },
+    "supertype_id": { "type": "string", "pattern": "^[a-z0-9]+(_[a-z0-9]+)*$" }
+  }
+}

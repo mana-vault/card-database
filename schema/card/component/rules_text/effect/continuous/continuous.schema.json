@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Continuous effect",
+  "description": "An effect with a fixed or indefinite duration. Its rule-defined form is nested below it (CR 611).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "form"],
+  "properties": {
+    "kind": { "const": "continuous" },
+    "duration": { "$ref": "../../value/duration.schema.json" },
+    "form": { "$ref": "form.schema.json" }
+  }
+}

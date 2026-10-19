@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Game event",
+  "oneOf": [
+    { "$ref": "events/zone_change.schema.json" },
+    { "$ref": "events/damage.schema.json" },
+    { "$ref": "events/cast_spell.schema.json" },
+    { "$ref": "events/attack.schema.json" },
+    { "$ref": "events/becomes_target.schema.json" },
+    { "$ref": "events/step_begins.schema.json" },
+    { "$ref": "events/counter_change.schema.json" },
+    { "$ref": "events/life_change.schema.json" },
+    { "$ref": "events/keyword_action.schema.json" }
+  ]
+}

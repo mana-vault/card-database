@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Text-changing effect",
+  "description": "A continuous effect that changes an object's rules text or type-line text (CR 612).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "subjects", "changes"],
+  "properties": {
+    "kind": { "const": "text_change" },
+    "subjects": { "type": "array", "minItems": 1, "items": { "$ref": "../../target/target_subject.schema.json" } },
+    "changes": { "type": "array", "minItems": 1, "items": { "$ref": "text_change_operation.schema.json" } }
+  }
+}

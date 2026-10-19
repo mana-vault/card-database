@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Ability",
+  "description": "One card-specific ability, classified by the four general ability classes in CR 113.3. A keyword ability is a reference on an ability, not a fifth class.",
+  "oneOf": [
+    { "$ref": "spell.schema.json" },
+    { "$ref": "activated.schema.json" },
+    { "$ref": "triggered.schema.json" },
+    { "$ref": "static.schema.json" }
+  ]
+}

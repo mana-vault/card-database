@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Life-change event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind"],
+  "properties": {
+    "kind": { "enum": ["gains_life", "loses_life"] },
+    "player": { "$ref": "../../target/target_subject.schema.json" }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Keyword-action arguments",
+  "oneOf": [
+    { "$ref": "keyword_action_arguments/none.schema.json" },
+    { "$ref": "keyword_action_arguments/amount.schema.json" },
+    { "$ref": "keyword_action_arguments/subject.schema.json" },
+    { "$ref": "keyword_action_arguments/subjects.schema.json" },
+    { "$ref": "keyword_action_arguments/amount_subject.schema.json" },
+    { "$ref": "keyword_action_arguments/zone.schema.json" },
+    { "$ref": "keyword_action_arguments/token.schema.json" }
+  ]
+}

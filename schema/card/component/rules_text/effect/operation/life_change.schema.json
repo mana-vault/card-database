@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Life change",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "direction", "amount", "player"],
+  "properties": {
+    "kind": { "const": "life_change" },
+    "direction": { "enum": ["gain", "lose"] },
+    "amount": { "$ref": "../../value/amount.schema.json" },
+    "player": { "enum": ["you", "target_player", "each_player", "each_opponent"] }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Keyword action",
+  "description": "A CR 701 action used as a typed game operation, not a prose string.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "action_id", "arguments"],
+  "properties": {
+    "kind": { "const": "keyword_action" },
+    "action_id": { "type": "string", "pattern": "^[a-z0-9]+(_[a-z0-9]+)*$" },
+    "arguments": { "$ref": "keyword_action_arguments.schema.json" }
+  }
+}

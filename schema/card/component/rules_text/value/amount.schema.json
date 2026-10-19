@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Amount",
+  "oneOf": [
+    { "$ref": "fixed_amount.schema.json" },
+    { "$ref": "variable_amount.schema.json" },
+    { "$ref": "characteristic_amount.schema.json" },
+    { "$ref": "calculation.schema.json" }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Zone argument",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "zone"],
+  "properties": {
+    "kind": { "const": "zone" },
+    "zone": { "enum": ["battlefield", "stack", "graveyard", "exile", "hand", "library", "ante", "command"] }
+  }
+}

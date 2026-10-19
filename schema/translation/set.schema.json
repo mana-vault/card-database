@@ -20,32 +20,8 @@
     },
     "history": {
       "type": "array",
-      "description": "Records of official corrections to this translation. Appended only.",
-      "items": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": ["target", "was", "corrected_at"],
-        "properties": {
-          "target": {
-            "type": "object",
-            "additionalProperties": false,
-            "required": ["field"],
-            "properties": {
-              "field": { "type": "string" },
-              "face": {
-                "type": "integer",
-                "minimum": 0
-              }
-            }
-          },
-          "was": { "type": "string" },
-          "note": { "type": "string" },
-          "corrected_at": {
-            "type": "string",
-            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
-          }
-        }
-      }
+      "description": "Records of official corrections to this translation. Appended only; past records are never rewritten.",
+      "items": { "$ref": "../correction.schema.json" }
     }
   }
 }

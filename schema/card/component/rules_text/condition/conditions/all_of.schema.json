@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "All conditions",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "conditions"],
+  "properties": {
+    "kind": { "const": "all_of" },
+    "conditions": { "type": "array", "minItems": 2, "items": { "$ref": "../condition.schema.json" } }
+  }
+}

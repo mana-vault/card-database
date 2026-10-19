@@ -11,8 +11,8 @@ documents in `docs/`. A contribution touches one of the areas:
 
 | Area | What it involves |
 | --- | --- |
-| `card` data | write a card file such as `data/card/li/lightning-bolt.json`. The lists in `data/component/` hold the values that a `card` references by id. |
-| `print` data | one file per print, such as `data/print/ja/mh3/170.json`. The set of the print must be registered already. |
+| `card` | write a card file such as `data/card/normal/li/lightning-bolt.json`. The lists in `data/card/component/` hold the values that a `card` references by id. |
+| `print` | one file per print, such as `data/print/ja/sta/105.json`. The set of the print must be registered already. |
 | Official corrections | when Wizards of the Coast publishes a correction, fix the values and append a record to the object's `history`. The record follows the schema. |
 | Schemas and docs | changes under `schema/` or `docs/`. If the design of the change is not settled, raise an issue first. |
 
@@ -41,6 +41,10 @@ the Wizards of the Coast [Fan Content Policy](https://company.wizards.com/en/leg
 and the applicable laws of each jurisdiction. See [LICENSE](LICENSE) for what is and is not licensed
 here.
 
-In every pull request and issue, you must confirm, using the checkboxes in the templates, that you
-waive copyright and related rights in your contribution, including moral rights to the extent
-recognized under applicable law, and that your contribution respects the Fan Content Policy.
+In every pull request and issue, you must confirm, using the checkboxes in the templates, the two
+points below.
+
+1. You waive copyright and related rights in your contribution, including moral rights to the extent
+   recognized under applicable law, or agree not to exercise or assert them. Where a right cannot be
+   waived, the fallback grant in CC0 section 3 applies.
+2. Your contribution respects the Fan Content Policy.

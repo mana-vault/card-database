@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Any target",
+  "description": "A creature, player, planeswalker, or battle legal under the phrase 'any target' (CR 115.4).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind"],
+  "properties": { "kind": { "const": "any_target" } }
+}

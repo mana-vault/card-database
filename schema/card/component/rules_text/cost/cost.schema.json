@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Cost",
+  "description": "A typed cost expression (CR 118). Casting-cost roles and activation-cost roles are defined by the ability or mode that owns the cost.",
+  "oneOf": [
+    { "$ref": "no_cost.schema.json" },
+    { "$ref": "mana_cost.schema.json" },
+    { "$ref": "pay_life.schema.json" },
+    { "$ref": "action_cost.schema.json" },
+    { "$ref": "composite_cost.schema.json" }
+  ]
+}

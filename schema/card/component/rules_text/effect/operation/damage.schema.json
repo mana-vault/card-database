@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Deal damage",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "amount", "target_ref"],
+  "properties": {
+    "kind": { "const": "deal_damage" },
+    "amount": { "$ref": "../../value/amount.schema.json" },
+    "target_ref": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_-]*$" }
+  }
+}

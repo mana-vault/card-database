@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Composite cost",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "operator", "costs"],
+  "properties": {
+    "kind": { "const": "composite" },
+    "operator": { "enum": ["all_of", "one_of"] },
+    "costs": { "type": "array", "minItems": 2, "items": { "$ref": "cost.schema.json" } }
+  }
+}

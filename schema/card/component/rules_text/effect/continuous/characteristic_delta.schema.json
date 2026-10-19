@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Characteristic change",
+  "oneOf": [
+    { "$ref": "power_toughness_delta.schema.json" },
+    { "$ref": "power_toughness_set.schema.json" },
+    { "$ref": "color_change.schema.json" },
+    { "$ref": "type_line_change.schema.json" },
+    { "$ref": "ability_change.schema.json" }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Ability body",
+  "description": "A semantic sequence of effects and mode choices. Sequence order is retained where it changes how instructions resolve; printed line order is not stored.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["steps"],
+  "properties": {
+    "targets": {
+      "type": "array",
+      "items": { "$ref": "../target/target.schema.json" }
+    },
+    "steps": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "step.schema.json" }
+    }
+  }
+}

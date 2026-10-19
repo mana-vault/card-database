@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Token definition",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["type_line"],
+  "properties": {
+    "name": { "type": "string" },
+    "color_ids": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^[a-z0-9]+(_[a-z0-9]+)*$" } },
+    "type_line": { "$ref": "../../../type_line.schema.json" },
+    "power": { "$ref": "../../value/amount.schema.json" },
+    "toughness": { "$ref": "../../value/amount.schema.json" },
+    "keyword_ability_ids": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^[a-z0-9]+(_[a-z0-9]+)*$" } }
+  }
+}

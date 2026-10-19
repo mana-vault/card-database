@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Rules text",
+  "description": "The rule-defined abilities of one face, stored as semantic data rather than as a rendered text block. Left out when the face has no abilities. Referenced from card/component/face.schema.json.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["abilities"],
+  "properties": {
+    "abilities": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "ability/ability.schema.json" }
+    }
+  }
+}

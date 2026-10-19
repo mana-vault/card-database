@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Event condition",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "event"],
+  "properties": {
+    "kind": { "const": "event_occurs" },
+    "event": { "$ref": "../event.schema.json" }
+  }
+}

@@ -1,0 +1,10 @@
+[
+  { "id": "plus_one_plus_one", "value": "+1/+1" },
+  { "id": "minus_one_minus_one", "value": "-1/-1" },
+  { "id": "loyalty", "value": "Loyalty" },
+  { "id": "poison", "value": "Poison" },
+  { "id": "time", "value": "Time" },
+  { "id": "charge", "value": "Charge" },
+  { "id": "lore", "value": "Lore" },
+  { "id": "energy", "value": "Energy" }
+]

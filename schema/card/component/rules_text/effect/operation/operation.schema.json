@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "One-shot operation",
+  "oneOf": [
+    { "$ref": "damage.schema.json" },
+    { "$ref": "draw_cards.schema.json" },
+    { "$ref": "life_change.schema.json" },
+    { "$ref": "add_mana.schema.json" },
+    { "$ref": "counter_change.schema.json" },
+    { "$ref": "create_token.schema.json" },
+    { "$ref": "move_object.schema.json" },
+    { "$ref": "copy_object.schema.json" },
+    { "$ref": "keyword_action.schema.json" }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Condition",
+  "description": "A rule-defined condition represented as a recursive expression, not prose.",
+  "oneOf": [
+    { "$ref": "conditions/all_of.schema.json" },
+    { "$ref": "conditions/any_of.schema.json" },
+    { "$ref": "conditions/not.schema.json" },
+    { "$ref": "conditions/color.schema.json" },
+    { "$ref": "conditions/type_line.schema.json" },
+    { "$ref": "conditions/zone.schema.json" },
+    { "$ref": "conditions/controller.schema.json" },
+    { "$ref": "conditions/statistic.schema.json" },
+    { "$ref": "conditions/has_keyword.schema.json" },
+    { "$ref": "conditions/event_occurs.schema.json" }
+  ]
+}

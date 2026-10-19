@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Characteristic amount",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "characteristic", "subject"],
+  "properties": {
+    "kind": { "const": "characteristic" },
+    "characteristic": { "enum": ["power", "toughness", "loyalty", "defense", "mana_value"] },
+    "subject": { "$ref": "../target/target_subject.schema.json" }
+  }
+}

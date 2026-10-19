@@ -1,0 +1,7 @@
+[
+  { "id": "common", "value": "Common" },
+  { "id": "uncommon", "value": "Uncommon" },
+  { "id": "rare", "value": "Rare" },
+  { "id": "mythic_rare", "value": "Mythic rare" },
+  { "id": "special", "value": "Special" }
+]
