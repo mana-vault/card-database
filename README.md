@@ -6,15 +6,15 @@ Translations: [日本語](docs/ja/readme.md)
 
 The data comes in three kinds.
 
-- A `card` is the object as the game's rules define it: its name, mana cost, type line, rules text,
-  and each face of a multi-faced card, in English only.
-- A `translation` holds the values of one language's paper, written only where they differ from the
-  English.
+- A `card` holds the components the game's rules define as structure: its mana cost, colors, type
+  line, and rules text, and each face of a multi-faced card.
+- A language file holds the words one language's paper shows: the name, the type line, the rules
+  text, and the flavor text.
 - A `print` is one appearance of a `card` in a product: set, collector number, language, platform,
   rarity, and the artist.
 
-Every `print` references the `card` it belongs to, and the values on its paper are put together from
-the `card` and that language's `translation`. The schema and the file formats are documented in
+Every `print` references the `card` it belongs to, and the words on its paper are the language
+file's. The schema and the file formats are documented in
 [`docs/en/design.md`](docs/en/design.md).
 
 See [CONTRIBUTING](CONTRIBUTING.md) to add or fix card data, and [LICENSE](LICENSE) for what is and

@@ -21,9 +21,11 @@ colors, a type line, and rules text. The type line is composed of supertypes, ca
 subtypes. Depending on the card type, power and toughness, loyalty, or a battle's defense is added.
 The rules also allow one card to carry several faces or parts.
 
-This database names this collection of components a `card`. A `card` holds the type line and the
-mana cost as their parts, not as printed lines. Its values are English, and its component names
-follow the official rules. No product or language information enters a `card`.
+This database names this collection of components a `card`. A `card` holds them as structure, not as
+printed text: the mana cost and the type line as references to the component lists, and the rules
+text as the concepts the rules name, such as abilities, costs, targets, and effects. The component
+names are the official terms, and the words a paper prints are held per language, under `language/`.
+No product or language information enters a `card`.
 
 Cards come in `layout`s. Most cards are ordinary, and the others carry several faces or parts, such
 as double-faced, split, and adventure cards. A `card` names its `layout` by the id of a value in
@@ -33,19 +35,6 @@ shared as one shape across the `layout`s. An ordinary `card` holds its component
 has its own schema.
 
 A `card` is registered once, and its identity never changes afterwards.
-
-### Translation
-
-What one language's paper shows is held as a `translation`: the pair of the thing that owns the
-values and the language, writing only the values that differ from the English. The values on a paper
-come from laying that language's `translation` over the English values.
-
-A card's `translation` records the supertypes, card types, and subtypes of its type line in separate
-fields, and its rules text in one entry per ability. The Japanese values of Lightning Bolt, for
-example, record `インスタント` as its card type and its rules text under the `spell` ability.
-
-Two kinds of thing own values so far: the `card`, and the set. A set's name too differs per
-language: Strixhaven Mystical Archive is `ミスティカルアーカイブ` in Japanese.
 
 ### Print
 
@@ -92,7 +81,8 @@ data/
       action/
         keyword_action.json
     normal/li/lightning-bolt.json
-  translation/
+  language/
+    card/li/lightning-bolt/en.json
     card/li/lightning-bolt/ja.json
     set/sta/ja.json
   print/
@@ -139,7 +129,6 @@ A card file needs:
 
 - `card_id`
 - `layout`
-- `name`
 - `type_line`
 
 The other values are held when the card has them. A `card` is assembled by referencing the values of
@@ -150,16 +139,20 @@ The first folder of a card file is the `layout`, and below it come the first two
 `card_id`. Lightning Bolt has the `card_id` `lightning-bolt`, so it sits in
 `data/card/normal/li/lightning-bolt.json`.
 
-#### Translations
+#### Language
 
-A `translation` sits under `card/` or `set/`, whichever holds the thing it translates. It needs:
+A language file holds the words one language's paper shows: the name, the type line, the rules
+text, and the flavor text. It sits under `card/` or `set/`, whichever holds the thing it describes.
+It needs:
 
 - `lang`
-- the id of the thing it translates: `card_id` for a card, `set_code` for a set
+- the id of the thing it describes: `card_id` for a card, `set_code` for a set
 
-A card's `translation` uses the same folders as the card: the Japanese values of Lightning Bolt are
-`data/translation/card/li/lightning-bolt/ja.json`. A set's `translation` is one file per set: the
-Japanese values of Strixhaven Mystical Archive are `data/translation/set/sta/ja.json`.
+A card's language file uses the same folders as the card: the Japanese values of Lightning Bolt
+are `data/language/card/li/lightning-bolt/ja.json`. It records the supertypes, card types, and
+subtypes of the type line in separate fields, and the rules text in one entry per ability. A set's
+language file is one file per set: the Japanese values of Strixhaven Mystical Archive are
+`data/language/set/sta/ja.json`.
 
 #### Sets
 
@@ -225,8 +218,8 @@ schema/
         target/
         value/
           durations/
-  translation/
-    translation.schema.json
+  language/
+    language.schema.json
     card.schema.json
     set.schema.json
   print.json
@@ -243,8 +236,8 @@ schema because each subtype also names the card types it can accompany. The layo
 the schema that governs it.
 
 Where the shape of a file depends on something else, another file picks the schema:
-`schema/card/card.schema.json` picks by `layout`, and
-`schema/translation/translation.schema.json` by the thing a `translation` translates.
+`schema/card/card.schema.json` picks by `layout`, and `schema/language/language.schema.json` by the
+thing the values belong to.
 
 #### Cards
 
@@ -254,15 +247,15 @@ line. Under `rules_text/`, schemas are grouped by the rule concept they describe
 `schema/component.schema.json` holds the shape of a component list: an id and its value.
 `type_line/subtype.schema.json` also checks the card types associated with each subtype.
 
-#### Translations
+#### Language
 
-A `translation` has one schema for a card and another for a set:
-`schema/translation/card.schema.json` and `schema/translation/set.schema.json`.
+A language file has one schema for a card and another for a set:
+`schema/language/card.schema.json` and `schema/language/set.schema.json`.
 
 #### The other files
 
 `schema/correction.schema.json` holds one record of an official correction, which a `card`, a
-`print`, and a `translation` append to their `history`. `schema/print.json` and `schema/set.json`
+`print`, and a language file append to their `history`. `schema/print.json` and `schema/set.json`
 govern a `print` and a set.
 
 ## Official corrections

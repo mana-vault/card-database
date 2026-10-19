@@ -7,6 +7,8 @@
   "properties": {
     "kind": { "const": "draw_cards" },
     "amount": { "$ref": "../../value/amount.schema.json" },
-    "player": { "enum": ["you", "target_player", "each_player"] }
+    "player": {
+      "enum": ["you", "target_player", "each_player", "that_player"]
+    }
   }
 }

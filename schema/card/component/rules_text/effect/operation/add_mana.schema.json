@@ -6,7 +6,9 @@
   "required": ["kind", "player", "production"],
   "properties": {
     "kind": { "const": "add_mana" },
-    "player": { "enum": ["you", "target_player", "each_player"] },
+    "player": {
+      "enum": ["you", "target_player", "each_player", "that_player"]
+    },
     "production": { "$ref": "mana_production.schema.json" }
   }
 }

@@ -18,7 +18,7 @@ documents in `docs/`. A contribution touches one of the areas:
 
 ## Process
 
-1. Check what already exists for the `card`, the set, or the `translation` you are about to touch.
+1. Check what already exists for the `card`, the set, or the language values you are about to touch.
 2. Follow `docs/en/design.md` for the file format and where files live, and check the files you
    edit against their schemas under `schema/`.
 3. Open a pull request, referencing the `card_id` or the `set_code`. For a schema or docs change,

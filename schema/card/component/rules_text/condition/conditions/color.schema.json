@@ -3,16 +3,10 @@
   "title": "Color condition",
   "type": "object",
   "additionalProperties": false,
-  "required": ["kind", "subject", "operator", "color_ids"],
+  "required": ["kind", "subject", "color"],
   "properties": {
     "kind": { "const": "color" },
     "subject": { "$ref": "../../target/target_subject.schema.json" },
-    "operator": { "enum": ["has_any", "has_all", "has_none"] },
-    "color_ids": {
-      "type": "array",
-      "minItems": 1,
-      "uniqueItems": true,
-      "items": { "type": "string", "pattern": "^[a-z0-9]+(_[a-z0-9]+)*$" }
-    }
+    "color": { "$ref": "../../target/color_filter.schema.json" }
   }
 }

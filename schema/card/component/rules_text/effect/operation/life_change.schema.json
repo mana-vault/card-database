@@ -8,6 +8,8 @@
     "kind": { "const": "life_change" },
     "direction": { "enum": ["gain", "lose"] },
     "amount": { "$ref": "../../value/amount.schema.json" },
-    "player": { "enum": ["you", "target_player", "each_player", "each_opponent"] }
+    "player": {
+      "enum": ["you", "target_player", "each_player", "each_opponent", "that_player"]
+    }
   }
 }

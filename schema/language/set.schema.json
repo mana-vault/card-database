@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Translation of a set",
-  "description": "A file in data/translation/set/, such as data/translation/set/sta/ja.json. The name of one set as one language prints it, written only where it differs from the English.",
+  "title": "Language values of a set",
+  "description": "A file in data/language/set/, such as data/language/set/sta/ja.json. The name of one set as one language prints it, written only where it differs from the English.",
   "type": "object",
   "additionalProperties": false,
   "required": ["lang", "set_code"],
@@ -12,7 +12,7 @@
     },
     "lang": {
       "type": "string",
-      "description": "The language of this translation, such as ja."
+      "description": "The language of these values, such as ja."
     },
     "name": {
       "type": "string",
@@ -20,7 +20,7 @@
     },
     "history": {
       "type": "array",
-      "description": "Records of official corrections to this translation. Appended only; past records are never rewritten.",
+      "description": "Records of official corrections to these values. Appended only; past records are never rewritten.",
       "items": { "$ref": "../correction.schema.json" }
     }
   }

@@ -11,6 +11,7 @@
       "type": "array",
       "uniqueItems": true,
       "items": { "type": "string", "pattern": "^[a-z0-9]+(_[a-z0-9]+)*$" }
-    }
+    },
+    "color": { "$ref": "color_filter.schema.json" }
   }
 }
