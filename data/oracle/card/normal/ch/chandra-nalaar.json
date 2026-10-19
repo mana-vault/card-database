@@ -1,0 +1,209 @@
+{
+  "card_id": "chandra-nalaar",
+  "layout": "normal",
+  "mana_cost": [
+    "3",
+    "R",
+    "R"
+  ],
+  "type_line": {
+    "card_types": [
+      "planeswalker"
+    ],
+    "subtypes": [
+      "planeswalker_chandra"
+    ]
+  },
+  "loyalty": 6,
+  "rules_text": {
+    "abilities": [
+      {
+        "ability_id": "spark",
+        "kind": "activated",
+        "cost": {
+          "kind": "loyalty",
+          "direction": "add",
+          "amount": {
+            "kind": "fixed",
+            "value": 1
+          }
+        },
+        "body": {
+          "targets": [
+            {
+              "target_id": "spark_target",
+              "subject": {
+                "kind": "any_of",
+                "subjects": [
+                  {
+                    "kind": "player",
+                    "relation": "any_player"
+                  },
+                  {
+                    "kind": "object",
+                    "zones": [
+                      "battlefield"
+                    ],
+                    "type_line": {
+                      "card_types": [
+                        "planeswalker"
+                      ]
+                    }
+                  }
+                ]
+              },
+              "minimum": 1,
+              "maximum": 1
+            }
+          ],
+          "steps": [
+            {
+              "kind": "effect",
+              "effect": {
+                "kind": "one_shot",
+                "operation": {
+                  "kind": "deal_damage",
+                  "amount": {
+                    "kind": "fixed",
+                    "value": 1
+                  },
+                  "target_ref": "spark_target"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "ability_id": "blaze",
+        "kind": "activated",
+        "cost": {
+          "kind": "loyalty",
+          "direction": "remove",
+          "amount": {
+            "kind": "variable",
+            "variable": "X"
+          }
+        },
+        "body": {
+          "targets": [
+            {
+              "target_id": "creature",
+              "subject": {
+                "kind": "object",
+                "zones": [
+                  "battlefield"
+                ],
+                "type_line": {
+                  "card_types": [
+                    "creature"
+                  ]
+                }
+              },
+              "minimum": 1,
+              "maximum": 1
+            }
+          ],
+          "steps": [
+            {
+              "kind": "effect",
+              "effect": {
+                "kind": "one_shot",
+                "operation": {
+                  "kind": "deal_damage",
+                  "amount": {
+                    "kind": "variable",
+                    "variable": "X"
+                  },
+                  "target_ref": "creature"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "ability_id": "inferno",
+        "kind": "activated",
+        "cost": {
+          "kind": "loyalty",
+          "direction": "remove",
+          "amount": {
+            "kind": "fixed",
+            "value": 8
+          }
+        },
+        "body": {
+          "targets": [
+            {
+              "target_id": "inferno_target",
+              "subject": {
+                "kind": "any_of",
+                "subjects": [
+                  {
+                    "kind": "player",
+                    "relation": "any_player"
+                  },
+                  {
+                    "kind": "object",
+                    "zones": [
+                      "battlefield"
+                    ],
+                    "type_line": {
+                      "card_types": [
+                        "planeswalker"
+                      ]
+                    }
+                  }
+                ]
+              },
+              "minimum": 1,
+              "maximum": 1
+            }
+          ],
+          "steps": [
+            {
+              "kind": "effect",
+              "effect": {
+                "kind": "one_shot",
+                "operation": {
+                  "kind": "deal_damage",
+                  "amount": {
+                    "kind": "fixed",
+                    "value": 10
+                  },
+                  "target_ref": "inferno_target"
+                }
+              }
+            },
+            {
+              "kind": "effect",
+              "effect": {
+                "kind": "one_shot",
+                "operation": {
+                  "kind": "deal_damage",
+                  "amount": {
+                    "kind": "fixed",
+                    "value": 10
+                  },
+                  "subject": {
+                    "kind": "object",
+                    "zones": [
+                      "battlefield"
+                    ],
+                    "type_line": {
+                      "card_types": [
+                        "creature"
+                      ]
+                    },
+                    "controller": "that_player"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

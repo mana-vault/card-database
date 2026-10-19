@@ -1,44 +1,172 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Words of a card",
-  "description": "A file in data/print/<lang>/card/entity/, such as data/print/ja/card/entity/sta/105.json. The words one print of a card shows in one language: the name, the type line, and the rules text. The file is keyed by the set and the collector number of the print that shows them. The type line keeps its supertypes, card types, and subtypes, and the rules text keeps one entry per ability. Flavor text is not here: each appearance shows its own, so it belongs to the print.",
-  "type": "object",
-  "additionalProperties": false,
-  "required": ["lang", "card_id", "set_code", "number", "name"],
-  "properties": {
-    "card_id": {
-      "type": "string",
-      "pattern": "^[a-z0-9_-]+$"
+  "description": "A file under data/print/<lang>/card/. The words a paper of this language shows for a card. The words every print of the card shows the same way live in base/entity/, one file per card; a print whose words differ from the base holds its own file at card/<set>/<number>.json, keyed by the print. A card whose layout holds several faces holds the words the same way the card does, in the fields named for the faces. Flavor text is not here: it belongs to the print.",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/base"
     },
-    "lang": {
-      "type": "string",
-      "description": "The language of these words, such as ja."
+    {
+      "$ref": "#/$defs/base_split"
     },
-    "set_code": {
-      "type": "string",
-      "description": "The official code of the product whose print shows these words, such as STA."
+    {
+      "$ref": "#/$defs/exception"
     },
-    "number": {
-      "type": "string",
-      "description": "The collector number of the print that shows these words, as printed; e.g. 170 or 170★."
-    },
-    "name": {
-      "type": "string",
-      "description": "The card name as printed in this language."
-    },
-    "type_line": {
-      "$ref": "#/$defs/type_line"
-    },
-    "rules_text": {
-      "$ref": "#/$defs/rules_text"
-    },
-    "history": {
-      "type": "array",
-      "description": "Records of official corrections to these values. Appended only; past records are never rewritten.",
-      "items": { "$ref": "../correction.schema.json" }
+    {
+      "$ref": "#/$defs/exception_split"
     }
-  },
+  ],
   "$defs": {
+    "base": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "lang",
+        "card_id",
+        "name"
+      ],
+      "properties": {
+        "card_id": {
+          "$ref": "#/$defs/card_id"
+        },
+        "lang": {
+          "$ref": "#/$defs/lang"
+        },
+        "name": {
+          "type": "string",
+          "description": "The card name as printed in this language."
+        },
+        "type_line": {
+          "$ref": "#/$defs/type_line"
+        },
+        "rules_text": {
+          "$ref": "#/$defs/rules_text"
+        },
+        "history": {
+          "$ref": "#/$defs/history"
+        }
+      }
+    },
+    "base_split": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "lang",
+        "card_id",
+        "left",
+        "right"
+      ],
+      "properties": {
+        "card_id": {
+          "$ref": "#/$defs/card_id"
+        },
+        "lang": {
+          "$ref": "#/$defs/lang"
+        },
+        "left": {
+          "$ref": "#/$defs/face_words"
+        },
+        "right": {
+          "$ref": "#/$defs/face_words"
+        },
+        "history": {
+          "$ref": "#/$defs/history"
+        }
+      }
+    },
+    "exception": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "lang",
+        "card_id",
+        "set_code",
+        "number"
+      ],
+      "properties": {
+        "card_id": {
+          "$ref": "#/$defs/card_id"
+        },
+        "lang": {
+          "$ref": "#/$defs/lang"
+        },
+        "set_code": {
+          "type": "string",
+          "description": "The official code of the product whose print shows words of its own, such as STA."
+        },
+        "number": {
+          "type": "string",
+          "description": "The collector number of the print that shows words of its own, as printed; e.g. 170 or 170★."
+        },
+        "name": {
+          "type": "string",
+          "description": "The card name as this print shows it, when it differs from the base."
+        },
+        "type_line": {
+          "$ref": "#/$defs/type_line"
+        },
+        "rules_text": {
+          "$ref": "#/$defs/rules_text"
+        },
+        "history": {
+          "$ref": "#/$defs/history"
+        }
+      }
+    },
+    "exception_split": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "lang",
+        "card_id",
+        "set_code",
+        "number"
+      ],
+      "properties": {
+        "card_id": {
+          "$ref": "#/$defs/card_id"
+        },
+        "lang": {
+          "$ref": "#/$defs/lang"
+        },
+        "set_code": {
+          "type": "string",
+          "description": "The official code of the product whose print shows words of its own, such as STA."
+        },
+        "number": {
+          "type": "string",
+          "description": "The collector number of the print that shows words of its own, as printed; e.g. 170 or 170★."
+        },
+        "left": {
+          "$ref": "#/$defs/face_words"
+        },
+        "right": {
+          "$ref": "#/$defs/face_words"
+        },
+        "history": {
+          "$ref": "#/$defs/history"
+        }
+      }
+    },
+    "face_words": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of this face as printed in this language."
+        },
+        "type_line": {
+          "$ref": "#/$defs/type_line"
+        },
+        "rules_text": {
+          "$ref": "#/$defs/rules_text"
+        }
+      }
+    },
     "type_line": {
       "type": "object",
       "additionalProperties": false,
@@ -47,17 +175,23 @@
         "supertypes": {
           "type": "array",
           "minItems": 1,
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         },
         "card_types": {
           "type": "array",
           "minItems": 1,
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         },
         "subtypes": {
           "type": "array",
           "minItems": 1,
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         }
       }
     },
@@ -65,7 +199,9 @@
       "type": "object",
       "additionalProperties": false,
       "description": "The rules text as this language prints it, one entry per ability of the card.",
-      "required": ["abilities"],
+      "required": [
+        "abilities"
+      ],
       "properties": {
         "abilities": {
           "type": "array",
@@ -73,7 +209,10 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["ability_id", "text"],
+            "required": [
+              "ability_id",
+              "text"
+            ],
             "properties": {
               "ability_id": {
                 "type": "string",
@@ -88,6 +227,21 @@
           }
         }
       }
+    },
+    "history": {
+      "type": "array",
+      "description": "Records of official corrections to these words. Appended only; past records are never rewritten.",
+      "items": {
+        "$ref": "../correction.schema.json"
+      }
+    },
+    "card_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_-]+$"
+    },
+    "lang": {
+      "type": "string",
+      "description": "The language of these words, such as ja."
     }
   }
 }

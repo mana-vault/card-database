@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Set",
-  "description": "A file in data/oracle/set/, one set per file, such as data/oracle/set/mh3.json. The identity of one product. Its name is a word, so it is held per language, under data/print/<lang>/set/. Corrections do not attach to sets.",
+  "description": "A file in data/oracle/set/, one set per file, such as data/oracle/set/mh3.json. The identity of one product. Its name is a word, so it is held per language, under data/print/<lang>/set/base/. Corrections do not attach to sets.",
   "type": "object",
   "additionalProperties": false,
   "required": ["set_code", "released_at"],

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Loyalty cost",
+  "description": "A planeswalker's loyalty cost (CR 606.5). A positive cost adds number of loyalty counters, and a negative one removes them.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "direction", "amount"],
+  "properties": {
+    "kind": { "const": "loyalty" },
+    "direction": {
+      "enum": ["add", "remove"],
+      "description": "add puts counters on the planeswalker, and remove takes them off; the printed +N and −N."
+    },
+    "amount": { "$ref": "../value/amount.schema.json" }
+  }
+}

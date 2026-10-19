@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Words of a set",
-  "description": "A file in data/print/<lang>/set/, such as data/print/ja/set/sta.json. The name of one set as one language prints it.",
+  "description": "A file in data/print/<lang>/set/base/, such as data/print/ja/set/base/sta.json. The name of one set as one language prints it.",
   "type": "object",
   "additionalProperties": false,
   "required": ["lang", "set_code", "name"],

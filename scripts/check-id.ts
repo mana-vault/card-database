@@ -52,16 +52,18 @@ export type FileTree = Map<string, unknown>;
 
 const ORACLE_COMPONENT = /^data\/oracle\/card\/component\/(.+)\.json$/;
 const NAME_COMPONENT =
-  /^data\/print\/([a-z0-9-]+)\/card\/component\/(.+)\.json$/;
+  /^data\/print\/([a-z0-9-]+)\/card\/base\/component\/(.+)\.json$/;
 const PLATFORM = /^data\/platform\.json$/;
 const CARD =
   /^data\/oracle\/card\/(?!component\/)([a-z][a-z0-9_]*)\/([a-z0-9]{2})\/([a-z0-9_-]+)\.json$/;
 const SET = /^data\/oracle\/set\/([a-z0-9]+)\.json$/;
 const PRINT =
-  /^data\/print\/(?!card\/|set\/)([a-z0-9-]+)\/([a-z0-9]+)\/([^/]+)\.json$/;
-const WORDS =
-  /^data\/print\/([a-z0-9-]+)\/card\/entity\/([a-z0-9]+)\/([^/]+)\.json$/;
-const SET_NAME = /^data\/print\/([a-z0-9-]+)\/set\/([a-z0-9]+)\.json$/;
+  /^data\/print\/([a-z0-9-]+)\/set\/(?!base\/)([a-z0-9]+)\/([^/]+)\.json$/;
+const BASE_WORDS =
+  /^data\/print\/([a-z0-9-]+)\/card\/base\/entity\/([a-z0-9]{2})\/([a-z0-9_-]+)\.json$/;
+const EXCEPTION_WORDS =
+  /^data\/print\/([a-z0-9-]+)\/card\/(?!base\/)([a-z0-9]+)\/([^/]+)\.json$/;
+const SET_NAME = /^data\/print\/([a-z0-9-]+)\/set\/base\/([a-z0-9]+)\.json$/;
 
 function componentPath(listName: string): string {
   if (listName === "platform") return "data/platform.json";
@@ -264,23 +266,36 @@ export function check(files: FileTree): string[] {
       add(path, `the file name does not match the code ${code}`);
   }
 
-  const wordsCards = new Map<string, string | undefined>();
+  const baseWords = new Set<string>();
   for (const path of paths) {
-    const match = WORDS.exec(path);
+    const match = BASE_WORDS.exec(path);
     if (!match) continue;
 
     const words = files.get(path);
     if (!isRecord(words)) continue;
-    const setCode = stringField(words, "set_code");
-    const lang = stringField(words, "lang");
-    const number = stringField(words, "number");
     const cardID = stringField(words, "card_id");
-    if (setCode === undefined || lang === undefined || number === undefined)
-      continue;
-    wordsCards.set(`${setCode}|${lang}|${number}`, cardID);
+    const lang = stringField(words, "lang");
+    if (cardID === undefined || lang === undefined) continue;
+    if (!cardIds.has(cardID)) add(path, `the card ${cardID} has no file`);
+    if (match[1] !== lang)
+      add(path, `the language folder does not match ${lang}`);
+    if (match[2] !== cardID.slice(0, 2))
+      add(path, `the folder does not match the id ${cardID}`);
+    if (match[3] !== cardID)
+      add(path, `the file name does not match the id ${cardID}`);
+    baseWords.add(`${lang}|${cardID}`);
+    const visitBase = (value: unknown): void => {
+      if (!isRecord(value)) return;
+      const rulesText = value.rules_text;
+      if (isRecord(rulesText))
+        checkWordsAbilities(path, rulesText, cardID, cardAbilityIds, add);
+      for (const nested of Object.values(value)) visitBase(nested);
+    };
+    visitBase(words);
   }
 
   const printKeys = new Set<string>();
+  const printCards = new Map<string, string>();
   for (const path of paths) {
     const match = PRINT.exec(path);
     if (!match) continue;
@@ -303,10 +318,11 @@ export function check(files: FileTree): string[] {
     const key = `${setCode}|${lang}|${number}`;
     if (printKeys.has(key)) add(path, `the print ${key} appears twice`);
     printKeys.add(key);
+    printCards.set(key, cardID);
     if (!cardIds.has(cardID)) add(path, `the card ${cardID} has no file`);
     if (!setCodes.has(setCode)) add(path, `the set ${setCode} has no file`);
-    if (!wordsCards.has(key))
-      add(path, `the words of the print ${key} have no file`);
+    if (!baseWords.has(`${lang}|${cardID}`))
+      add(path, `the card ${cardID} has no words file in ${lang}`);
     known(path, "card/rarity", rarity);
     checkValues(path, "platforms", "platform", print.platforms);
     if (match[1] !== lang)
@@ -318,7 +334,7 @@ export function check(files: FileTree): string[] {
   }
 
   for (const path of paths) {
-    const match = WORDS.exec(path);
+    const match = EXCEPTION_WORDS.exec(path);
     if (!match) continue;
 
     const words = files.get(path);
@@ -333,7 +349,7 @@ export function check(files: FileTree): string[] {
     if (!setCodes.has(setCode)) add(path, `the set ${setCode} has no file`);
     const key = `${setCode}|${lang}|${number}`;
     if (!printKeys.has(key)) add(path, `the print ${key} has no file`);
-    const printCard = wordsCards.get(key);
+    const printCard = printCards.get(key);
     if (printCard !== undefined && printCard !== cardID)
       add(
         path,
@@ -346,23 +362,14 @@ export function check(files: FileTree): string[] {
     if (match[3] !== number)
       add(path, `the file name does not match the number ${number}`);
 
-    const rulesText = words.rules_text;
-    if (isRecord(rulesText)) {
-      const seen = new Set<string>();
-      for (const ability of records(rulesText.abilities)) {
-        const abilityID = stringField(ability, "ability_id");
-        if (abilityID === undefined) continue;
-        if (seen.has(abilityID))
-          add(path, `the ability id ${abilityID} appears twice`);
-        seen.add(abilityID);
-        if (!(cardAbilityIds.get(cardID) ?? new Set()).has(abilityID)) {
-          add(
-            path,
-            `rules_text: ${abilityID} is not an ability of card ${cardID}`,
-          );
-        }
-      }
-    }
+    const visitWords = (value: unknown): void => {
+      if (!isRecord(value)) return;
+      const rulesText = value.rules_text;
+      if (isRecord(rulesText))
+        checkWordsAbilities(path, rulesText, cardID, cardAbilityIds, add);
+      for (const nested of Object.values(value)) visitWords(nested);
+    };
+    visitWords(words);
   }
 
   for (const path of paths) {
@@ -394,7 +401,8 @@ export function check(files: FileTree): string[] {
       CARD.test(path) ||
       SET.test(path) ||
       PRINT.test(path) ||
-      WORDS.test(path) ||
+      BASE_WORDS.test(path) ||
+      EXCEPTION_WORDS.test(path) ||
       SET_NAME.test(path);
     if (path.startsWith("data/") && !knownPath)
       add(path, "no layer of data/ covers this file");
@@ -519,6 +527,27 @@ function checkCardFaces(
   };
 
   visit(card, "");
+}
+
+/** Check the words of one face: the ability ids must match the card's abilities. */
+function checkWordsAbilities(
+  path: string,
+  rulesText: JsonRecord,
+  cardID: string,
+  cardAbilityIds: Map<string, Set<string>>,
+  add: (path: string, message: string) => void,
+): void {
+  const seen = new Set<string>();
+  for (const ability of records(rulesText.abilities)) {
+    const abilityID = stringField(ability, "ability_id");
+    if (abilityID === undefined) continue;
+    if (seen.has(abilityID))
+      add(path, `the ability id ${abilityID} appears twice`);
+    seen.add(abilityID);
+    if (!(cardAbilityIds.get(cardID) ?? new Set()).has(abilityID)) {
+      add(path, `rules_text: ${abilityID} is not an ability of card ${cardID}`);
+    }
+  }
 }
 
 function checkAbilities(

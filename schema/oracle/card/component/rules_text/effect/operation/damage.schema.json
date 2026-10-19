@@ -3,10 +3,18 @@
   "title": "Deal damage",
   "type": "object",
   "additionalProperties": false,
-  "required": ["kind", "amount", "target_ref"],
+  "required": ["kind", "amount"],
   "properties": {
     "kind": { "const": "deal_damage" },
     "amount": { "$ref": "../../value/amount.schema.json" },
-    "target_ref": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_-]*$" }
-  }
+    "target_ref": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_-]*$" },
+    "subject": {
+      "description": "A description of everything that takes the damage, when the recipients are not a declared target: the 'each creature that player controls' of the rules text.",
+      "$ref": "../../target/target_subject.schema.json"
+    }
+  },
+  "anyOf": [
+    { "required": ["target_ref"] },
+    { "required": ["subject"] }
+  ]
 }
