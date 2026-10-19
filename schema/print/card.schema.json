@@ -10,10 +10,16 @@
       "$ref": "#/$defs/base_split"
     },
     {
+      "$ref": "#/$defs/base_front_back"
+    },
+    {
       "$ref": "#/$defs/exception"
     },
     {
       "$ref": "#/$defs/exception_split"
+    },
+    {
+      "$ref": "#/$defs/exception_front_back"
     }
   ],
   "$defs": {
@@ -242,6 +248,68 @@
     "lang": {
       "type": "string",
       "description": "The language of these words, such as ja."
+    },
+    "base_front_back": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "lang",
+        "card_id",
+        "front",
+        "back"
+      ],
+      "properties": {
+        "card_id": {
+          "$ref": "#/$defs/card_id"
+        },
+        "lang": {
+          "$ref": "#/$defs/lang"
+        },
+        "front": {
+          "$ref": "#/$defs/face_words"
+        },
+        "back": {
+          "$ref": "#/$defs/face_words"
+        },
+        "history": {
+          "$ref": "#/$defs/history"
+        }
+      }
+    },
+    "exception_front_back": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "lang",
+        "card_id",
+        "set_code",
+        "number"
+      ],
+      "properties": {
+        "card_id": {
+          "$ref": "#/$defs/card_id"
+        },
+        "lang": {
+          "$ref": "#/$defs/lang"
+        },
+        "front": {
+          "$ref": "#/$defs/face_words"
+        },
+        "back": {
+          "$ref": "#/$defs/face_words"
+        },
+        "history": {
+          "$ref": "#/$defs/history"
+        },
+        "set_code": {
+          "type": "string",
+          "description": "The official code of the product whose print shows words of its own, such as STA."
+        },
+        "number": {
+          "type": "string",
+          "description": "The collector number of the print that shows words of its own, as printed; e.g. 170 or 170★."
+        }
+      }
     }
   }
 }

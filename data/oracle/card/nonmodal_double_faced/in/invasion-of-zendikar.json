@@ -1,0 +1,204 @@
+{
+  "card_id": "invasion-of-zendikar",
+  "layout": "nonmodal_double_faced",
+  "front": {
+    "defense": 3,
+    "type_line": {
+      "card_types": [
+        "battle"
+      ],
+      "subtypes": [
+        "battle_siege"
+      ]
+    },
+    "rules_text": {
+      "abilities": [
+        {
+          "ability_id": "provision",
+          "kind": "triggered",
+          "trigger": {
+            "event": {
+              "kind": "zone_change",
+              "subject": {
+                "kind": "object",
+                "zones": [
+                  "battlefield"
+                ]
+              },
+              "to": "battlefield"
+            }
+          },
+          "body": {
+            "steps": [
+              {
+                "kind": "effect",
+                "effect": {
+                  "kind": "one_shot",
+                  "operation": {
+                    "kind": "keyword_action",
+                    "action_id": "search",
+                    "arguments": {
+                      "kind": "amount_and_subject",
+                      "amount": {
+                        "kind": "fixed",
+                        "value": 2
+                      },
+                      "subject": {
+                        "kind": "object",
+                        "zones": [
+                          "library"
+                        ],
+                        "controller": "you",
+                        "type_line": {
+                          "supertypes": [
+                            "basic"
+                          ],
+                          "card_types": [
+                            "land"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "kind": "effect",
+                "effect": {
+                  "kind": "one_shot",
+                  "operation": {
+                    "kind": "move_object",
+                    "subject": {
+                      "kind": "object",
+                      "zones": [
+                        "library"
+                      ],
+                      "controller": "you",
+                      "type_line": {
+                        "supertypes": [
+                          "basic"
+                        ],
+                        "card_types": [
+                          "land"
+                        ]
+                      }
+                    },
+                    "destination": "battlefield",
+                    "tapped": true
+                  }
+                }
+              },
+              {
+                "kind": "effect",
+                "effect": {
+                  "kind": "one_shot",
+                  "operation": {
+                    "kind": "keyword_action",
+                    "action_id": "shuffle",
+                    "arguments": {
+                      "kind": "none"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "back": {
+    "power": 4,
+    "toughness": 4,
+    "type_line": {
+      "card_types": [
+        "creature"
+      ],
+      "subtypes": [
+        "creature_elemental"
+      ]
+    },
+    "rules_text": {
+      "abilities": [
+        {
+          "ability_id": "vigilance",
+          "kind": "static",
+          "keyword_ability_id": "vigilance"
+        },
+        {
+          "ability_id": "haste",
+          "kind": "static",
+          "keyword_ability_id": "haste"
+        },
+        {
+          "ability_id": "skyland",
+          "kind": "static",
+          "condition": {
+            "kind": "zone",
+            "subject": {
+              "kind": "object",
+              "zones": [
+                "battlefield"
+              ]
+            },
+            "operator": "is_in",
+            "zones": [
+              "battlefield"
+            ]
+          },
+          "effects": [
+            {
+              "kind": "continuous",
+              "form": {
+                "kind": "type_line_change",
+                "operation": "add",
+                "card_types": [
+                  "land"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "ability_id": "mana",
+          "kind": "activated",
+          "cost": {
+            "kind": "action",
+            "action_id": "tap",
+            "arguments": {
+              "kind": "none"
+            }
+          },
+          "body": {
+            "steps": [
+              {
+                "kind": "effect",
+                "effect": {
+                  "kind": "one_shot",
+                  "operation": {
+                    "kind": "add_mana",
+                    "player": "you",
+                    "production": {
+                      "kind": "choose_colors",
+                      "amount": {
+                        "kind": "fixed",
+                        "value": 1
+                      },
+                      "color_ids": [
+                        "white",
+                        "blue",
+                        "black",
+                        "red",
+                        "green"
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

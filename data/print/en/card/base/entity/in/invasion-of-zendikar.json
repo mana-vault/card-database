@@ -1,0 +1,54 @@
+{
+  "lang": "en",
+  "card_id": "invasion-of-zendikar",
+  "front": {
+    "name": "Invasion of Zendikar",
+    "type_line": {
+      "card_types": [
+        "Battle"
+      ],
+      "subtypes": [
+        "Siege"
+      ]
+    },
+    "rules_text": {
+      "abilities": [
+        {
+          "ability_id": "provision",
+          "text": "When this Siege enters, search your library for up to two basic land cards, put them onto the battlefield tapped, then shuffle."
+        }
+      ]
+    }
+  },
+  "back": {
+    "name": "Awakened Skyclave",
+    "type_line": {
+      "card_types": [
+        "Creature"
+      ],
+      "subtypes": [
+        "Elemental"
+      ]
+    },
+    "rules_text": {
+      "abilities": [
+        {
+          "ability_id": "vigilance",
+          "text": "Vigilance"
+        },
+        {
+          "ability_id": "haste",
+          "text": "haste"
+        },
+        {
+          "ability_id": "skyland",
+          "text": "As long as this creature is on the battlefield, it's a land in addition to its other types."
+        },
+        {
+          "ability_id": "mana",
+          "text": "{T}: Add one mana of any color."
+        }
+      ]
+    }
+  }
+}
