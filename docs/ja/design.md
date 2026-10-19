@@ -36,7 +36,7 @@ Magic のルールでは、カードはカード名、マナ・コスト、色�
 - 画像の URL
 - フレイバー・テキスト
 
-`プリント`は、収録された`カード`を id で参照します。フレイバー・テキストは再録で変わることがあるため`プリント`に収録し、紙面に印刷されるそのほかの言葉は、`プリント`と対になるカードの言葉のファイルから読みます。複数の面を持つカードは面ごとに独自のフレイバー・テキストを示すので、カードが面を収録するのと同じ形で、`プリント`にも面ごとに収録します。
+`プリント`は、収録された`カード`を id で参照します。フレイバー・テキストは再録で変わることがあるため`プリント`に収録し、紙面に印刷されるそのほかの言葉は、どのプリントでも同じ言葉として、カードの言葉に取っておきます。プリントごとに違う言葉を示す場合だけ、プリントが自分の言葉を持ちます。複数の面を持つカードは面ごとに独自のフレイバー・テキストを示すので、カードが面を収録するのと同じ形で、`プリント`にも面ごとに収録します。
 
 レアリティは`カード`ではなく`プリント`ごとに決まるので、カードのレアリティは`プリント`を並べて読みます。フォーマットのリーガル判定は`プリント`から導き、このデータベースには保存しません。common の`プリント`があればパウパーで使えますが、禁止されているカードは除きます。
 
@@ -70,27 +70,33 @@ data/
   print/
     en/
       card/
-        component/
-          layout.json
-          rarity.json
-          ...
-        entity/sta/42.json
-      set/sta.json
-      sta/42.json
+        base/
+          entity/li/lightning-bolt.json
+          component/
+            layout.json
+            rarity.json
+            ...
+        fca/31.json
+      set/
+        base/sta.json
+        sta/42.json
     ja/
       card/
-        component/
-          ...
-        entity/sta/105.json
-      set/sta.json
-      sta/105.json
+        base/
+          entity/li/lightning-bolt.json
+          component/
+            ...
+        fca/31.json
+      set/
+        base/sta.json
+        sta/105.json
 ```
 
-変わらないデータと、紙そのものを分けて収録します。`data/oracle/` には、`カード`とセットを、言葉を一切含まずに構造として収録します。`data/platform.json` は媒体の一覧です。`data/print/` は紙そのもので、言語ごとにフォルダを分け、その言語の紙面が示す言葉（`card/` と `set/`）と、プリント自体（セットごとのフォルダ）を収録します。
+変わらないデータと、紙そのものを分けて収録します。`data/oracle/` には、`カード`とセットを言葉を含まずに構造として収録し、`data/platform.json` は媒体の一覧です。`data/print/` は紙そのもので、言語ごとにフォルダを分けます。言語のフォルダの中は、収められるものごとに分かれます。`card/` はカードの言葉です。カードのどのプリントでも同じ言葉を `base/` に一つずつ収録し、プリントごとに違う言葉だけをそのプリントの名前のファイルに持たせます。`set/` はセットの言葉と、そのセットに収録されたプリントです。セット自身の言葉を `base/` に、プリントをセットの名前のフォルダの中に収録します。
 
 #### コンポーネントの一覧
 
-`data/oracle/card/component/` に、コンポーネントの種類ごとに一覧を置きます。各項目は、カードやプリントのデータが参照する id を持ちます。その id に対応する言葉は、`data/print/<lang>/card/component/` の下にある、その言語の名称の一覧に収録します。形式は同じで、id と値の組です。
+`data/oracle/card/component/` に、コンポーネントの種類ごとに一覧を置きます。各項目は、カードやプリントのデータが参照する id を持ちます。その id に対応する言葉は、`data/print/<lang>/card/base/component/` の下にある、その言語の名称の一覧に収録します。形式は同じで、id と値の組です。
 
 | コンポーネント | ファイル | 値の例 |
 | --- | --- | --- |
@@ -126,16 +132,16 @@ Wizards of the Coast が新しい値を定めたときに、その値を一覧�
 
 #### 言葉
 
-紙面が示す言葉は、`print/<lang>/` の下に、フォルダ名で示した言語で収録します。同じ見え方のプリントは、どれも同じ言葉を示します。カードの言葉は `card/entity/<set>/<number>.json` に、その言葉を示すプリントのファイル名に合わせて置きます。各ファイルには、次の項目が必要です。
+紙面が示す言葉は、`print/<lang>/card/` の下に、フォルダ名で示した言語で収録します。カードのどのプリントでも同じ言葉を、`base/entity/` の下に、カードごとに一つのファイルで収録します。各ファイルには、次の項目が必要です。
 
 - `lang`
 - `card_id`
-- `set_code`
-- `number`
 
-ファイルには、カード名、タイプ行、ルール・テキストを収録します。タイプ行の特殊タイプ、カード・タイプ、サブタイプはそれぞれ別の項目に、ルール・テキストは能力ごとに収録します。《稲妻》のコレクター番号105の日本語版プリントの言葉は、`data/print/ja/card/entity/sta/105.json` に収録します。フレイバー・テキストは再録で変わることがあるため、ここには収録せず、`プリント`に収録します。
+ファイルには、カード名、タイプ行、ルール・テキストを収録します。タイプ行の特殊タイプ、カード・タイプ、サブタイプはそれぞれ別の項目に、ルール・テキストは能力ごとに収録します。《稲妻》の日本語の言葉は、`data/print/ja/card/base/entity/li/lightning-bolt.json` に収録します。フレイバー・テキストは再録で変わることがあるため、ここには収録せず、`プリント`に収録します。
 
-コンポーネントの値の言葉と、セットの名前も、カードの言葉の隣に置きます。コンポーネントの名称は `card/component/<一覧名>.json` に、セットの名前は `set/<set_code を小文字にしたもの>.json` に置き、どちらも id とその言語で示す言葉の組を収録します。たとえば、Strixhaven Mystical Archive の日本語名は `data/print/ja/set/sta.json` に収録します。
+base と違う言葉を示すプリントは（別の名前で印刷されるコラボの収録、古い表記を示す版など）、その言葉を `card/<set>/<number>.json` に、それを示すプリントの名前で一つのファイルに収録します。たとえば、《リスティックの研究》の Final Fantasy 版は Stay with Me という名前で印刷されるので、その言葉は `data/print/en/card/fca/31.json` に収録します。
+
+コンポーネントの名称も `base/` の下に置き、`base/component/<一覧名>.json` に id とその言語で示す言葉の組を収録します。セットの名前も紙の言葉なので、その隣の `set/` に置きます。たとえば、Strixhaven Mystical Archive の日本語名は `data/print/ja/set/base/sta.json` に収録します。
 
 #### セット
 
@@ -144,13 +150,13 @@ Wizards of the Coast が新しい値を定めたときに、その値を一覧�
 - `set_code`
 - `released_at`
 
-たとえば、Strixhaven Mystical Archive の `set_code` は `STA` です。セットのデータは `data/oracle/set/sta.json` に置きます。セットの名前も言葉なので、カードの言葉と同じく言語ごとに収録します。日本語名は `data/print/ja/set/sta.json` に置きます。
+たとえば、Strixhaven Mystical Archive の `set_code` は `STA` です。セットのデータは `data/oracle/set/sta.json` に置きます。セットの名前も言葉なので、カードの言葉と同じく言語ごとに収録します。日本語名は `data/print/ja/set/base/sta.json` に置きます。
 
 リポジトリ内で使う `set_code` ごとに、`data/oracle/set/` にセットのファイルを置きます。
 
 #### プリント
 
-プリントごとにファイルを一つ作り、言語、セットの順にフォルダを分けます。各ファイルには、次の項目が必要です。
+プリントごとにファイルを一つ作り、`print/<lang>/set/` の下、収録されたセットのフォルダの中に置きます。各ファイルには、次の項目が必要です。
 
 - `card_id`
 - `set_code`
@@ -159,7 +165,7 @@ Wizards of the Coast が新しい値を定めたときに、その値を一覧�
 - `rarity`
 - `platforms`
 
-プリントを登録する前に、対応するカードとセットのデータに加えて、そのプリントが示す言葉のファイルを登録してください。レアリティは `data/oracle/card/component/rarity.json` の id で指定します。プリントごとの値なので、同じカードでもセットによって異なることがあります。媒体は `data/platform.json` の id で指定します（`paper`、`magic_online` など）。フレイバー・テキストがある場合は、その印刷の言語で `flavor_text` に収録します。たとえば、Strixhaven Mystical Archive の日本語版に《稲妻》がコレクター番号105で収録されている場合、ファイルは `data/print/ja/sta/105.json` です。
+プリントを登録する前に、対応するカードとセットのデータに加えて、その言語のカードの言葉が `card/base/entity/` にあることを確かめてください。レアリティは `data/oracle/card/component/rarity.json` の id で指定します。プリントごとの値なので、同じカードでもセットによって異なることがあります。媒体は `data/platform.json` の id で指定します（`paper`、`magic_online` など）。フレイバー・テキストがある場合は、その印刷の言語で `flavor_text` に収録します。たとえば、Strixhaven Mystical Archive の日本語版に《稲妻》がコレクター番号105で収録されている場合、ファイルは `data/print/ja/set/sta/105.json` です。
 
 カードのプリントは、すべて登録してください。リーガル判定はプリントから読むため、common のプリントが抜けていると、使えるカードが使えないように見えます。
 
@@ -177,7 +183,6 @@ schema/
       card.schema.json
       normal.schema.json
       component/
-        list.schema.json
         face.schema.json
         type_line.schema.json
         type_line/
@@ -205,7 +210,7 @@ schema/
   correction.schema.json
 ```
 
-スキーマの多くは `data/` の構成に対応します。`schema/component.schema.json` は、id と値の組からなる一覧、つまり `data/platform.json` と `data/print/<lang>/card/component/` の名称の一覧を定めます。`schema/oracle/card/component/list.schema.json` は、`data/oracle/card/component/` の id の一覧を定めます。サブタイプの一覧には、そのサブタイプを使えるカード・タイプもあるため、専用スキーマ `schema/oracle/card/component/type_line/subtype.schema.json` を使います。`schema/oracle/card/normal.schema.json` は `data/oracle/card/normal/` のカードを定めます。
+スキーマの多くは `data/` の構成に対応します。`schema/component.schema.json` は、id と値の組からなる一覧、つまり `data/platform.json` と `data/print/<lang>/card/base/component/` の名称の一覧を定めます。`schema/oracle/card/component/list.schema.json` は、`data/oracle/card/component/` の id の一覧を定めます。サブタイプの一覧には、そのサブタイプを使えるカード・タイプもあるため、専用スキーマ `schema/oracle/card/component/type_line/subtype.schema.json` を使います。レイアウトのスキーマ `schema/oracle/card/normal.schema.json` は `data/oracle/card/normal/` のカードを定めます。
 
 `schema/data.schema.json` では、`data/` にあるファイルの種類ごとに、適用するスキーマを指定します。
 
@@ -215,11 +220,11 @@ schema/
 
 `face.schema.json` はカード1面分の特性、`type_line.schema.json` はタイプ行の形式を定めます。ルール情報の各スキーマは `rules_text/` の下で、概念ごとに分けています。
 
-`schema/component.schema.json` は id と値の組からなる一覧の形式を、`schema/oracle/card/component/list.schema.json` は id の一覧の形式を定めます。一覧の各項目には、id と、対応する値を収録します。
+`schema/component.schema.json` は id と値の組からなる一覧の形式を、`schema/oracle/card/component/list.schema.json` は id の一覧の形式を定めます。名称の一覧の各項目には id と値を、id の一覧の各項目には id を収録します。
 
 #### 言葉
 
-言葉のファイルには、カード用の `schema/print/card.schema.json` と、セット用の `schema/print/set.schema.json` を使います。
+言葉のファイルには、カード用の `schema/print/card.schema.json` と、セット用の `schema/print/set.schema.json` を使います。カード用のスキーマは、`base/entity/` の言葉と、プリントが自分の言葉を持つときの形を定めます。
 
 #### その他のファイル
 

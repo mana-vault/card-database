@@ -1,12 +1,14 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Component id list",
-  "description": "One id list under data/oracle/: the component lists under card/component/, and the platform list at data/platform.json. Each entry holds the id that the data references. For the lists whose values a paper shows, the word each language shows for the id lives under data/print/<lang>/card/component/. IDs are unique within a list and do not change when a value is corrected.",
+  "description": "One id list under data/oracle/: the component lists under card/component/, and the platform list at data/platform.json. Each entry holds the id that card and print data reference, and no value: the word one language shows for the id lives in the name list under data/print/<lang>/card/base/component/. IDs are unique within a list and do not change when a value is corrected.",
   "type": "array",
   "items": {
     "type": "object",
     "additionalProperties": false,
-    "required": ["id"],
+    "required": [
+      "id"
+    ],
     "properties": {
       "id": {
         "type": "string",
