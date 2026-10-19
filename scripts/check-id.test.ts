@@ -123,6 +123,9 @@ function sound(): Tree {
         number: "105",
         rarity: "rare",
         platforms: ["paper"],
+        history: [
+          { path: "/rarity", was: "mythic_rare", corrected_at: "2024-06-05" },
+        ],
       },
     ],
     [
@@ -672,4 +675,40 @@ test("a file under data/ that no layer covers is reported", () => {
   const tree = sound();
   tree.set("data/notes.json", {});
   expect(problemsOf(tree)).toContain("no layer of data/ covers this file");
+});
+
+test("a correction may point at a nested field", () => {
+  const tree = sound();
+  at(tree, "data/card/normal/li/lightning-bolt.json").history = [
+    {
+      path: "/type_line/card_types",
+      was: ["sorcery"],
+      corrected_at: "2024-06-05",
+    },
+  ];
+  expect(check(tree)).toEqual([]);
+});
+
+test("a correction whose path does not exist is reported", () => {
+  const tree = sound();
+  at(tree, "data/print/ja/sta/105.json").history = [
+    { path: "/rarityy", was: "common", corrected_at: "2024-06-05" },
+  ];
+  expect(problemsOf(tree)).toContain("history: /rarityy does not exist");
+});
+
+test("a correction whose path steps into a list is reported", () => {
+  const tree = sound();
+  at(tree, "data/print/ja/sta/105.json").history = [
+    { path: "/platforms/0", was: "paper", corrected_at: "2024-06-05" },
+  ];
+  expect(problemsOf(tree)).toContain("history: /platforms/0 steps into a list");
+});
+
+test("a correction whose path is not a JSON Pointer is reported", () => {
+  const tree = sound();
+  at(tree, "data/print/ja/sta/105.json").history = [
+    { path: "rarity", was: "common", corrected_at: "2024-06-05" },
+  ];
+  expect(problemsOf(tree)).toContain("history: rarity is not a JSON Pointer");
 });

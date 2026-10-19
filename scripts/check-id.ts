@@ -88,6 +88,17 @@ function records(value: unknown): JsonRecord[] {
   return Array.isArray(value) ? value.filter(isRecord) : [];
 }
 
+/** Whether a JSON Pointer of field names resolves from a root value. */
+function pointerResolves(root: unknown, pointer: string): boolean {
+  let current: unknown = root;
+  for (const raw of pointer.split("/").slice(1)) {
+    const segment = raw.replace(/~1/g, "/").replace(/~0/g, "~");
+    if (!isRecord(current) || !Object.hasOwn(current, segment)) return false;
+    current = Reflect.get(current, segment) as unknown;
+  }
+  return true;
+}
+
 /** Collect the ability_id values of every rules_text in a card. */
 function collectAbilityIds(value: unknown, ids: Set<string>): void {
   if (Array.isArray(value)) {
@@ -323,6 +334,11 @@ export function check(files: FileTree): string[] {
   }
 
   for (const path of paths) {
+    const record = files.get(path);
+    if (isRecord(record)) checkHistory(path, record, add);
+  }
+
+  for (const path of paths) {
     const knownPath =
       COMPONENT.test(path) ||
       CARD.test(path) ||
@@ -335,6 +351,34 @@ export function check(files: FileTree): string[] {
   }
 
   return problems;
+}
+
+/** Check the history records of one file against the file itself. */
+function checkHistory(
+  path: string,
+  record: JsonRecord,
+  add: (path: string, message: string) => void,
+): void {
+  if (!Array.isArray(record.history)) return;
+  for (const entry of records(record.history)) {
+    const pointer = stringField(entry, "path");
+    if (pointer === undefined) continue;
+    const segments = pointer.split("/").slice(1);
+    if (
+      !pointer.startsWith("/") ||
+      segments.some((segment) => segment === "")
+    ) {
+      add(path, `history: ${pointer} is not a JSON Pointer`);
+      continue;
+    }
+    if (segments.some((segment) => /^\d+$/.test(segment))) {
+      add(path, `history: ${pointer} steps into a list`);
+      continue;
+    }
+    if (!pointerResolves(record, pointer)) {
+      add(path, `history: ${pointer} does not exist`);
+    }
+  }
 }
 
 function checkCardFaces(
