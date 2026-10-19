@@ -10,8 +10,8 @@ The data comes in three kinds.
   and each face of a multi-faced card, in English only.
 - A `translation` holds the values of one language's paper, written only where they differ from the
   English.
-- A `print` is one appearance of a `card` in a product: set, collector number, language, rarity, and
-  the artist.
+- A `print` is one appearance of a `card` in a product: set, collector number, language, platform,
+  rarity, and the artist.
 
 Every `print` references the `card` it belongs to, and the values on its paper are put together from
 the `card` and that language's `translation`. The schema and the file formats are documented in

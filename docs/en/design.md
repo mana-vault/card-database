@@ -58,12 +58,17 @@ A `print` is kept apart from the `card`, and holds:
 - the set
 - the collector number
 - the language
+- the platforms it appeared on
 - the rarity
 - the artist
 - the image URL
 
 A `print` points at the `card` it belongs to by its id. The values printed on the paper are not held
 here.
+
+Rarity belongs to each `print`, not to the `card`, so a card's rarities are read from its prints. A
+format's legality is worked out from those prints and is not stored here: a card with a common print
+is Pauper-legal, unless the format bans it.
 
 ## Directory layout
 
@@ -93,6 +98,7 @@ data/
   print/
     component/
       rarity.json
+      platform.json
     en/sta/42.json
     ja/sta/105.json
   set/
@@ -175,11 +181,16 @@ One `print` per file, in folders by language, then by set. A `print` file needs:
 - `set_code`
 - `number`
 - `rarity`
+- `platforms`
 
 The `card` and the set it names must already have files. Rarity is an id from
 `data/print/component/rarity.json` and belongs to each `print`, so it may differ between sets.
+Platforms are ids from `data/print/component/platform.json`, such as `paper` and `magic_online`.
 Lightning Bolt appears in Strixhaven Mystical Archive as the Japanese print with collector number
 105, so that file is `data/print/ja/sta/105.json`.
+
+Register every `print` of a card. Format legality is read from the prints, so a card that has only
+a rare print here and a common print left out would look illegal.
 
 ### schema
 
