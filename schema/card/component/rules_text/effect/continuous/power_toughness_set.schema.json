@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Set power and toughness",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "power", "toughness"],
+  "properties": {
+    "kind": { "const": "power_toughness_set" },
+    "power": { "$ref": "../../value/amount.schema.json" },
+    "toughness": { "$ref": "../../value/amount.schema.json" }
+  }
+}

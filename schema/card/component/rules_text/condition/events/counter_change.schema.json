@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Counter-change event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "counter_type_id"],
+  "properties": {
+    "kind": { "enum": ["counter_placed", "counter_removed"] },
+    "counter_type_id": { "type": "string", "pattern": "^[^\\s{}]+$" },
+    "subject": { "$ref": "../../target/target_subject.schema.json" }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Power and toughness modifier",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "power", "toughness"],
+  "properties": {
+    "kind": { "const": "power_toughness_delta" },
+    "power": { "type": "integer" },
+    "toughness": { "type": "integer" }
+  }
+}

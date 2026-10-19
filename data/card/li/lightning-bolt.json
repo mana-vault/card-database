@@ -1,9 +1,0 @@
-{
-  "card_id": "lightning-bolt",
-  "kind": "normal",
-  "name": "Lightning Bolt",
-  "mana_cost": ["R"],
-  "colors": ["red"],
-  "card_types": ["instant"],
-  "oracle_text": "Lightning Bolt deals 3 damage to any target."
-}

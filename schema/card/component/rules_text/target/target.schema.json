@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Target declaration",
+  "description": "A target requirement declared by an ability or one of its modes (CR 115). Effects refer to the declaration by target_id.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["target_id", "subject", "minimum", "maximum"],
+  "properties": {
+    "target_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9_-]*$"
+    },
+    "subject": { "$ref": "target_subject.schema.json" },
+    "minimum": { "type": "integer", "minimum": 0 },
+    "maximum": { "type": "integer", "minimum": 1 }
+  }
+}

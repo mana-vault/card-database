@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Continuous-effect form",
+  "oneOf": [
+    { "$ref": "characteristic_change.schema.json" },
+    { "$ref": "text_change.schema.json" },
+    { "$ref": "control_change.schema.json" },
+    { "$ref": "replacement.schema.json" },
+    { "$ref": "prevention.schema.json" },
+    { "$ref": "rule_change.schema.json" }
+  ]
+}

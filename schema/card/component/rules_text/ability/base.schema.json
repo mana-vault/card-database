@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Ability fields",
+  "description": "Fields shared by every ability class.",
+  "type": "object",
+  "required": ["ability_id"],
+  "properties": {
+    "ability_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9_-]*$",
+      "description": "A stable identifier for this ability within its card."
+    },
+    "ability_word_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(_[a-z0-9]+)*$",
+      "description": "An inert label referencing data/card/component/ability/ability_word.json (CR 207.2c)."
+    },
+    "flavor_word": {
+      "type": "string",
+      "description": "An optional flavor-word label. It has no rules meaning and is not an enumerated vocabulary (CR 207.2d)."
+    },
+    "keyword_ability_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(_[a-z0-9]+)*$",
+      "description": "The ID of a CR 702 keyword ability that this ability expresses. This does not change the ability class."
+    },
+    "keyword_instance_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9_-]*$",
+      "description": "Groups class abilities represented by the same keyword-ability instance. Used only when one keyword represents multiple abilities."
+    }
+  },
+  "allOf": [
+    {
+      "if": { "required": ["keyword_instance_id"] },
+      "then": { "required": ["keyword_ability_id"] }
+    }
+  ]
+}

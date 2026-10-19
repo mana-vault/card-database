@@ -1,0 +1,16 @@
+[
+  { "id": "normal", "value": "Normal" },
+  { "id": "split", "value": "Split" },
+  { "id": "flip", "value": "Flip" },
+  { "id": "leveler", "value": "Leveler" },
+  { "id": "nonmodal_double_faced", "value": "Nonmodal double-faced" },
+  { "id": "modal_double_faced", "value": "Modal double-faced" },
+  { "id": "meld", "value": "Meld" },
+  { "id": "adventure", "value": "Adventure" },
+  { "id": "class", "value": "Class" },
+  { "id": "prototype", "value": "Prototype" },
+  { "id": "case", "value": "Case" },
+  { "id": "omen", "value": "Omen" },
+  { "id": "station", "value": "Station" },
+  { "id": "preparation", "value": "Preparation" }
+]

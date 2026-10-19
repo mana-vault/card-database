@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Mode selection rule",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["minimum", "maximum"],
+  "properties": {
+    "minimum": { "type": "integer", "minimum": 0 },
+    "maximum": { "type": "integer", "minimum": 1 },
+    "allow_repeated_modes": { "type": "boolean", "default": false }
+  }
+}

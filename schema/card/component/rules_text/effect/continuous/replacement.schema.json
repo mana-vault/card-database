@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Replacement effect",
+  "description": "A continuous effect that replaces an event (CR 614).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "event", "with"],
+  "properties": {
+    "kind": { "const": "replacement" },
+    "event": { "$ref": "../../condition/event.schema.json" },
+    "with": { "$ref": "../operation/operation.schema.json" }
+  }
+}

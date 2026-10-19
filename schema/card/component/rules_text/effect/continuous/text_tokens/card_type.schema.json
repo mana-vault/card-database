@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Card-type token",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "card_type_id"],
+  "properties": {
+    "kind": { "const": "card_type" },
+    "card_type_id": { "type": "string", "pattern": "^[a-z0-9]+(_[a-z0-9]+)*$" }
+  }
+}

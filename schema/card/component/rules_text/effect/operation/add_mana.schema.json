@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Add mana",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "player", "production"],
+  "properties": {
+    "kind": { "const": "add_mana" },
+    "player": { "enum": ["you", "target_player", "each_player"] },
+    "production": { "$ref": "mana_production.schema.json" }
+  }
+}

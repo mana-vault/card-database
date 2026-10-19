@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Cast-spell event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind"],
+  "properties": {
+    "kind": { "const": "cast_spell" },
+    "spell_types": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+    "controller": { "enum": ["you", "opponent", "any_player"] }
+  }
+}

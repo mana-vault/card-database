@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Keyword-action event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "action_id", "arguments"],
+  "properties": {
+    "kind": { "const": "keyword_action" },
+    "action_id": { "$ref": "#/definitions/action_id" },
+    "arguments": { "$ref": "../../effect/operation/keyword_action_arguments.schema.json" },
+    "subject": { "$ref": "../../target/target_subject.schema.json" }
+  },
+  "definitions": {
+    "action_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(_[a-z0-9]+)*$"
+    }
+  }
+}

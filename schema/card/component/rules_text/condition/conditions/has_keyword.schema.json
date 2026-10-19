@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Keyword-ability condition",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "subject", "keyword_ability_id"],
+  "properties": {
+    "kind": { "const": "has_keyword_ability" },
+    "subject": { "$ref": "../../target/target_subject.schema.json" },
+    "keyword_ability_id": { "type": "string", "pattern": "^[a-z0-9]+(_[a-z0-9]+)*$" }
+  }
+}

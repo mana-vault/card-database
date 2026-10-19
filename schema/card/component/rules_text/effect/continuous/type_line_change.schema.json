@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Type-line change",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "operation"],
+  "properties": {
+    "kind": { "const": "type_line_change" },
+    "operation": { "enum": ["set", "add", "remove"] },
+    "supertypes": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^[a-z0-9]+(_[a-z0-9]+)*$" } },
+    "card_types": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^[a-z0-9]+(_[a-z0-9]+)*$" } },
+    "subtypes": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^[^\\s{}]+$" } }
+  },
+  "anyOf": [
+    { "required": ["supertypes"] },
+    { "required": ["card_types"] },
+    { "required": ["subtypes"] }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Mana production",
+  "oneOf": [
+    { "$ref": "mana_production/symbols.schema.json" },
+    { "$ref": "mana_production/choose_colors.schema.json" }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Create tokens",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "amount", "token"],
+  "properties": {
+    "kind": { "const": "create_token" },
+    "amount": { "$ref": "../../value/amount.schema.json" },
+    "token": { "$ref": "token_definition.schema.json" }
+  }
+}

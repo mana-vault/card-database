@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Prevention effect",
+  "description": "A continuous effect that prevents an event or damage (CR 615).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "event"],
+  "properties": {
+    "kind": { "const": "prevention" },
+    "event": { "$ref": "../../condition/event.schema.json" },
+    "amount": { "$ref": "../../value/amount.schema.json" }
+  }
+}

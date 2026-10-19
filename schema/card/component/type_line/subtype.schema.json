@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Subtype list",
+  "description": "The type-line subtype vocabulary. Each subtype entry names the card types it can accompany under CR 205.3c.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["id", "value", "card_types"],
+    "properties": {
+      "id": {
+        "type": "string",
+        "pattern": "^[a-z0-9][a-z0-9_-]*$",
+        "description": "The stable subtype ID referenced by a type line."
+      },
+      "value": {
+        "type": "string",
+        "description": "The subtype's official English name."
+      },
+      "card_types": {
+        "type": "array",
+        "minItems": 1,
+        "uniqueItems": true,
+        "description": "Card-type IDs with which this subtype is valid.",
+        "items": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(_[a-z0-9]+)*$"
+        }
+      }
+    }
+  }
+}

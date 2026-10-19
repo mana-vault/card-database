@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Trigger condition",
+  "description": "The event condition of a triggered ability (CR 113.3c, 603). It is separate from any intervening-if condition and from the ability's effect.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["event"],
+  "properties": {
+    "event": { "$ref": "event.schema.json" },
+    "event_filter": { "$ref": "condition.schema.json" }
+  }
+}

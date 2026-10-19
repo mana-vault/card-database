@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Pay life cost",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "amount"],
+  "properties": {
+    "kind": { "const": "pay_life" },
+    "amount": { "$ref": "../value/amount.schema.json" }
+  }
+}

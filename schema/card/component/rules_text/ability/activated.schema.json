@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Activated ability",
+  "description": "An ability with a cost and an effect (CR 113.3b).",
+  "allOf": [
+    { "$ref": "base.schema.json" },
+    {
+      "type": "object",
+      "properties": {
+        "kind": { "const": "activated" },
+        "cost": { "$ref": "../cost/cost.schema.json" },
+        "restrictions": {
+          "type": "array",
+          "items": { "$ref": "../condition/condition.schema.json" }
+        },
+        "body": { "$ref": "body.schema.json" }
+      },
+      "required": ["kind", "cost", "body"]
+    }
+  ],
+  "unevaluatedProperties": false
+}

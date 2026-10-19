@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Zone-change event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "subject"],
+  "properties": {
+    "kind": { "const": "zone_change" },
+    "subject": { "$ref": "../../target/target_subject.schema.json" },
+    "from": { "enum": ["battlefield", "stack", "graveyard", "exile", "hand", "library", "ante", "command"] },
+    "to": { "enum": ["battlefield", "stack", "graveyard", "exile", "hand", "library", "ante", "command"] }
+  }
+}

@@ -10,6 +10,10 @@
     // headings and fenced code are long by nature.
     "MD013": { "line_length": 100, "code_blocks": false, "tables": false, "headings": false },
 
+    // A sub-section name may repeat under different chapters; only siblings
+    // have to be distinct.
+    "MD024": { "siblings_only": true },
+
     // Files may open with the translations note or a preamble comment
     // instead of a heading.
     "MD041": false

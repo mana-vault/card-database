@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Step-or-phase event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "step_or_phase"],
+  "properties": {
+    "kind": { "const": "step_begins" },
+    "step_or_phase": {
+      "enum": [
+        "beginning_phase",
+        "untap_step",
+        "upkeep_step",
+        "draw_step",
+        "precombat_main_phase",
+        "beginning_of_combat_step",
+        "declare_attackers_step",
+        "declare_blockers_step",
+        "combat_damage_step",
+        "end_of_combat_step",
+        "postcombat_main_phase",
+        "ending_phase",
+        "end_step",
+        "cleanup_step"
+      ]
+    },
+    "turn": { "enum": ["your_turn", "opponent_turn", "any_turn"] }
+  }
+}

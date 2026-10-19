@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Counter change",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "operation", "counter_type_id", "amount", "subject"],
+  "properties": {
+    "kind": { "const": "counter_change" },
+    "operation": { "enum": ["put", "remove"] },
+    "counter_type_id": { "type": "string", "pattern": "^[^\\s{}]+$" },
+    "amount": { "$ref": "../../value/amount.schema.json" },
+    "subject": { "$ref": "../../target/target_subject.schema.json" }
+  }
+}

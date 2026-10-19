@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Control change",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "subject", "controller"],
+  "properties": {
+    "kind": { "const": "control_change" },
+    "subject": { "$ref": "../../target/target_subject.schema.json" },
+    "controller": { "enum": ["you", "opponent", "owner", "target_player"] },
+    "duration": { "$ref": "../../value/duration.schema.json" }
+  }
+}

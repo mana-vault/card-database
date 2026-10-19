@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Ability step",
+  "oneOf": [
+    { "$ref": "effect_step.schema.json" },
+    { "$ref": "mode_group.schema.json" }
+  ]
+}

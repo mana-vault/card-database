@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Triggered ability",
+  "description": "An ability with a trigger condition and an effect (CR 113.3c).",
+  "allOf": [
+    { "$ref": "base.schema.json" },
+    {
+      "type": "object",
+      "properties": {
+        "kind": { "const": "triggered" },
+        "trigger": { "$ref": "../condition/trigger.schema.json" },
+        "intervening_if": { "$ref": "../condition/condition.schema.json" },
+        "body": { "$ref": "body.schema.json" }
+      },
+      "required": ["kind", "trigger", "body"]
+    }
+  ],
+  "unevaluatedProperties": false
+}

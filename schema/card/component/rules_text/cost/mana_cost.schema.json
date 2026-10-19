@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Mana cost",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "symbols"],
+  "properties": {
+    "kind": { "const": "mana" },
+    "symbols": { "type": "array", "minItems": 1, "items": { "type": "string", "pattern": "^[^\\s{}]+$" } }
+  }
+}

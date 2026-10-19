@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Effect",
+  "description": "An effect is a game event or modification, not a sentence (CR 609.1). One-shot and continuous effects are separate branches; replacement and prevention effects are nested under continuous effects (CR 609.6).",
+  "oneOf": [
+    { "$ref": "one_shot.schema.json" },
+    { "$ref": "continuous/continuous.schema.json" }
+  ]
+}

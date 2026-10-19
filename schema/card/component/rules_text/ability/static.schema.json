@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Static ability",
+  "description": "A continuously true ability whose rule effect applies in the appropriate zone (CR 113.3d).",
+  "allOf": [
+    { "$ref": "base.schema.json" },
+    {
+      "type": "object",
+      "properties": {
+        "kind": { "const": "static" },
+        "condition": { "$ref": "../condition/condition.schema.json" },
+        "characteristic_defining": {
+          "const": true,
+          "description": "Marks a characteristic-defining ability under CR 604.3."
+        },
+        "effects": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "../effect/continuous/continuous.schema.json" }
+        }
+      },
+      "required": ["kind"],
+      "anyOf": [
+        { "required": ["effects"] },
+        { "required": ["keyword_ability_id"] }
+      ]
+    }
+  ],
+  "unevaluatedProperties": false
+}

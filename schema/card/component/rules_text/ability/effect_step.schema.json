@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Effect step",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "effect"],
+  "properties": {
+    "kind": { "const": "effect" },
+    "effect": { "$ref": "../effect/effect.schema.json" }
+  }
+}

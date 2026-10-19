@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Becomes-target event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "subject"],
+  "properties": {
+    "kind": { "const": "becomes_target" },
+    "subject": { "$ref": "../../target/target_subject.schema.json" }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Rule change",
+  "description": "A continuous effect that changes what the game rules allow or require, without changing a characteristic.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "rule"],
+  "properties": {
+    "kind": { "const": "rule_change" },
+    "rule": { "enum": ["cannot_block", "cannot_attack", "cannot_cast", "cannot_activate", "must_attack", "must_block"] },
+    "subjects": { "type": "array", "minItems": 1, "items": { "$ref": "../../target/target_subject.schema.json" } }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Add mana of chosen colors",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "amount", "color_ids"],
+  "properties": {
+    "kind": { "const": "choose_colors" },
+    "amount": { "$ref": "../../../value/amount.schema.json" },
+    "color_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[a-z0-9]+(_[a-z0-9]+)*$" }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Amount and subject arguments",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "amount", "subject"],
+  "properties": {
+    "kind": { "const": "amount_and_subject" },
+    "amount": { "$ref": "../../../value/amount.schema.json" },
+    "subject": { "$ref": "../../../target/target_subject.schema.json" }
+  }
+}

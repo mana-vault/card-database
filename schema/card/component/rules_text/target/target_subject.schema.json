@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Target subject",
+  "oneOf": [
+    { "$ref": "any_target.schema.json" },
+    { "$ref": "player_target.schema.json" },
+    { "$ref": "object_target.schema.json" },
+    { "$ref": "stack_target.schema.json" }
+  ]
+}
