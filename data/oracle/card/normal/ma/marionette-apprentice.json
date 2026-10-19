@@ -1,0 +1,76 @@
+{
+  "card_id": "marionette-apprentice",
+  "layout": "normal",
+  "mana_cost": [
+    "1",
+    "B"
+  ],
+  "type_line": {
+    "card_types": [
+      "creature"
+    ],
+    "subtypes": [
+      "creature_human",
+      "creature_artificer"
+    ]
+  },
+  "power": 1,
+  "toughness": 2,
+  "rules_text": {
+    "abilities": [
+      {
+        "ability_id": "fabricate",
+        "kind": "static",
+        "keyword_ability_id": "fabricate",
+        "keyword_amount": {
+          "kind": "fixed",
+          "value": 1
+        }
+      },
+      {
+        "ability_id": "drain",
+        "kind": "triggered",
+        "trigger": {
+          "event": {
+            "kind": "zone_change",
+            "subject": {
+              "kind": "object",
+              "zones": [
+                "battlefield"
+              ],
+              "controller": "you",
+              "type_line": {
+                "card_types": [
+                  "creature",
+                  "artifact"
+                ]
+              },
+              "another": true
+            },
+            "from": "battlefield",
+            "to": "graveyard"
+          }
+        },
+        "body": {
+          "steps": [
+            {
+              "kind": "effect",
+              "effect": {
+                "kind": "one_shot",
+                "operation": {
+                  "kind": "life_change",
+                  "direction": "lose",
+                  "amount": {
+                    "kind": "fixed",
+                    "value": 1
+                  },
+                  "player": "each_opponent"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

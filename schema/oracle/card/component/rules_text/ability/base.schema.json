@@ -28,11 +28,19 @@
       "type": "string",
       "pattern": "^[a-z0-9][a-z0-9_-]*$",
       "description": "Groups class abilities represented by the same keyword-ability instance. Used only when one keyword represents multiple abilities."
+    },
+    "keyword_amount": {
+      "$ref": "../value/amount.schema.json",
+      "description": "The number the keyword ability takes, when it holds one: the 1 of Fabricate 1, the {2} of Ward {2} (CR 702)."
     }
   },
   "allOf": [
     {
       "if": { "required": ["keyword_instance_id"] },
+      "then": { "required": ["keyword_ability_id"] }
+    },
+    {
+      "if": { "required": ["keyword_amount"] },
       "then": { "required": ["keyword_ability_id"] }
     }
   ]
