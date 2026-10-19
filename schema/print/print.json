@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Print",
+  "description": "A file in data/print/<lang>/, one print per file, such as data/print/ja/mh3/170.json. The record of one appearance of a card in one product. Its flavor text is held here, because a reprint shows its own; the words the paper shows come from the card's file under card/entity/.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["card_id", "set_code", "lang", "number", "rarity", "platforms"],
+  "properties": {
+    "card_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_-]+$",
+      "description": "The card the print belongs to."
+    },
+    "lang": {
+      "type": "string",
+      "description": "The language of this print, such as ja. It names the language folder the print sits under."
+    },
+    "set_code": {
+      "type": "string",
+      "description": "The code of the product, in its official spelling, such as MH3."
+    },
+    "number": {
+      "type": "string",
+      "description": "The collector number as printed, including letters and symbols; e.g. 170 or 170★."
+    },
+    "rarity": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(_[a-z0-9]+)*$",
+      "description": "The id of a rarity in data/oracle/card/component/rarity.json. Rarity belongs to this print and may differ between prints of the same card."
+    },
+    "platforms": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "description": "The ids of the platforms this print appeared on, from data/platform.json. A paper set that was also released on Magic Online names both.",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(_[a-z0-9]+)*$"
+      }
+    },
+    "artist": {
+      "type": "string",
+      "description": "The artist credited on the print, if announced."
+    },
+    "image": {
+      "type": "string",
+      "description": "The URL of the image of this print, when it is published."
+    },
+    "flavor_text": {
+      "type": "string",
+      "description": "The flavor text this appearance shows, in the language of the print."
+    },
+    "history": {
+      "type": "array",
+      "description": "Records of official corrections to this print. Appended only; past records are never rewritten.",
+      "items": { "$ref": "../correction.schema.json" }
+    }
+  }
+}

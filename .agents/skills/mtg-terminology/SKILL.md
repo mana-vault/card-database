@@ -31,7 +31,7 @@ For the English rules source and current Japanese references, read `references/o
 ## Keep the project languages aligned
 
 - Keep the card's rules text as structure. Put the printed words of every language, English
-  included, in `language/`.
+  included, in `data/print/<lang>/`.
 - For documentation in other languages, preserve the English meaning and use official terminology
   where available. Translate prose naturally rather than word for word.
 - Before finishing data changes, run `mise run check-data` and `mise run check-id`. For docs, run

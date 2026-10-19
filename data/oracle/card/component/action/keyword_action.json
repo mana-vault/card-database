@@ -1,0 +1,215 @@
+[
+  {
+    "id": "activate"
+  },
+  {
+    "id": "attach"
+  },
+  {
+    "id": "behold"
+  },
+  {
+    "id": "cast"
+  },
+  {
+    "id": "counter"
+  },
+  {
+    "id": "create"
+  },
+  {
+    "id": "destroy"
+  },
+  {
+    "id": "discard"
+  },
+  {
+    "id": "double"
+  },
+  {
+    "id": "triple"
+  },
+  {
+    "id": "exchange"
+  },
+  {
+    "id": "exile"
+  },
+  {
+    "id": "fight"
+  },
+  {
+    "id": "goad"
+  },
+  {
+    "id": "investigate"
+  },
+  {
+    "id": "mill"
+  },
+  {
+    "id": "play"
+  },
+  {
+    "id": "regenerate"
+  },
+  {
+    "id": "reveal"
+  },
+  {
+    "id": "sacrifice"
+  },
+  {
+    "id": "scry"
+  },
+  {
+    "id": "search"
+  },
+  {
+    "id": "shuffle"
+  },
+  {
+    "id": "surveil"
+  },
+  {
+    "id": "tap"
+  },
+  {
+    "id": "untap"
+  },
+  {
+    "id": "transform"
+  },
+  {
+    "id": "convert"
+  },
+  {
+    "id": "fateseal"
+  },
+  {
+    "id": "clash"
+  },
+  {
+    "id": "planeswalk"
+  },
+  {
+    "id": "set_in_motion"
+  },
+  {
+    "id": "abandon"
+  },
+  {
+    "id": "proliferate"
+  },
+  {
+    "id": "detain"
+  },
+  {
+    "id": "populate"
+  },
+  {
+    "id": "monstrosity"
+  },
+  {
+    "id": "vote"
+  },
+  {
+    "id": "bolster"
+  },
+  {
+    "id": "manifest"
+  },
+  {
+    "id": "support"
+  },
+  {
+    "id": "meld"
+  },
+  {
+    "id": "exert"
+  },
+  {
+    "id": "explore"
+  },
+  {
+    "id": "assemble"
+  },
+  {
+    "id": "adapt"
+  },
+  {
+    "id": "amass"
+  },
+  {
+    "id": "learn"
+  },
+  {
+    "id": "venture_into_the_dungeon"
+  },
+  {
+    "id": "connive"
+  },
+  {
+    "id": "open_an_attraction"
+  },
+  {
+    "id": "roll_to_visit_your_attractions"
+  },
+  {
+    "id": "incubate"
+  },
+  {
+    "id": "the_ring_tempts_you"
+  },
+  {
+    "id": "face_a_villainous_choice"
+  },
+  {
+    "id": "time_travel"
+  },
+  {
+    "id": "discover"
+  },
+  {
+    "id": "cloak"
+  },
+  {
+    "id": "collect_evidence"
+  },
+  {
+    "id": "suspect"
+  },
+  {
+    "id": "forage"
+  },
+  {
+    "id": "manifest_dread"
+  },
+  {
+    "id": "endure"
+  },
+  {
+    "id": "harness"
+  },
+  {
+    "id": "airbend"
+  },
+  {
+    "id": "earthbend"
+  },
+  {
+    "id": "waterbend"
+  },
+  {
+    "id": "blight"
+  },
+  {
+    "id": "heal"
+  },
+  {
+    "id": "recruit"
+  },
+  {
+    "id": "empower_jace"
+  }
+]

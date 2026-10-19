@@ -1,0 +1,18 @@
+{
+  "lang": "en",
+  "card_id": "lightning-bolt",
+  "set_code": "STA",
+  "number": "42",
+  "name": "Lightning Bolt",
+  "type_line": {
+    "card_types": ["Instant"]
+  },
+  "rules_text": {
+    "abilities": [
+      {
+        "ability_id": "spell",
+        "text": "Lightning Bolt deals 3 damage to any target."
+      }
+    ]
+  }
+}

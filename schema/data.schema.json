@@ -4,10 +4,12 @@
   "description": "The schema of every file under data. Each file takes the shape of the thing it holds, so this file points at one schema per kind.",
   "oneOf": [
     { "$ref": "component.schema.json" },
-    { "$ref": "card/component/type_line/subtype.schema.json" },
-    { "$ref": "card/card.schema.json" },
-    { "$ref": "language/language.schema.json" },
-    { "$ref": "print.json" },
-    { "$ref": "set.json" }
+    { "$ref": "oracle/card/component/list.schema.json" },
+    { "$ref": "oracle/card/component/type_line/subtype.schema.json" },
+    { "$ref": "oracle/card/card.schema.json" },
+    { "$ref": "oracle/set.json" },
+    { "$ref": "print/card.schema.json" },
+    { "$ref": "print/set.schema.json" },
+    { "$ref": "print/print.json" }
   ]
 }

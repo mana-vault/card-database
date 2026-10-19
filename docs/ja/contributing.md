@@ -8,8 +8,8 @@
 
 | 貢献 | 内容 |
 | --- | --- |
-| `カード` | `data/card/normal/li/lightning-bolt.json` のようなカードファイルを追加します。カードが参照するコンポーネントの値は、`data/card/component/` の一覧から id で指定します。 |
-| `プリント` | `data/print/ja/sta/105.json` のように、プリントごとにファイルを一つ作ります。セットのデータは先に登録しておきます。 |
+| `カード` | `data/oracle/card/normal/li/lightning-bolt.json` のようなカードファイルを追加します。カードが参照するコンポーネントは、`data/oracle/card/component/` の一覧から id で指定します。 |
+| `プリント` | `data/print/ja/sta/105.json` のように、プリントごとにファイルを一つ作り、対になる言葉のファイルを `card/entity/` の下に置きます。セットのデータは先に登録しておきます。 |
 | 公式の訂正 | Wizards of the Coast が訂正を発表したら、該当する値を修正し、カードまたは言語の `history` に記録を追加します。記録の形式はスキーマで定めています。 |
 | スキーマと文書 | `schema/` または `docs/` を変更します。設計が決まっていない場合は、先に Issue で相談してください。 |
 
