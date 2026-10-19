@@ -7,7 +7,13 @@
       "$ref": "#/$defs/base"
     },
     {
+      "$ref": "#/$defs/base_split"
+    },
+    {
       "$ref": "#/$defs/exception"
+    },
+    {
+      "$ref": "#/$defs/exception_split"
     }
   ],
   "$defs": {
@@ -35,6 +41,33 @@
         },
         "rules_text": {
           "$ref": "#/$defs/rules_text"
+        },
+        "history": {
+          "$ref": "#/$defs/history"
+        }
+      }
+    },
+    "base_split": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "lang",
+        "card_id",
+        "left",
+        "right"
+      ],
+      "properties": {
+        "card_id": {
+          "$ref": "#/$defs/card_id"
+        },
+        "lang": {
+          "$ref": "#/$defs/lang"
+        },
+        "left": {
+          "$ref": "#/$defs/face_words"
+        },
+        "right": {
+          "$ref": "#/$defs/face_words"
         },
         "history": {
           "$ref": "#/$defs/history"
@@ -77,6 +110,60 @@
         },
         "history": {
           "$ref": "#/$defs/history"
+        }
+      }
+    },
+    "exception_split": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "lang",
+        "card_id",
+        "set_code",
+        "number"
+      ],
+      "properties": {
+        "card_id": {
+          "$ref": "#/$defs/card_id"
+        },
+        "lang": {
+          "$ref": "#/$defs/lang"
+        },
+        "set_code": {
+          "type": "string",
+          "description": "The official code of the product whose print shows words of its own, such as STA."
+        },
+        "number": {
+          "type": "string",
+          "description": "The collector number of the print that shows words of its own, as printed; e.g. 170 or 170★."
+        },
+        "left": {
+          "$ref": "#/$defs/face_words"
+        },
+        "right": {
+          "$ref": "#/$defs/face_words"
+        },
+        "history": {
+          "$ref": "#/$defs/history"
+        }
+      }
+    },
+    "face_words": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of this face as printed in this language."
+        },
+        "type_line": {
+          "$ref": "#/$defs/type_line"
+        },
+        "rules_text": {
+          "$ref": "#/$defs/rules_text"
         }
       }
     },

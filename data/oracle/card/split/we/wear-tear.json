@@ -1,0 +1,113 @@
+{
+  "card_id": "wear-tear",
+  "layout": "split",
+  "left": {
+    "mana_cost": [
+      "1",
+      "R"
+    ],
+    "type_line": {
+      "card_types": [
+        "instant"
+      ]
+    },
+    "rules_text": {
+      "abilities": [
+        {
+          "ability_id": "wear",
+          "kind": "spell",
+          "body": {
+            "targets": [
+              {
+                "target_id": "artifact",
+                "subject": {
+                  "kind": "object",
+                  "zones": [
+                    "battlefield"
+                  ],
+                  "type_line": {
+                    "card_types": [
+                      "artifact"
+                    ]
+                  }
+                },
+                "minimum": 1,
+                "maximum": 1
+              }
+            ],
+            "steps": [
+              {
+                "kind": "effect",
+                "effect": {
+                  "kind": "one_shot",
+                  "operation": {
+                    "kind": "keyword_action",
+                    "action_id": "destroy",
+                    "target_ref": "artifact",
+                    "arguments": {
+                      "kind": "none"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "right": {
+    "mana_cost": [
+      "G"
+    ],
+    "type_line": {
+      "card_types": [
+        "instant"
+      ]
+    },
+    "rules_text": {
+      "abilities": [
+        {
+          "ability_id": "tear",
+          "kind": "spell",
+          "body": {
+            "targets": [
+              {
+                "target_id": "enchantment",
+                "subject": {
+                  "kind": "object",
+                  "zones": [
+                    "battlefield"
+                  ],
+                  "type_line": {
+                    "card_types": [
+                      "enchantment"
+                    ]
+                  }
+                },
+                "minimum": 1,
+                "maximum": 1
+              }
+            ],
+            "steps": [
+              {
+                "kind": "effect",
+                "effect": {
+                  "kind": "one_shot",
+                  "operation": {
+                    "kind": "keyword_action",
+                    "action_id": "destroy",
+                    "target_ref": "enchantment",
+                    "arguments": {
+                      "kind": "none"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

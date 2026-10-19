@@ -182,6 +182,7 @@ schema/
     card/
       card.schema.json
       normal.schema.json
+      split.schema.json
       component/
         face.schema.json
         type_line.schema.json
@@ -210,7 +211,7 @@ schema/
   correction.schema.json
 ```
 
-スキーマの多くは `data/` の構成に対応します。`schema/component.schema.json` は、id と値の組からなる一覧、つまり `data/platform.json` と `data/print/<lang>/card/base/component/` の名称の一覧を定めます。`schema/oracle/card/component/list.schema.json` は、`data/oracle/card/component/` の id の一覧を定めます。サブタイプの一覧には、そのサブタイプを使えるカード・タイプもあるため、専用スキーマ `schema/oracle/card/component/type_line/subtype.schema.json` を使います。レイアウトのスキーマ `schema/oracle/card/normal.schema.json` は `data/oracle/card/normal/` のカードを定めます。
+スキーマの多くは `data/` の構成に対応します。`schema/component.schema.json` は、id と値の組からなる一覧、つまり `data/platform.json` と `data/print/<lang>/card/base/component/` の名称の一覧を定めます。`schema/oracle/card/component/list.schema.json` は、`data/oracle/card/component/` の id の一覧を定めます。サブタイプの一覧には、そのサブタイプを使えるカード・タイプもあるため、専用スキーマ `schema/oracle/card/component/type_line/subtype.schema.json` を使います。カードのレイアウトごとにスキーマがあり、`schema/oracle/card/normal.schema.json` は `data/oracle/card/normal/` の、`schema/oracle/card/split.schema.json` は `data/oracle/card/split/` のカードを定めます。
 
 `schema/data.schema.json` では、`data/` にあるファイルの種類ごとに、適用するスキーマを指定します。
 

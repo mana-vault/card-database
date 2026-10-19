@@ -244,6 +244,7 @@ schema/
     card/
       card.schema.json
       normal.schema.json
+      split.schema.json
       component/
         face.schema.json
         type_line.schema.json
@@ -276,8 +277,9 @@ Most schema paths follow the data paths. `schema/component.schema.json` governs 
 an id with a value: `data/platform.json` and the name lists under
 `data/print/<lang>/card/base/component/`. `schema/oracle/card/component/list.schema.json` governs
 the id lists under `data/oracle/card/component/`. The subtype list has its own schema because each
-subtype also names the card types it can accompany. The layout schema
-`schema/oracle/card/normal.schema.json` governs `data/oracle/card/normal/`.
+subtype also names the card types it can accompany. The layout schemas govern the cards:
+`schema/oracle/card/normal.schema.json` governs `data/oracle/card/normal/`, and
+`schema/oracle/card/split.schema.json` governs `data/oracle/card/split/`.
 
 `schema/data.schema.json` is the schema of every file under `data/`: for each kind of file it names
 the schema that governs it.
