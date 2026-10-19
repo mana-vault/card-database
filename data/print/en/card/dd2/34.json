@@ -1,0 +1,31 @@
+{
+  "lang": "en",
+  "card_id": "chandra-nalaar",
+  "set_code": "DD2",
+  "number": "34",
+  "name": "Chandra Nalaar",
+  "type_line": {
+    "card_types": [
+      "Planeswalker"
+    ],
+    "subtypes": [
+      "Chandra"
+    ]
+  },
+  "rules_text": {
+    "abilities": [
+      {
+        "ability_id": "spark",
+        "text": "+1: Chandra Nalaar deals 1 damage to target player."
+      },
+      {
+        "ability_id": "blaze",
+        "text": "−X: Chandra Nalaar deals X damage to target creature."
+      },
+      {
+        "ability_id": "inferno",
+        "text": "−8: Chandra Nalaar deals 10 damage to target player and each creature that player controls."
+      }
+    ]
+  }
+}

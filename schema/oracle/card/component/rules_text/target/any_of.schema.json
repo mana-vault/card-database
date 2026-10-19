@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Any-of subject",
+  "description": "A subject that matches one of several kinds in an OR: the 'player or planeswalker' of the rules text, not the broader 'any target' (CR 114.5).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "subjects"],
+  "properties": {
+    "kind": { "const": "any_of" },
+    "subjects": {
+      "type": "array",
+      "minItems": 2,
+      "uniqueItems": false,
+      "items": { "$ref": "target_subject.schema.json" }
+    }
+  }
+}
