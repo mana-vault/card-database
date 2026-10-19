@@ -62,7 +62,7 @@ function sound(): Tree {
     ["data/oracle/card/component/type_line/supertype.json", ids("legendary")],
     ["data/oracle/card/component/rarity.json", ids("common", "rare")],
     [
-      "data/print/en/card/component/type_line/card_type.json",
+      "data/print/en/card/base/component/type_line/card_type.json",
       list(
         ["creature", "Creature"],
         ["instant", "Instant"],
@@ -106,7 +106,7 @@ function sound(): Tree {
       },
     ],
     [
-      "data/print/ja/sta/105.json",
+      "data/print/ja/set/sta/105.json",
       {
         card_id: "lightning-bolt",
         set_code: "STA",
@@ -120,12 +120,10 @@ function sound(): Tree {
       },
     ],
     [
-      "data/print/ja/card/entity/sta/105.json",
+      "data/print/ja/card/base/entity/li/lightning-bolt.json",
       {
         lang: "ja",
         card_id: "lightning-bolt",
-        set_code: "STA",
-        number: "105",
         name: "稲妻",
         type_line: { card_types: ["インスタント"] },
         rules_text: {
@@ -136,7 +134,24 @@ function sound(): Tree {
       },
     ],
     [
-      "data/print/ja/set/sta.json",
+      "data/print/en/card/base/entity/li/lightning-bolt.json",
+      {
+        lang: "en",
+        card_id: "lightning-bolt",
+        name: "Lightning Bolt",
+        type_line: { card_types: ["Instant"] },
+        rules_text: {
+          abilities: [
+            {
+              ability_id: "spell",
+              text: "Lightning Bolt deals 3 damage to any target.",
+            },
+          ],
+        },
+      },
+    ],
+    [
+      "data/print/ja/set/base/sta.json",
       { set_code: "STA", lang: "ja", name: "ミスティカルアーカイブ" },
     ],
   ]);
@@ -555,19 +570,19 @@ test("two cards that claim the same id are reported", () => {
 
 test("a print whose card has no file is reported", () => {
   const tree = sound();
-  at(tree, "data/print/ja/sta/105.json").card_id = "shock";
+  at(tree, "data/print/ja/set/sta/105.json").card_id = "shock";
   expect(problemsOf(tree)).toContain("the card shock has no file");
 });
 
 test("a print whose set has no file is reported", () => {
   const tree = sound();
-  at(tree, "data/print/ja/sta/105.json").set_code = "MKM";
+  at(tree, "data/print/ja/set/sta/105.json").set_code = "MKM";
   expect(problemsOf(tree)).toContain("the set MKM has no file");
 });
 
 test("a print whose rarity has no component ID is reported", () => {
   const tree = sound();
-  at(tree, "data/print/ja/sta/105.json").rarity = "mythic";
+  at(tree, "data/print/ja/set/sta/105.json").rarity = "mythic";
   expect(problemsOf(tree)).toContain(
     "mythic is not an id in data/oracle/card/component/rarity.json",
   );
@@ -575,7 +590,7 @@ test("a print whose rarity has no component ID is reported", () => {
 
 test("a print whose platform has no component ID is reported", () => {
   const tree = sound();
-  at(tree, "data/print/ja/sta/105.json").platforms = ["cardboard"];
+  at(tree, "data/print/ja/set/sta/105.json").platforms = ["cardboard"];
   expect(problemsOf(tree)).toContain(
     "platforms: cardboard is not an id in data/platform.json",
   );
@@ -587,23 +602,7 @@ test("prints of a card may have different rarities in different sets", () => {
     set_code: "MKM",
     released_at: "2024-02-09",
   });
-  tree.set("data/print/en/card/entity/mkm/1.json", {
-    lang: "en",
-    card_id: "lightning-bolt",
-    set_code: "MKM",
-    number: "1",
-    name: "Lightning Bolt",
-    type_line: { card_types: ["Instant"] },
-    rules_text: {
-      abilities: [
-        {
-          ability_id: "spell",
-          text: "Lightning Bolt deals 3 damage to any target.",
-        },
-      ],
-    },
-  });
-  tree.set("data/print/en/mkm/1.json", {
+  tree.set("data/print/en/set/mkm/1.json", {
     card_id: "lightning-bolt",
     set_code: "MKM",
     lang: "en",
@@ -616,9 +615,9 @@ test("prints of a card may have different rarities in different sets", () => {
 
 test("a print that does not live where its values say is reported", () => {
   const tree = sound();
-  const print = tree.get("data/print/ja/sta/105.json");
-  tree.delete("data/print/ja/sta/105.json");
-  tree.set("data/print/en/sta/165.json", print);
+  const print = tree.get("data/print/ja/set/sta/105.json");
+  tree.delete("data/print/ja/set/sta/105.json");
+  tree.set("data/print/en/set/sta/165.json", print);
   expect(problemsOf(tree)).toContain("the language folder does not match ja");
   expect(problemsOf(tree)).toContain(
     "the file name does not match the number 105",
@@ -627,33 +626,37 @@ test("a print that does not live where its values say is reported", () => {
 
 test("two prints that claim the same set, language, and number are reported", () => {
   const tree = sound();
-  tree.set("data/print/en/sta/105.json", {
-    ...at(sound(), "data/print/ja/sta/105.json"),
+  tree.set("data/print/en/set/sta/105.json", {
+    ...at(sound(), "data/print/ja/set/sta/105.json"),
   });
   expect(problemsOf(tree)).toContain("appears twice");
 });
 
 test("a card's words whose card has no file are reported", () => {
   const tree = sound();
-  at(tree, "data/print/ja/card/entity/sta/105.json").card_id = "shock";
+  at(tree, "data/print/ja/card/base/entity/li/lightning-bolt.json").card_id =
+    "shock";
   expect(problemsOf(tree)).toContain("the card shock has no file");
 });
 
-test("a card's words that do not live where their values say are reported", () => {
+test("a card's base words that do not live where their values say are reported", () => {
   const tree = sound();
-  const words = { ...at(tree, "data/print/ja/card/entity/sta/105.json") };
-  tree.delete("data/print/ja/card/entity/sta/105.json");
-  tree.set("data/print/en/card/entity/sta/105.json", words);
-  tree.set("data/print/ja/card/entity/mkm/105.json", { ...words });
-  expect(problemsOf(tree)).toContain("the language folder does not match ja");
-  expect(problemsOf(tree)).toContain("the set folder does not match STA");
+  const words = {
+    ...at(tree, "data/print/ja/card/base/entity/li/lightning-bolt.json"),
+  };
+  tree.delete("data/print/ja/card/base/entity/li/lightning-bolt.json");
+  tree.set("data/print/ja/card/base/entity/xx/lightning-bolt.json", words);
+  expect(problemsOf(tree)).toContain(
+    "the folder does not match the id lightning-bolt",
+  );
 });
 
 test("words for an ability the card does not have are reported", () => {
   const tree = sound();
-  at(tree, "data/print/ja/card/entity/sta/105.json").rules_text = {
-    abilities: [{ ability_id: "static", text: "..." }],
-  };
+  at(tree, "data/print/ja/card/base/entity/li/lightning-bolt.json").rules_text =
+    {
+      abilities: [{ ability_id: "static", text: "..." }],
+    };
   expect(problemsOf(tree)).toContain(
     "rules_text: static is not an ability of card lightning-bolt",
   );
@@ -661,39 +664,44 @@ test("words for an ability the card does not have are reported", () => {
 
 test("two texts for the same ability are reported", () => {
   const tree = sound();
-  at(tree, "data/print/ja/card/entity/sta/105.json").rules_text = {
-    abilities: [
-      { ability_id: "spell", text: "..." },
-      { ability_id: "spell", text: "..." },
-    ],
-  };
+  at(tree, "data/print/ja/card/base/entity/li/lightning-bolt.json").rules_text =
+    {
+      abilities: [
+        { ability_id: "spell", text: "..." },
+        { ability_id: "spell", text: "..." },
+      ],
+    };
   expect(problemsOf(tree)).toContain("the ability id spell appears twice");
 });
 
 test("a set's name whose set has no file is reported", () => {
   const tree = sound();
-  at(tree, "data/print/ja/set/sta.json").set_code = "MKM";
+  at(tree, "data/print/ja/set/base/sta.json").set_code = "MKM";
   expect(problemsOf(tree)).toContain("the set MKM has no file");
 });
 
 test("a print whose words have no file is reported", () => {
   const tree = sound();
-  tree.delete("data/print/ja/card/entity/sta/105.json");
+  tree.delete("data/print/ja/card/base/entity/li/lightning-bolt.json");
   expect(problemsOf(tree)).toContain(
-    "the words of the print STA|ja|105 have no file",
+    "the card lightning-bolt has no words file in ja",
   );
 });
 
-test("words of a card whose print has no file are reported", () => {
+test("a print whose words of their own have no file to pair with is reported", () => {
   const tree = sound();
-  tree.delete("data/print/ja/sta/105.json");
-  expect(problemsOf(tree)).toContain("the print STA|ja|105 has no file");
+  tree.set("data/print/ja/card/sta/999.json", {
+    ...at(sound(), "data/print/ja/card/base/entity/li/lightning-bolt.json"),
+    set_code: "STA",
+    number: "999",
+  });
+  expect(problemsOf(tree)).toContain("the print STA|ja|999 has no file");
 });
 
 test("a component name for an id that has no catalog entry is reported", () => {
   const tree = sound();
   tree.set(
-    "data/print/en/card/component/type_line/card_type.json",
+    "data/print/en/card/base/component/type_line/card_type.json",
     list(["creature", "Creature"], ["mystic", "Mystic"]),
   );
   expect(problemsOf(tree)).toContain(
@@ -721,7 +729,7 @@ test("a correction may point at a nested field", () => {
 
 test("a correction whose path does not exist is reported", () => {
   const tree = sound();
-  at(tree, "data/print/ja/sta/105.json").history = [
+  at(tree, "data/print/ja/set/sta/105.json").history = [
     { path: "/rarityy", was: "common", corrected_at: "2024-06-05" },
   ];
   expect(problemsOf(tree)).toContain("history: /rarityy does not exist");
@@ -729,7 +737,7 @@ test("a correction whose path does not exist is reported", () => {
 
 test("a correction whose path steps into a list is reported", () => {
   const tree = sound();
-  at(tree, "data/print/ja/sta/105.json").history = [
+  at(tree, "data/print/ja/set/sta/105.json").history = [
     { path: "/platforms/0", was: "paper", corrected_at: "2024-06-05" },
   ];
   expect(problemsOf(tree)).toContain("history: /platforms/0 steps into a list");
@@ -737,7 +745,7 @@ test("a correction whose path steps into a list is reported", () => {
 
 test("a correction whose path is not a JSON Pointer is reported", () => {
   const tree = sound();
-  at(tree, "data/print/ja/sta/105.json").history = [
+  at(tree, "data/print/ja/set/sta/105.json").history = [
     { path: "rarity", was: "common", corrected_at: "2024-06-05" },
   ];
   expect(problemsOf(tree)).toContain("history: rarity is not a JSON Pointer");

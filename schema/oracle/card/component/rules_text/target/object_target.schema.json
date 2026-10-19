@@ -14,7 +14,7 @@
         "enum": ["battlefield", "stack", "graveyard", "exile", "hand", "library", "ante", "command"]
       }
     },
-    "controller": { "enum": ["you", "opponent", "any_player"] },
+    "controller": { "enum": ["you", "opponent", "any_player", "that_player"] },
     "type_line": { "$ref": "type_line_filter.schema.json" },
     "color": { "$ref": "color_filter.schema.json" },
     "another": {

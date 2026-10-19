@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Print",
-  "description": "A file in data/print/<lang>/, one print per file, such as data/print/ja/mh3/170.json. The record of one appearance of a card in one product. Its flavor text is held here, because a reprint shows its own; the words the paper shows come from the card's file under card/entity/.",
+  "description": "A file in data/print/<lang>/set/, one print per file, such as data/print/ja/set/mh3/170.json. The record of one appearance of a card in one product; the prints of one set live in the set's folder, beside the set's own words in base/. Its flavor text is held here, because a reprint shows its own; the words the paper shows come from the card's words, under card/base/entity/.",
   "type": "object",
   "additionalProperties": false,
   "required": ["card_id", "set_code", "lang", "number", "rarity", "platforms"],
