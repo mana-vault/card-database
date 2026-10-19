@@ -12,7 +12,8 @@ The data comes in two layers.
 - `data/print/` holds the paper, one folder per language. A `print` is one appearance of a `card` in
   a product: set, collector number, language, platform, rarity, the artist, and the flavor text the
   appearance shows. Beside the prints, each language holds the words its papers show: the name, the
-  type line, and the rules text of each print's card, and the names of the components and the sets.
+  type line, and the rules text of each print's card, the words for the component values a paper
+  shows, and the names of the sets.
 
 Every `print` references the `card` it belongs to, and pairs with the words file of the same
 appearance. The flavor text belongs to the `print`. The schema and the file formats are documented
