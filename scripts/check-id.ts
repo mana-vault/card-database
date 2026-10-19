@@ -284,9 +284,14 @@ export function check(files: FileTree): string[] {
     if (match[3] !== cardID)
       add(path, `the file name does not match the id ${cardID}`);
     baseWords.add(`${lang}|${cardID}`);
-    const rulesText = words.rules_text;
-    if (isRecord(rulesText))
-      checkWordsAbilities(path, rulesText, cardID, cardAbilityIds, add);
+    const visitBase = (value: unknown): void => {
+      if (!isRecord(value)) return;
+      const rulesText = value.rules_text;
+      if (isRecord(rulesText))
+        checkWordsAbilities(path, rulesText, cardID, cardAbilityIds, add);
+      for (const nested of Object.values(value)) visitBase(nested);
+    };
+    visitBase(words);
   }
 
   const printKeys = new Set<string>();
@@ -357,9 +362,14 @@ export function check(files: FileTree): string[] {
     if (match[3] !== number)
       add(path, `the file name does not match the number ${number}`);
 
-    const rulesText = words.rules_text;
-    if (isRecord(rulesText))
-      checkWordsAbilities(path, rulesText, cardID, cardAbilityIds, add);
+    const visitWords = (value: unknown): void => {
+      if (!isRecord(value)) return;
+      const rulesText = value.rules_text;
+      if (isRecord(rulesText))
+        checkWordsAbilities(path, rulesText, cardID, cardAbilityIds, add);
+      for (const nested of Object.values(value)) visitWords(nested);
+    };
+    visitWords(words);
   }
 
   for (const path of paths) {

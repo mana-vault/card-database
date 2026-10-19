@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Card, split layout",
+  "description": "A file in data/oracle/card/split/. A split card carries two spell halves on one card, and each half holds its own mana cost, type line, and rules text (CR 708). The half read first sits in left, and the other sits in right.",
+  "type": "object",
+  "properties": {
+    "card_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_-]+$"
+    },
+    "layout": {
+      "const": "split",
+      "description": "The id of this card's layout in data/oracle/card/component/layout.json. A layout fixes which values a card has and how its faces are arranged. The folder the card sits in is named after it."
+    },
+    "left": {
+      "$ref": "component/face.schema.json"
+    },
+    "right": {
+      "$ref": "component/face.schema.json"
+    },
+    "history": {
+      "type": "array",
+      "description": "Records of official corrections to this card. Appended only; past records are never rewritten.",
+      "items": { "$ref": "../../correction.schema.json" }
+    }
+  },
+  "required": ["card_id", "layout", "left", "right"],
+  "unevaluatedProperties": false
+}

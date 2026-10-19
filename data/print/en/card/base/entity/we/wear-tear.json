@@ -1,0 +1,36 @@
+{
+  "lang": "en",
+  "card_id": "wear-tear",
+  "left": {
+    "name": "Wear",
+    "type_line": {
+      "card_types": [
+        "Instant"
+      ]
+    },
+    "rules_text": {
+      "abilities": [
+        {
+          "ability_id": "wear",
+          "text": "Destroy target artifact."
+        }
+      ]
+    }
+  },
+  "right": {
+    "name": "Tear",
+    "type_line": {
+      "card_types": [
+        "Instant"
+      ]
+    },
+    "rules_text": {
+      "abilities": [
+        {
+          "ability_id": "tear",
+          "text": "Destroy target enchantment."
+        }
+      ]
+    }
+  }
+}
