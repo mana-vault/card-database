@@ -21,7 +21,7 @@
           },
           "text": {
             "type": "string",
-            "description": "The rules text of that ability as printed in this language."
+            "description": "The words of that ability as printed in this language. For an activated ability, the words after the cost's colon (CR 602.1a): the card holds the cost, and the printed symbol for it is assembled from the card (CR 107.7 for the loyalty symbol)."
           }
         }
       }
