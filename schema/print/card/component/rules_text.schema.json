@@ -45,7 +45,7 @@
                     "id": {
                       "type": "string",
                       "pattern": "^[^\\s{}]+$",
-                      "description": "The ID of a mana symbol (CR 107.4); the application assembles the printed notation from it."
+                      "description": "The ID of a mana symbol (CR 107.4); the application assembles the printed notation from it. A generic mana symbol (CR 107.4b) is named by the numeral it prints, and no list holds it."
                     }
                   }
                 },

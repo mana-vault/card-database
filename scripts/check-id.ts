@@ -64,6 +64,8 @@ const BASE_WORDS =
 const EXCEPTION_WORDS =
   /^data\/print\/([a-z0-9-]+)\/card\/(?!base\/)([a-z0-9]+)\/([^/]+)\.json$/;
 const SET_NAME = /^data\/print\/([a-z0-9-]+)\/set\/base\/([a-z0-9]+)\.json$/;
+/** The numeral a generic mana symbol prints (CR 107.4b): an id no list holds. */
+const NUMERIC_ID = /^\d+$/;
 
 function componentPath(listName: string): string {
   if (listName === "platform") return "data/platform.json";
@@ -75,7 +77,7 @@ function hasComponentId(
   listName: string,
   id: string,
 ): boolean {
-  if (listName === "card/mana_symbol" && /^\d+$/.test(id)) return true;
+  if (listName === "card/mana_symbol" && NUMERIC_ID.test(id)) return true;
   return (componentIds.get(listName) ?? new Set()).has(id);
 }
 
@@ -650,7 +652,7 @@ function checkWordsAbilities(
       const id = stringField(piece, "id");
       if (
         piece.kind === "mana_symbol" &&
-        (id === undefined || !manaSymbols.has(id))
+        (id === undefined || (!manaSymbols.has(id) && !NUMERIC_ID.test(id)))
       )
         add(path, `rules_text: ${id ?? ""} is not an id in ${symbolList}`);
       if (

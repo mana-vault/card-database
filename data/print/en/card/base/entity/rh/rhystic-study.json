@@ -14,8 +14,10 @@
         "text": [
           {
             "kind": "rawText",
-            "value": "Whenever an opponent casts a spell, unless they pay {1}, draw a card."
-          }
+            "value": "Whenever an opponent casts a spell, unless they pay "
+          },
+          { "kind": "mana_symbol", "id": "1" },
+          { "kind": "rawText", "value": ", draw a card." }
         ]
       }
     ]

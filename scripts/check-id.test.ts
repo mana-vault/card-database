@@ -791,6 +791,24 @@ test("a rawText piece without a value is reported", () => {
   );
 });
 
+test("a text piece may name a generic mana symbol by its numeral", () => {
+  const tree = sound();
+  at(tree, "data/print/en/card/base/entity/li/lightning-bolt.json").rules_text =
+    {
+      abilities: [
+        {
+          ability_id: "spell",
+          text: [
+            { kind: "rawText", value: "Unless they pay " },
+            { kind: "mana_symbol", id: "1" },
+            { kind: "rawText", value: ", draw a card." },
+          ],
+        },
+      ],
+    };
+  expect(problemsOf(tree)).toBe("");
+});
+
 test("a set's name whose set has no file is reported", () => {
   const tree = sound();
   at(tree, "data/print/ja/set/base/sta.json").set_code = "MKM";
