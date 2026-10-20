@@ -338,8 +338,21 @@ export function check(files: FileTree): string[] {
     const visitBase = (value: unknown): void => {
       if (!isRecord(value)) return;
       const rulesText = value.rules_text;
-      if (isRecord(rulesText))
-        checkWordsAbilities(path, rulesText, cardID, cardAbilityIds, add);
+      if (isRecord(rulesText)) {
+        const symbols = componentIDsAt(
+          files,
+          `data/print/${lang}/card/base/component/mana_symbol.json`,
+        );
+        checkWordsAbilities(
+          path,
+          lang,
+          rulesText,
+          cardID,
+          cardAbilityIds,
+          symbols,
+          add,
+        );
+      }
       for (const nested of Object.values(value)) visitBase(nested);
     };
     visitBase(words);
@@ -425,8 +438,21 @@ export function check(files: FileTree): string[] {
     const visitWords = (value: unknown): void => {
       if (!isRecord(value)) return;
       const rulesText = value.rules_text;
-      if (isRecord(rulesText))
-        checkWordsAbilities(path, rulesText, cardID, cardAbilityIds, add);
+      if (isRecord(rulesText)) {
+        const symbols = componentIDsAt(
+          files,
+          `data/print/${lang}/card/base/component/mana_symbol.json`,
+        );
+        checkWordsAbilities(
+          path,
+          lang,
+          rulesText,
+          cardID,
+          cardAbilityIds,
+          symbols,
+          add,
+        );
+      }
       for (const nested of Object.values(value)) visitWords(nested);
     };
     visitWords(words);
@@ -590,11 +616,23 @@ function checkCardFaces(
 }
 
 /** Check the words of one face: the ability ids must match the card's abilities. */
+/** The ids of a component list at a path, of the {id, value} entries a list holds. */
+function componentIDsAt(files: FileTree, listPath: string): Set<string> {
+  const ids = new Set<string>();
+  for (const entry of records(files.get(listPath))) {
+    const id = stringField(entry, "id");
+    if (id !== undefined) ids.add(id);
+  }
+  return ids;
+}
+
 function checkWordsAbilities(
   path: string,
+  lang: string,
   rulesText: JsonRecord,
   cardID: string,
   cardAbilityIds: Map<string, Set<string>>,
+  manaSymbols: Set<string>,
   add: (path: string, message: string) => void,
 ): void {
   const seen = new Set<string>();
@@ -606,6 +644,13 @@ function checkWordsAbilities(
     seen.add(abilityID);
     if (!(cardAbilityIds.get(cardID) ?? new Set()).has(abilityID)) {
       add(path, `rules_text: ${abilityID} is not an ability of card ${cardID}`);
+    }
+    const symbolList = `data/print/${lang}/card/base/component/mana_symbol.json`;
+    for (const piece of Array.isArray(ability.text) ? ability.text : []) {
+      if (!isRecord(piece)) continue;
+      const id = stringField(piece, "id");
+      if (piece.kind === "symbol" && (id === undefined || !manaSymbols.has(id)))
+        add(path, `rules_text: ${id ?? ""} is not an id in ${symbolList}`);
     }
   }
 }

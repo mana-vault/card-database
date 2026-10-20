@@ -12,7 +12,9 @@
       "abilities": [
         {
           "ability_id": "wear",
-          "text": "Destroy target artifact."
+          "text": [
+            "Destroy target artifact."
+          ]
         }
       ]
     }
@@ -28,7 +30,9 @@
       "abilities": [
         {
           "ability_id": "tear",
-          "text": "Destroy target enchantment."
+          "text": [
+            "Destroy target enchantment."
+          ]
         }
       ]
     }
