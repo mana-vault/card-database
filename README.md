@@ -11,12 +11,13 @@ The data comes in two layers.
   of any language is held here.
 - `data/print/` holds the paper, one folder per language. A `print` is one appearance of a `card` in
   a product: set, collector number, language, platform, rarity, the artist, and the flavor text the
-  appearance shows. Beside the prints, each language holds the words its papers show: the name, the
+  appearance shows. Beside the prints, each language holds the text its papers show: the name, the
   type line, and the rules text of each print's card, and the names of the components and the sets.
 
-Every `print` references the `card` it belongs to, and pairs with the words file of the same
-appearance. The flavor text belongs to the `print`. The schema and the file formats are documented
-in [`docs/en/design.md`](docs/en/design.md).
+Every `print` references the `card` it belongs to, and pairs with that card's text file in the
+same language. The flavor text belongs to the `print`. The design is documented in
+[`docs/en/design.md`](docs/en/design.md), and the schemas and the file formats in
+[`docs/en/schema.md`](docs/en/schema.md).
 
 See [CONTRIBUTING](CONTRIBUTING.md) to add or fix card data, and [LICENSE](LICENSE) for what is and
 is not licensed here.
