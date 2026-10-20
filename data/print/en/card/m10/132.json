@@ -9,19 +9,25 @@
       {
         "ability_id": "spark",
         "text": [
-          "Chandra Nalaar deals 1 damage to target player."
+          {
+            "kind": "rawText",
+            "value": "Chandra Nalaar deals 1 damage to target player."
+          }
         ]
       },
       {
         "ability_id": "blaze",
         "text": [
-          "Chandra Nalaar deals X damage to target creature."
+          { "kind": "rawText", "value": "Chandra Nalaar deals X damage to target creature." }
         ]
       },
       {
         "ability_id": "inferno",
         "text": [
-          "Chandra Nalaar deals 10 damage to target player and each creature that player controls."
+          {
+            "kind": "rawText",
+            "value": "Chandra Nalaar deals 10 damage to target player and each creature that player controls."
+          }
         ]
       }
     ]

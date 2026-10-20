@@ -16,13 +16,19 @@
       {
         "ability_id": "fabricate",
         "text": [
-          "Fabricate 1 (When this creature enters, put a +1/+1 counter on it or create a 1/1 colorless Servo artifact creature token.)"
+          {
+            "kind": "rawText",
+            "value": "Fabricate 1 (When this creature enters, put a +1/+1 counter on it or create a 1/1 colorless Servo artifact creature token.)"
+          }
         ]
       },
       {
         "ability_id": "drain",
         "text": [
-          "Whenever another creature or artifact you control is put into a graveyard from the battlefield, each opponent loses 1 life."
+          {
+            "kind": "rawText",
+            "value": "Whenever another creature or artifact you control is put into a graveyard from the battlefield, each opponent loses 1 life."
+          }
         ]
       }
     ]

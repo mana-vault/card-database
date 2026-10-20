@@ -12,7 +12,7 @@
       {
         "ability_id": "spell",
         "text": [
-          "Lightning Bolt deals 3 damage to any target."
+          { "kind": "rawText", "value": "Lightning Bolt deals 3 damage to any target." }
         ]
       }
     ]

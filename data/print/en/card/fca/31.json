@@ -9,7 +9,10 @@
       {
         "ability_id": "triggered",
         "text": [
-          "Whenever an opponent casts a spell, unless they pay {1}, draw a card."
+          {
+            "kind": "rawText",
+            "value": "Whenever an opponent casts a spell, unless they pay {1}, draw a card."
+          }
         ]
       }
     ]

@@ -47,6 +47,10 @@ function sound(): Tree {
     ],
     ["data/oracle/card/component/mana_symbol.json", ids("R", "G", "U")],
     [
+      "data/print/en/card/base/component/ability/keyword_ability.json",
+      list(["flying", "Flying"], ["ward", "Ward"]),
+    ],
+    [
       "data/oracle/card/component/type_line/card_type.json",
       ids("creature", "instant", "kindred"),
     ],
@@ -128,7 +132,10 @@ function sound(): Tree {
         type_line: { card_types: ["instant"] },
         rules_text: {
           abilities: [
-            { ability_id: "spell", text: ["３点のダメージを与える。"] },
+            {
+              ability_id: "spell",
+              text: [{ kind: "rawText", value: "３点のダメージを与える。" }],
+            },
           ],
         },
       },
@@ -144,7 +151,12 @@ function sound(): Tree {
           abilities: [
             {
               ability_id: "spell",
-              text: ["Lightning Bolt deals 3 damage to any target."],
+              text: [
+                {
+                  kind: "rawText",
+                  value: "Lightning Bolt deals 3 damage to any target.",
+                },
+              ],
             },
           ],
         },
@@ -709,7 +721,10 @@ test("a text piece that names a mana symbol id of this language passes", () => {
       abilities: [
         {
           ability_id: "spell",
-          text: [{ kind: "symbol", id: "R" }, " deals 3 damage to any target."],
+          text: [
+            { kind: "mana_symbol", id: "R" },
+            { kind: "rawText", value: " deals 3 damage to any target." },
+          ],
         },
       ],
     };
@@ -723,12 +738,56 @@ test("a text piece that names an unknown mana symbol id is reported", () => {
       abilities: [
         {
           ability_id: "spell",
-          text: [{ kind: "symbol", id: "V" }, " deals 3 damage to any target."],
+          text: [
+            { kind: "mana_symbol", id: "V" },
+            { kind: "rawText", value: " deals 3 damage to any target." },
+          ],
         },
       ],
     };
   expect(problemsOf(tree)).toContain(
     "rules_text: V is not an id in data/oracle/card/component/mana_symbol.json",
+  );
+});
+
+test("a text piece that names a keyword ability id of this language passes", () => {
+  const tree = sound();
+  at(tree, "data/print/en/card/base/entity/li/lightning-bolt.json").rules_text =
+    {
+      abilities: [
+        {
+          ability_id: "spell",
+          text: [{ kind: "keyword_ability", id: "flying" }],
+        },
+      ],
+    };
+  expect(problemsOf(tree)).toBe("");
+});
+
+test("a text piece that names an unknown keyword ability id is reported", () => {
+  const tree = sound();
+  at(tree, "data/print/en/card/base/entity/li/lightning-bolt.json").rules_text =
+    {
+      abilities: [
+        {
+          ability_id: "spell",
+          text: [{ kind: "keyword_ability", id: "shadow" }],
+        },
+      ],
+    };
+  expect(problemsOf(tree)).toContain(
+    "data/print/en/card/base/entity/li/lightning-bolt.json: rules_text: shadow is not an id in data/print/en/card/base/component/ability/keyword_ability.json",
+  );
+});
+
+test("a rawText piece without a value is reported", () => {
+  const tree = sound();
+  at(tree, "data/print/en/card/base/entity/li/lightning-bolt.json").rules_text =
+    {
+      abilities: [{ ability_id: "spell", text: [{ kind: "rawText" }] }],
+    };
+  expect(problemsOf(tree)).toContain(
+    "rules_text: a rawText piece of spell has no value",
   );
 });
 
