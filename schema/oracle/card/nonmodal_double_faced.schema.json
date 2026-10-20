@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Card, nonmodal double-faced layout",
+  "description": "A file in data/oracle/card/nonmodal_double_faced/. A card with two faces where neither face is chosen at casting: the front runs while the card is one object, and the back runs after it transforms (CR 709). The front and the back each hold their own characteristics.",
+  "type": "object",
+  "properties": {
+    "card_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_-]+$"
+    },
+    "layout": {
+      "const": "nonmodal_double_faced",
+      "description": "The id of this card's layout in data/oracle/card/component/layout.json. A layout fixes which values a card has and how its faces are arranged. The folder the card sits in is named after it."
+    },
+    "front": {
+      "$ref": "component/face.schema.json"
+    },
+    "back": {
+      "$ref": "component/face.schema.json"
+    },
+    "history": {
+      "type": "array",
+      "description": "Records of official corrections to this card. Appended only; past records are never rewritten.",
+      "items": { "$ref": "../../correction.schema.json" }
+    }
+  },
+  "required": ["card_id", "layout", "front", "back"],
+  "unevaluatedProperties": false
+}

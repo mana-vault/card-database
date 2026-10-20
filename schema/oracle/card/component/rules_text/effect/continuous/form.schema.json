@@ -4,6 +4,7 @@
   "oneOf": [
     { "$ref": "characteristic_change.schema.json" },
     { "$ref": "text_change.schema.json" },
+    { "$ref": "type_line_change.schema.json" },
     { "$ref": "control_change.schema.json" },
     { "$ref": "replacement.schema.json" },
     { "$ref": "prevention.schema.json" },
