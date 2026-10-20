@@ -5,7 +5,7 @@
     "name": "Wear",
     "type_line": {
       "card_types": [
-        "Instant"
+        "instant"
       ]
     },
     "rules_text": {
@@ -21,7 +21,7 @@
     "name": "Tear",
     "type_line": {
       "card_types": [
-        "Instant"
+        "instant"
       ]
     },
     "rules_text": {

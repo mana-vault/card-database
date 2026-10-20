@@ -4,14 +4,6 @@
   "set_code": "DD2",
   "number": "34",
   "name": "Chandra Nalaar",
-  "type_line": {
-    "card_types": [
-      "Planeswalker"
-    ],
-    "subtypes": [
-      "Chandra"
-    ]
-  },
   "rules_text": {
     "abilities": [
       {

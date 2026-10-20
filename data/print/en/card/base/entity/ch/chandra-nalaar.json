@@ -4,10 +4,10 @@
   "name": "Chandra Nalaar",
   "type_line": {
     "card_types": [
-      "Planeswalker"
+      "planeswalker"
     ],
     "subtypes": [
-      "Chandra"
+      "planeswalker_chandra"
     ]
   },
   "rules_text": {

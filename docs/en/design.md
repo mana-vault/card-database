@@ -178,9 +178,11 @@ words every print of a card shows the same way sit in `base/entity/`, one file p
 - `lang`
 - `card_id`
 
-It holds the name, the type line, and the rules text: the type line in the supertypes, card types,
-and subtypes as this language prints them, and the rules text in one entry per ability, paired by
-`ability_id` with the card's structure. The Japanese words of Lightning Bolt are
+It holds the name, the type line, and the rules text. The name and the rules text are words, and
+the rules text is one entry per ability, paired by `ability_id` with the card's structure; the type
+line holds the same IDs the card holds, and the words for them are in the component name lists. The
+Japanese words for the IDs live in `data/print/ja/card/base/component/`. The Japanese words of
+Lightning Bolt are
 `data/print/ja/card/base/entity/li/lightning-bolt.json`. Flavor text is not here: a reprint can
 change it, so it belongs to the `print`.
 

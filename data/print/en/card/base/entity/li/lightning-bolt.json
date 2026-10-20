@@ -4,7 +4,7 @@
   "name": "Lightning Bolt",
   "type_line": {
     "card_types": [
-      "Instant"
+      "instant"
     ]
   },
   "rules_text": {

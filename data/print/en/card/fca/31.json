@@ -4,11 +4,6 @@
   "set_code": "FCA",
   "number": "31",
   "name": "Stay with Me",
-  "type_line": {
-    "card_types": [
-      "Enchantment"
-    ]
-  },
   "rules_text": {
     "abilities": [
       {
