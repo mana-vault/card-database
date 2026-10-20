@@ -15,7 +15,9 @@
       "abilities": [
         {
           "ability_id": "provision",
-          "text": "When this Siege enters, search your library for up to two basic land cards, put them onto the battlefield tapped, then shuffle."
+          "text": [
+            "When this Siege enters, search your library for up to two basic land cards, put them onto the battlefield tapped, then shuffle."
+          ]
         }
       ]
     }
@@ -34,19 +36,27 @@
       "abilities": [
         {
           "ability_id": "vigilance",
-          "text": "Vigilance"
+          "text": [
+            "Vigilance"
+          ]
         },
         {
           "ability_id": "haste",
-          "text": "haste"
+          "text": [
+            "haste"
+          ]
         },
         {
           "ability_id": "skyland",
-          "text": "As long as this creature is on the battlefield, it's a land in addition to its other types."
+          "text": [
+            "As long as this creature is on the battlefield, it's a land in addition to its other types."
+          ]
         },
         {
           "ability_id": "mana",
-          "text": "{T}: Add one mana of any color."
+          "text": [
+            "{T}: Add one mana of any color."
+          ]
         }
       ]
     }

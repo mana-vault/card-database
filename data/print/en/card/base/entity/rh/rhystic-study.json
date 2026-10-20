@@ -11,7 +11,9 @@
     "abilities": [
       {
         "ability_id": "triggered",
-        "text": "Whenever an opponent casts a spell, unless they pay {1}, draw a card."
+        "text": [
+          "Whenever an opponent casts a spell, unless they pay {1}, draw a card."
+        ]
       }
     ]
   }

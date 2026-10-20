@@ -8,15 +8,21 @@
     "abilities": [
       {
         "ability_id": "spark",
-        "text": "+1: Chandra Nalaar deals 1 damage to target player."
+        "text": [
+          "+1: Chandra Nalaar deals 1 damage to target player."
+        ]
       },
       {
         "ability_id": "blaze",
-        "text": "−X: Chandra Nalaar deals X damage to target creature."
+        "text": [
+          "−X: Chandra Nalaar deals X damage to target creature."
+        ]
       },
       {
         "ability_id": "inferno",
-        "text": "−8: Chandra Nalaar deals 10 damage to target player and each creature that player controls."
+        "text": [
+          "−8: Chandra Nalaar deals 10 damage to target player and each creature that player controls."
+        ]
       }
     ]
   }

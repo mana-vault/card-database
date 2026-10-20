@@ -45,7 +45,7 @@ function sound(): Tree {
       "data/oracle/card/component/layout.json",
       ids("normal", "modal_double_faced"),
     ],
-    ["data/oracle/card/component/mana_symbol.json", ids("R")],
+    ["data/oracle/card/component/mana_symbol.json", ids("R", "G", "U")],
     [
       "data/oracle/card/component/type_line/card_type.json",
       ids("creature", "instant", "kindred"),
@@ -68,6 +68,10 @@ function sound(): Tree {
         ["instant", "Instant"],
         ["kindred", "Kindred"],
       ),
+    ],
+    [
+      "data/print/en/card/base/component/mana_symbol.json",
+      list(["G", "{G}"], ["R", "{R}"], ["U", "{U}"]),
     ],
     ["data/platform.json", ids("paper", "magic_online")],
     [
@@ -128,7 +132,7 @@ function sound(): Tree {
         type_line: { card_types: ["instant"] },
         rules_text: {
           abilities: [
-            { ability_id: "spell", text: "３点のダメージを与える。" },
+            { ability_id: "spell", text: ["３点のダメージを与える。"] },
           ],
         },
       },
@@ -144,7 +148,7 @@ function sound(): Tree {
           abilities: [
             {
               ability_id: "spell",
-              text: "Lightning Bolt deals 3 damage to any target.",
+              text: ["Lightning Bolt deals 3 damage to any target."],
             },
           ],
         },
@@ -176,9 +180,9 @@ test("an id that appears twice in one component list is reported", () => {
 
 test("a card that refers to an unknown mana symbol is reported", () => {
   const tree = sound();
-  at(tree, "data/oracle/card/normal/li/lightning-bolt.json").mana_cost = ["U"];
+  at(tree, "data/oracle/card/normal/li/lightning-bolt.json").mana_cost = ["Y"];
   expect(problemsOf(tree)).toContain(
-    "mana_cost: U is not an id in data/oracle/card/component/mana_symbol.json",
+    "mana_cost: Y is not an id in data/oracle/card/component/mana_symbol.json",
   );
 });
 
@@ -502,7 +506,7 @@ test("an activated ability cost that refers to an unknown mana symbol is reporte
       {
         ability_id: "activated",
         kind: "activated",
-        cost: { kind: "mana", symbols: ["G"] },
+        cost: { kind: "mana", symbols: ["Y"] },
         body: {
           steps: [
             {
@@ -525,7 +529,7 @@ test("an activated ability cost that refers to an unknown mana symbol is reporte
     ],
   };
   expect(problemsOf(tree)).toContain(
-    "symbols: G is not an id in data/oracle/card/component/mana_symbol.json",
+    "symbols: Y is not an id in data/oracle/card/component/mana_symbol.json",
   );
 });
 
@@ -700,6 +704,36 @@ test("two texts for the same ability are reported", () => {
       ],
     };
   expect(problemsOf(tree)).toContain("the ability id spell appears twice");
+});
+
+test("a text piece that names a mana symbol id of this language passes", () => {
+  const tree = sound();
+  at(tree, "data/print/en/card/base/entity/li/lightning-bolt.json").rules_text =
+    {
+      abilities: [
+        {
+          ability_id: "spell",
+          text: [{ kind: "symbol", id: "R" }, " deals 3 damage to any target."],
+        },
+      ],
+    };
+  expect(problemsOf(tree)).toBe("");
+});
+
+test("a text piece that names an unknown mana symbol id is reported", () => {
+  const tree = sound();
+  at(tree, "data/print/en/card/base/entity/li/lightning-bolt.json").rules_text =
+    {
+      abilities: [
+        {
+          ability_id: "spell",
+          text: [{ kind: "symbol", id: "V" }, " deals 3 damage to any target."],
+        },
+      ],
+    };
+  expect(problemsOf(tree)).toContain(
+    "rules_text: V is not an id in data/print/en/card/base/component/mana_symbol.json",
+  );
 });
 
 test("a set's name whose set has no file is reported", () => {
