@@ -180,9 +180,8 @@ words every print of a card shows the same way sit in `base/entity/`, one file p
 
 It holds the name, the type line, and the rules text. The name and the rules text are words, and
 the rules text is one entry per ability, paired by `ability_id` with the card's structure; an
-ability's text is the sequence of pieces the printed ability consists of: the connecting words are
-strings, and every part that is a component is the ID of that component, whose words the lists of
-this language hold. The
+ability's text names the components the printed ability contains, by ID, and holds the words
+between them as plain strings. The
 text of an activated ability is what follows the cost's colon (CR 602.1a): the card holds the cost,
 and the printed symbol for it is assembled from the card. The
 Japanese words for the IDs live in `data/print/ja/card/base/component/`. The Japanese words of
