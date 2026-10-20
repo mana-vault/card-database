@@ -283,6 +283,10 @@ export function check(files: FileTree): string[] {
       add(path, `the folder does not match the id ${cardID}`);
     if (match[3] !== cardID)
       add(path, `the file name does not match the id ${cardID}`);
+    for (const field of ["set_code", "number"]) {
+      if (words[field] !== undefined)
+        add(path, `the base words must not hold ${field}`);
+    }
     baseWords.add(`${lang}|${cardID}`);
     const visitBase = (value: unknown): void => {
       if (!isRecord(value)) return;
@@ -343,9 +347,18 @@ export function check(files: FileTree): string[] {
     const setCode = stringField(words, "set_code");
     const lang = stringField(words, "lang");
     const number = stringField(words, "number");
-    if (cardID === undefined || setCode === undefined) continue;
-    if (lang === undefined || number === undefined) continue;
+    if (cardID === undefined) continue;
     if (!cardIds.has(cardID)) add(path, `the card ${cardID} has no file`);
+    for (const [field, value] of [
+      ["set_code", setCode],
+      ["lang", lang],
+      ["number", number],
+    ]) {
+      if (value === undefined)
+        add(path, `the words of a print must hold ${field}`);
+    }
+    if (setCode === undefined || lang === undefined || number === undefined)
+      continue;
     if (!setCodes.has(setCode)) add(path, `the set ${setCode} has no file`);
     const key = `${setCode}|${lang}|${number}`;
     if (!printKeys.has(key)) add(path, `the print ${key} has no file`);

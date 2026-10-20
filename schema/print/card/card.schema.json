@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Words of a card",
+  "description": "A file under data/print/<lang>/card/: the words a paper of this language shows for a card, in the shape its card's layout gives them. The words every print shows live in card/base/entity/, one file per card; a print whose words differ holds its own file beside the base, at card/<set>/<number>.json. This file points at one schema per layout. Flavor text is not here: it belongs to the print.",
+  "oneOf": [
+    { "$ref": "normal.json" },
+    { "$ref": "split.json" },
+    { "$ref": "nonmodal_double_faced.json" }
+  ]
+}

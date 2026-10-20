@@ -137,9 +137,9 @@ Wizards of the Coast が新しい値を定めたときに、その値を一覧�
 - `lang`
 - `card_id`
 
-ファイルには、カード名、タイプ行、ルール・テキストを収録します。タイプ行の特殊タイプ、カード・タイプ、サブタイプはそれぞれ別の項目に、ルール・テキストは能力ごとに収録します。《稲妻》の日本語の言葉は、`data/print/ja/card/base/entity/li/lightning-bolt.json` に収録します。フレイバー・テキストは再録で変わることがあるため、ここには収録せず、`プリント`に収録します。
+ファイルには、カード名、タイプ行、ルール・テキストを収録します。タイプ行は、特殊タイプ、カード・タイプ、サブタイプをこの言語が刷る言葉で、それぞれ別の項目に。ルール・テキストは能力ごとの文で、カードの構造が持つ `ability_id` と対応させます。《稲妻》の日本語の言葉は、`data/print/ja/card/base/entity/li/lightning-bolt.json` に収録します。フレイバー・テキストは再録で変わることがあるため、ここには収録せず、`プリント`に収録します。
 
-base と違う言葉を示すプリントは（別の名前で印刷されるコラボの収録、古い表記を示す版など）、その言葉を `card/<set>/<number>.json` に、それを示すプリントの名前で一つのファイルに収録します。たとえば、《リスティックの研究》の Final Fantasy 版は Stay with Me という名前で印刷されるので、その言葉は `data/print/en/card/fca/31.json` に収録します。
+base と違う言葉を示すプリントは（別の名前で印刷されるコラボの収録、古い表記を示す版など）、その言葉を `card/<set>/<number>.json` に、それを示すプリントの名前で一つのファイルに収録します。項目は base と同じです。たとえば、《リスティックの研究》の Final Fantasy 版は Stay with Me という名前で印刷されるので、その言葉は `data/print/en/card/fca/31.json` に収録します。
 
 コンポーネントの名称も `base/` の下に置き、`base/component/<一覧名>.json` に id とその言語で示す言葉の組を収録します。セットの名前も紙の言葉なので、その隣の `set/` に置きます。たとえば、Strixhaven Mystical Archive の日本語名は `data/print/ja/set/base/sta.json` に収録します。
 
@@ -206,8 +206,17 @@ schema/
             durations/
   print/
     print.json
-    card.schema.json
     set.schema.json
+    card/
+      card.schema.json
+      normal.json
+      split.json
+      nonmodal_double_faced.json
+      component/
+        identity.schema.json
+        face.schema.json
+        type_line.schema.json
+        rules_text.schema.json
   correction.schema.json
 ```
 
@@ -225,7 +234,7 @@ schema/
 
 #### 言葉
 
-言葉のファイルには、カード用の `schema/print/card.schema.json` と、セット用の `schema/print/set.schema.json` を使います。カード用のスキーマは、`base/entity/` の言葉と、プリントが自分の言葉を持つときの形を定めます。
+言葉のファイルには、レイアウトごとに `schema/print/card/` の下のスキーマを使います。レイアウトのスキーマは、`card/component/` の部品（識別、一つの面の言葉、history）を ref して組み立てます。base と例外は同じスキーマを使い、どちらかはパスが決めて、check-id が検査します。セットの言葉（名前）には `schema/print/set.schema.json` を使います。
 
 #### その他のファイル
 

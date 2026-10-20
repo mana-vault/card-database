@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Words of a card, split layout",
+  "description": "A words file of a card of the split layout: the two halves hold their words in left and right, as the card holds its halves.",
+  "type": "object",
+  "allOf": [{ "$ref": "component/identity.schema.json" }],
+  "properties": {
+    "left": { "$ref": "component/face.schema.json" },
+    "right": { "$ref": "component/face.schema.json" },
+    "history": {
+      "type": "array",
+      "description": "Records of official corrections to these words. Appended only; past records are never rewritten.",
+      "items": { "$ref": "../../correction.schema.json" }
+    }
+  },
+  "required": ["left", "right"],
+  "unevaluatedProperties": false
+}

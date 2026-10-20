@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Words identity",
+  "description": "Which card's words these are, and in which language. A print whose words differ from the base also names the print: set_code and number. The path already tells base from exception, and check-id checks the difference: base/entity/ files hold no set_code or number, and card/<set>/ files do.",
+  "type": "object",
+  "required": ["card_id", "lang"],
+  "properties": {
+    "card_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_-]+$"
+    },
+    "lang": {
+      "type": "string",
+      "description": "The language of these words, such as ja."
+    },
+    "set_code": {
+      "type": "string",
+      "description": "The official code of the product whose print shows words of its own, such as STA."
+    },
+    "number": {
+      "type": "string",
+      "description": "The collector number of that print, as printed; e.g. 170 or 170★."
+    }
+  }
+}

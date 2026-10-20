@@ -125,7 +125,6 @@ function sound(): Tree {
         lang: "ja",
         card_id: "lightning-bolt",
         name: "稲妻",
-        type_line: { card_types: ["インスタント"] },
         rules_text: {
           abilities: [
             { ability_id: "spell", text: "３点のダメージを与える。" },
@@ -139,7 +138,6 @@ function sound(): Tree {
         lang: "en",
         card_id: "lightning-bolt",
         name: "Lightning Bolt",
-        type_line: { card_types: ["Instant"] },
         rules_text: {
           abilities: [
             {
