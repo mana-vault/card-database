@@ -229,6 +229,10 @@ export function check(files: FileTree): string[] {
 
   const cardIds = new Set<string>();
   const cardAbilityIds = new Map<string, Set<string>>();
+  const manaSymbols = componentIDsAt(
+    files,
+    "data/oracle/card/component/mana_symbol.json",
+  );
   const cardLayouts = new Map<string, string>();
   const cardTypeLines = new Map<string, Record<string, unknown>>();
   for (const path of paths) {
@@ -339,17 +343,12 @@ export function check(files: FileTree): string[] {
       if (!isRecord(value)) return;
       const rulesText = value.rules_text;
       if (isRecord(rulesText)) {
-        const symbols = componentIDsAt(
-          files,
-          `data/print/${lang}/card/base/component/mana_symbol.json`,
-        );
         checkWordsAbilities(
           path,
-          lang,
           rulesText,
           cardID,
           cardAbilityIds,
-          symbols,
+          manaSymbols,
           add,
         );
       }
@@ -439,17 +438,12 @@ export function check(files: FileTree): string[] {
       if (!isRecord(value)) return;
       const rulesText = value.rules_text;
       if (isRecord(rulesText)) {
-        const symbols = componentIDsAt(
-          files,
-          `data/print/${lang}/card/base/component/mana_symbol.json`,
-        );
         checkWordsAbilities(
           path,
-          lang,
           rulesText,
           cardID,
           cardAbilityIds,
-          symbols,
+          manaSymbols,
           add,
         );
       }
@@ -628,7 +622,6 @@ function componentIDsAt(files: FileTree, listPath: string): Set<string> {
 
 function checkWordsAbilities(
   path: string,
-  lang: string,
   rulesText: JsonRecord,
   cardID: string,
   cardAbilityIds: Map<string, Set<string>>,
@@ -645,7 +638,7 @@ function checkWordsAbilities(
     if (!(cardAbilityIds.get(cardID) ?? new Set()).has(abilityID)) {
       add(path, `rules_text: ${abilityID} is not an ability of card ${cardID}`);
     }
-    const symbolList = `data/print/${lang}/card/base/component/mana_symbol.json`;
+    const symbolList = "data/oracle/card/component/mana_symbol.json";
     for (const piece of Array.isArray(ability.text) ? ability.text : []) {
       if (!isRecord(piece)) continue;
       const id = stringField(piece, "id");

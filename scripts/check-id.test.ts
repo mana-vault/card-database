@@ -69,10 +69,6 @@ function sound(): Tree {
         ["kindred", "Kindred"],
       ),
     ],
-    [
-      "data/print/en/card/base/component/mana_symbol.json",
-      list(["G", "{G}"], ["R", "{R}"], ["U", "{U}"]),
-    ],
     ["data/platform.json", ids("paper", "magic_online")],
     [
       "data/oracle/set/sta.json",
@@ -732,7 +728,7 @@ test("a text piece that names an unknown mana symbol id is reported", () => {
       ],
     };
   expect(problemsOf(tree)).toContain(
-    "rules_text: V is not an id in data/print/en/card/base/component/mana_symbol.json",
+    "rules_text: V is not an id in data/oracle/card/component/mana_symbol.json",
   );
 });
 

@@ -21,7 +21,7 @@
           },
           "text": {
             "type": "array",
-            "description": "The pieces of that ability's printed words in this language. A plain string is the words; a piece of kind symbol is the mana symbol that ID names in the mana-symbol list. For an activated ability, the words after the cost's colon (CR 602.1a): the card holds the cost, and the printed symbol for it is assembled from the card (CR 107.7 for the loyalty symbol).",
+            "description": "The pieces of that ability's printed words in this language. A plain string is the words. A piece of kind symbol is the mana symbol that ID names (CR 107.4): the database holds only the ID, and the application assembles the printed notation from it. For an activated ability, the words after the cost's colon (CR 602.1a): the card holds the cost as structure, and the application assembles the printed symbol (the loyalty symbol per CR 107.7) and the colon.",
             "items": {
               "oneOf": [
                 { "type": "string" },
@@ -34,7 +34,7 @@
                     "id": {
                       "type": "string",
                       "pattern": "^[^\\s{}]+$",
-                      "description": "The ID of a mana symbol in the mana-symbol list of this language."
+                      "description": "The ID of a mana symbol (CR 107.4); the application assembles the printed notation from it."
                     }
                   }
                 }
