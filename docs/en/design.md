@@ -133,7 +133,6 @@ name list, under `data/print/<lang>/card/base/component/`, in the same shape: an
 | --- | --- | --- |
 | Layouts | `layout.json` | `Normal`, `Split`, `Modal double-faced` |
 | Colors | `color.json` | `white`, `blue`, `black`, `red`, `green` |
-| Mana symbols | `mana_symbol.json` | `{W}`, `{U}`, `{R}` |
 | Supertypes | `type_line/supertype.json` | `Basic`, `Legendary`, `World` |
 | Card types | `type_line/card_type.json` | `Creature`, `Instant`, `Land` |
 | Subtypes | `type_line/subtype.json` | `Human`, `Aura`, `Mountain` |
@@ -145,9 +144,15 @@ name list, under `data/print/<lang>/card/base/component/`, in the same shape: an
 
 A list that serves one part of a card sits in a folder named for that part: type-line lists in
 `type_line/`, ability lists in `ability/`, and action lists in `action/`. Each subtype entry also
-lists the card types it can accompany. `layout.json` holds the `card`'s own `layout`; `color.json`,
-`mana_symbol.json`, and `counter_type.json` serve several parts, so they stay directly under
-`component/`.
+lists the card types it can accompany. `layout.json` holds the `card`'s own `layout`; `color.json`
+and `counter_type.json` serve several parts, so they stay directly under `component/`.
+
+A component whose print is not a word has no entry in the name lists. A mana symbol (CR 107.4) is
+named by its ID, and the application assembles this language's printed form from the ID:
+`data/oracle/card/component/mana_symbol.json` is the registry of the IDs alone, and the name lists
+under `data/print/` do not repeat it. The same holds for a cost's printed symbol (CR 107.7): the
+card keeps the cost as structure, and the application assembles the colon (CR 602.1a) and the
+symbol.
 
 A list takes a new value when Wizards of the Coast defines one. The id and its value stay a pair for
 good: correcting the value leaves the id alone.
@@ -180,13 +185,16 @@ words every print of a card shows the same way sit in `base/entity/`, one file p
 
 It holds the name, the type line, and the rules text. The name and the rules text are words, and
 the rules text is one entry per ability, paired by `ability_id` with the card's structure; an
-ability's text is the sequence of pieces the printed ability consists of: the connecting words are
-strings, and every part that is a component is the ID of that component, whose words the lists of
-this language hold. The
-text of an activated ability is what follows the cost's colon (CR 602.1a): the card holds the cost,
-and the printed symbol for it is assembled from the card. The
-Japanese words for the IDs live in `data/print/ja/card/base/component/`. The Japanese words of
-Lightning Bolt are
+ability's text is the sequence of pieces the printed ability consists of. Every piece is an object
+with a kind: a piece of kind rawText holds the words between the others, and a piece of any other
+kind is a reference that names the kind of component and the component's ID. A component whose
+print is a word takes its word from this language's name lists; a symbol is named by its ID alone
+— a generic one by the numeral it prints (CR 107.4b), no list holding that name — and the
+application assembles the printed form from the ID. The text of an
+activated ability is what follows the cost's colon (CR 602.1a): the card holds the cost as
+structure, and the application assembles the printed symbol (CR 107.7 for the loyalty symbol) and
+the colon. The Japanese words for the IDs live in `data/print/ja/card/base/component/`. The
+Japanese words of Lightning Bolt are
 `data/print/ja/card/base/entity/li/lightning-bolt.json`. Flavor text is not here: a reprint can
 change it, so it belongs to the `print`.
 

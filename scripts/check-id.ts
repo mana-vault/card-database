@@ -64,6 +64,8 @@ const BASE_WORDS =
 const EXCEPTION_WORDS =
   /^data\/print\/([a-z0-9-]+)\/card\/(?!base\/)([a-z0-9]+)\/([^/]+)\.json$/;
 const SET_NAME = /^data\/print\/([a-z0-9-]+)\/set\/base\/([a-z0-9]+)\.json$/;
+/** The numeral a generic mana symbol prints (CR 107.4b): an id no list holds. */
+const NUMERIC_ID = /^\d+$/;
 
 function componentPath(listName: string): string {
   if (listName === "platform") return "data/platform.json";
@@ -75,7 +77,7 @@ function hasComponentId(
   listName: string,
   id: string,
 ): boolean {
-  if (listName === "card/mana_symbol" && /^\d+$/.test(id)) return true;
+  if (listName === "card/mana_symbol" && NUMERIC_ID.test(id)) return true;
   return (componentIds.get(listName) ?? new Set()).has(id);
 }
 
@@ -229,6 +231,10 @@ export function check(files: FileTree): string[] {
 
   const cardIds = new Set<string>();
   const cardAbilityIds = new Map<string, Set<string>>();
+  const manaSymbols = componentIDsAt(
+    files,
+    "data/oracle/card/component/mana_symbol.json",
+  );
   const cardLayouts = new Map<string, string>();
   const cardTypeLines = new Map<string, Record<string, unknown>>();
   for (const path of paths) {
@@ -339,17 +345,13 @@ export function check(files: FileTree): string[] {
       if (!isRecord(value)) return;
       const rulesText = value.rules_text;
       if (isRecord(rulesText)) {
-        const symbols = componentIDsAt(
-          files,
-          `data/print/${lang}/card/base/component/mana_symbol.json`,
-        );
         checkWordsAbilities(
           path,
-          lang,
+          files,
           rulesText,
           cardID,
           cardAbilityIds,
-          symbols,
+          manaSymbols,
           add,
         );
       }
@@ -439,17 +441,13 @@ export function check(files: FileTree): string[] {
       if (!isRecord(value)) return;
       const rulesText = value.rules_text;
       if (isRecord(rulesText)) {
-        const symbols = componentIDsAt(
-          files,
-          `data/print/${lang}/card/base/component/mana_symbol.json`,
-        );
         checkWordsAbilities(
           path,
-          lang,
+          files,
           rulesText,
           cardID,
           cardAbilityIds,
-          symbols,
+          manaSymbols,
           add,
         );
       }
@@ -628,7 +626,7 @@ function componentIDsAt(files: FileTree, listPath: string): Set<string> {
 
 function checkWordsAbilities(
   path: string,
-  lang: string,
+  files: FileTree,
   rulesText: JsonRecord,
   cardID: string,
   cardAbilityIds: Map<string, Set<string>>,
@@ -645,12 +643,25 @@ function checkWordsAbilities(
     if (!(cardAbilityIds.get(cardID) ?? new Set()).has(abilityID)) {
       add(path, `rules_text: ${abilityID} is not an ability of card ${cardID}`);
     }
-    const symbolList = `data/print/${lang}/card/base/component/mana_symbol.json`;
+    const symbolList = "data/oracle/card/component/mana_symbol.json";
+    const lang = path.match(/^data\/print\/([^/]+)\//)?.[1] ?? "en";
+    const keywordList = `data/print/${lang}/card/base/component/ability/keyword_ability.json`;
+    const keywordIDs = componentIDsAt(files, keywordList);
     for (const piece of Array.isArray(ability.text) ? ability.text : []) {
       if (!isRecord(piece)) continue;
       const id = stringField(piece, "id");
-      if (piece.kind === "symbol" && (id === undefined || !manaSymbols.has(id)))
+      if (
+        piece.kind === "mana_symbol" &&
+        (id === undefined || (!manaSymbols.has(id) && !NUMERIC_ID.test(id)))
+      )
         add(path, `rules_text: ${id ?? ""} is not an id in ${symbolList}`);
+      if (
+        piece.kind === "keyword_ability" &&
+        (id === undefined || !keywordIDs.has(id))
+      )
+        add(path, `rules_text: ${id ?? ""} is not an id in ${keywordList}`);
+      if (piece.kind === "rawText" && typeof piece.value !== "string")
+        add(path, `rules_text: a rawText piece of ${abilityID} has no value`);
     }
   }
 }

@@ -16,7 +16,10 @@
         {
           "ability_id": "provision",
           "text": [
-            "ゼンディカーへの侵攻が戦場に出たとき、あなたのライブラリーから基本土地・カード最大２枚を探し、タップ状態で戦場に出す。その後、ライブラリーを切り直す。"
+            {
+              "kind": "rawText",
+              "value": "ゼンディカーへの侵攻が戦場に出たとき、あなたのライブラリーから基本土地・カード最大２枚を探し、タップ状態で戦場に出す。その後、ライブラリーを切り直す。"
+            }
           ]
         }
       ]
@@ -37,25 +40,28 @@
         {
           "ability_id": "vigilance",
           "text": [
-            "警戒"
+            { "kind": "keyword_ability", "id": "vigilance" }
           ]
         },
         {
           "ability_id": "haste",
           "text": [
-            "速攻"
+            { "kind": "keyword_ability", "id": "haste" }
           ]
         },
         {
           "ability_id": "skyland",
           "text": [
-            "覚醒したスカイクレイブが戦場にあるかぎり、これは他のタイプに加えて土地でもある。"
+            {
+              "kind": "rawText",
+              "value": "覚醒したスカイクレイブが戦場にあるかぎり、これは他のタイプに加えて土地でもある。"
+            }
           ]
         },
         {
           "ability_id": "mana",
           "text": [
-            "{T}：好きな色１色のマナ１点を加える。"
+            { "kind": "rawText", "value": "好きな色１色のマナ１点を加える。" }
           ]
         }
       ]

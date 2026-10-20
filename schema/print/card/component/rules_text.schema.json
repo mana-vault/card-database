@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Rules-text words",
-  "description": "The rules text as this language prints it, one entry per ability of the card, paired by ability_id with the card's structure. An ability's text is the sequence of pieces the printed ability consists of: the words are strings, and every part that is a component (a mana symbol, a keyword) is a reference to that component's ID, so the component holds itself once in its list.",
+  "description": "The rules text as this language prints it, one entry per ability of the card, paired by ability_id with the card's structure. An ability's text is the sequence of pieces the printed ability consists of. Every piece is an object with a kind: a piece of kind rawText holds the words, and a piece of any other kind is a reference that names the component's kind and ID, so the component holds itself once in its list.",
   "type": "object",
   "additionalProperties": false,
   "required": ["abilities"],
@@ -21,20 +21,44 @@
           },
           "text": {
             "type": "array",
-            "description": "The pieces of that ability's printed words in this language. A plain string is the words; a piece of kind symbol is the mana symbol that ID names in the mana-symbol list. For an activated ability, the words after the cost's colon (CR 602.1a): the card holds the cost, and the printed symbol for it is assembled from the card (CR 107.7 for the loyalty symbol).",
+            "description": "The sequence of pieces that ability's printed words consist of. A piece of kind rawText holds the words between the others: {\"kind\": \"rawText\", \"value\": \" deals 3 damage to any target.\"}. A piece of kind mana_symbol is the mana symbol that ID names (CR 107.4): the database holds only the ID, and the application assembles the printed notation from it. A piece of kind keyword_ability is the keyword ability that ID names: the application prints the word that this language's keyword_ability list holds for the ID. For an activated ability, the words after the cost's colon (CR 602.1a): the card holds the cost as structure, and the application assembles the printed symbol (the loyalty symbol per CR 107.7) and the colon.",
             "items": {
               "oneOf": [
-                { "type": "string" },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["kind", "value"],
+                  "properties": {
+                    "kind": { "const": "rawText" },
+                    "value": {
+                      "type": "string",
+                      "description": "The words of that piece, as this language prints them."
+                    }
+                  }
+                },
                 {
                   "type": "object",
                   "additionalProperties": false,
                   "required": ["kind", "id"],
                   "properties": {
-                    "kind": { "const": "symbol" },
+                    "kind": { "const": "mana_symbol" },
                     "id": {
                       "type": "string",
                       "pattern": "^[^\\s{}]+$",
-                      "description": "The ID of a mana symbol in the mana-symbol list of this language."
+                      "description": "The ID of a mana symbol (CR 107.4); the application assembles the printed notation from it. A generic mana symbol (CR 107.4b) is named by the numeral it prints, and no list holds it."
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["kind", "id"],
+                  "properties": {
+                    "kind": { "const": "keyword_ability" },
+                    "id": {
+                      "type": "string",
+                      "pattern": "^[^\\s{}]+$",
+                      "description": "The ID of a keyword ability; the word for the ID comes from this language's keyword_ability list."
                     }
                   }
                 }
