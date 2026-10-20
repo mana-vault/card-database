@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Words of a card, nonmodal double-faced layout",
+  "description": "A words file of a card of the nonmodal double-faced layout: the two faces hold their words in front and back, as the card holds its faces.",
+  "type": "object",
+  "allOf": [{ "$ref": "component/identity.schema.json" }],
+  "properties": {
+    "front": { "$ref": "component/face.schema.json" },
+    "back": { "$ref": "component/face.schema.json" },
+    "history": {
+      "type": "array",
+      "description": "Records of official corrections to these words. Appended only; past records are never rewritten.",
+      "items": { "$ref": "../../correction.schema.json" }
+    }
+  },
+  "required": ["front", "back"],
+  "unevaluatedProperties": false
+}

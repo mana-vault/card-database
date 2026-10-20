@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Words of a card, normal layout",
+  "description": "A words file of a card of the normal layout: data/print/<lang>/card/base/entity/ holds the words every print of the card shows, and a print whose words differ holds its own file at data/print/<lang>/card/<set>/<number>.json. The words sit on the record, as the card holds its characteristics.",
+  "allOf": [
+    { "$ref": "component/identity.schema.json" },
+    { "$ref": "component/face.schema.json" },
+    {
+      "properties": {
+        "history": {
+          "type": "array",
+          "description": "Records of official corrections to these words. Appended only; past records are never rewritten.",
+          "items": { "$ref": "../../correction.schema.json" }
+        }
+      }
+    }
+  ],
+  "unevaluatedProperties": false
+}

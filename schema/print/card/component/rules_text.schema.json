@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Rules-text words",
+  "description": "The rules text as this language prints it, one entry per ability of the card, paired by ability_id with the card's structure.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["abilities"],
+  "properties": {
+    "abilities": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["ability_id", "text"],
+        "properties": {
+          "ability_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9_-]*$",
+            "description": "The ability_id of the ability this text belongs to in the card."
+          },
+          "text": {
+            "type": "string",
+            "description": "The rules text of that ability as printed in this language."
+          }
+        }
+      }
+    }
+  }
+}

@@ -178,9 +178,9 @@ words every print of a card shows the same way sit in `base/entity/`, one file p
 - `lang`
 - `card_id`
 
-It holds the name, the type line, and the rules text, and records the supertypes, card types, and
-subtypes of the type line in separate fields, and the rules text in one entry per ability. The
-Japanese words of Lightning Bolt are
+It holds the name, the type line, and the rules text: the type line in the supertypes, card types,
+and subtypes as this language prints them, and the rules text in one entry per ability, paired by
+`ability_id` with the card's structure. The Japanese words of Lightning Bolt are
 `data/print/ja/card/base/entity/li/lightning-bolt.json`. Flavor text is not here: a reprint can
 change it, so it belongs to the `print`.
 
@@ -191,9 +191,9 @@ Study is printed under the name Stay with Me, so its words sit at
 `data/print/en/card/fca/31.json`.
 
 The names of the components live under `base/` too, at `base/component/<list>.json`: each pairs the
-id with the word that language shows. The name of a set is a word of the paper, so it lives beside
-them, under `set/`: the English name of Strixhaven Mystical Archive is
-`data/print/en/set/base/sta.json`.
+id with the word that language shows. The
+name of a set is a word of the paper, so it lives beside them, under `set/`: the English name of
+Strixhaven Mystical Archive is `data/print/en/set/base/sta.json`.
 
 #### Sets
 
@@ -268,8 +268,17 @@ schema/
             durations/
   print/
     print.json
-    card.schema.json
     set.schema.json
+    card/
+      card.schema.json
+      normal.json
+      split.json
+      nonmodal_double_faced.json
+      component/
+        identity.schema.json
+        face.schema.json
+        type_line.schema.json
+        rules_text.schema.json
   correction.schema.json
 ```
 
@@ -298,8 +307,10 @@ line. Under `rules_text/`, schemas are grouped by the rule concept they describe
 
 #### Words
 
-A words file has one schema for a card and another for a set:
-`schema/print/card.schema.json` and `schema/print/set.schema.json`.
+A words file has one schema per layout under `schema/print/card/`, and the layouts compose the
+parts in `card/component/`: the identity, one face's words, and the history. The base and the
+exception share the schema: which one a file is follows its path, and check-id checks it. A set's
+words (its name) have `schema/print/set.schema.json`.
 
 #### The other files
 

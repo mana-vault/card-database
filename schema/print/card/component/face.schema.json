@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Words of one face",
+  "description": "The words one language's paper shows for one face of a card: the name, the type line, and the rules text. For a base words file the type line is the one every print shows; a print whose words differ may hold its own (Summon Djinn, for example).",
+  "type": "object",
+  "required": [
+    "name"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of this face as printed in this language."
+    },
+    "type_line": {
+      "$ref": "type_line.schema.json",
+      "description": "The type line as this face shows it in this language."
+    },
+    "rules_text": {
+      "$ref": "rules_text.schema.json"
+    }
+  }
+}

@@ -19,7 +19,7 @@
       "$ref": "oracle/set.json"
     },
     {
-      "$ref": "print/card.schema.json"
+      "$ref": "print/card/card.schema.json"
     },
     {
       "$ref": "print/set.schema.json"
