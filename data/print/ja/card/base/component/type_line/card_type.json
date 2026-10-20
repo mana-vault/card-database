@@ -1,0 +1,6 @@
+[
+  { "id": "battle", "value": "バトル" },
+  { "id": "creature", "value": "クリーチャー" },
+  { "id": "instant", "value": "インスタント" },
+  { "id": "planeswalker", "value": "プレインズウォーカー" }
+]

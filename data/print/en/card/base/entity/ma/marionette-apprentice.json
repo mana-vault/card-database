@@ -4,11 +4,11 @@
   "name": "Marionette Apprentice",
   "type_line": {
     "card_types": [
-      "Creature"
+      "creature"
     ],
     "subtypes": [
-      "Human",
-      "Artificer"
+      "creature_human",
+      "creature_artificer"
     ]
   },
   "rules_text": {

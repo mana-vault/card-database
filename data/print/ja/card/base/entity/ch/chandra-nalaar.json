@@ -4,10 +4,10 @@
   "name": "チャンドラ・ナラー",
   "type_line": {
     "card_types": [
-      "伝説のプレインズウォーカー"
+      "planeswalker"
     ],
     "subtypes": [
-      "チャンドラ"
+      "planeswalker_chandra"
     ]
   },
   "rules_text": {

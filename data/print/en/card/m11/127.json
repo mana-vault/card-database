@@ -4,14 +4,6 @@
   "set_code": "M11",
   "number": "127",
   "name": "Chandra Nalaar",
-  "type_line": {
-    "card_types": [
-      "Planeswalker"
-    ],
-    "subtypes": [
-      "Chandra"
-    ]
-  },
   "rules_text": {
     "abilities": [
       {

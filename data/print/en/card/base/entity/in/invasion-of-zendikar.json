@@ -5,10 +5,10 @@
     "name": "Invasion of Zendikar",
     "type_line": {
       "card_types": [
-        "Battle"
+        "battle"
       ],
       "subtypes": [
-        "Siege"
+        "battle_siege"
       ]
     },
     "rules_text": {
@@ -24,10 +24,10 @@
     "name": "Awakened Skyclave",
     "type_line": {
       "card_types": [
-        "Creature"
+        "creature"
       ],
       "subtypes": [
-        "Elemental"
+        "creature_elemental"
       ]
     },
     "rules_text": {

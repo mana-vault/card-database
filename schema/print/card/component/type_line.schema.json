@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Type-line words",
-  "description": "The type line as this face shows it in this language: the supertypes, card types, and subtypes as words.",
+  "description": "The type line of one face as words IDs or as the words a print shows. The base words hold the same IDs the card holds, and the words for them live in the name lists under card/base/component/. A print whose type-line words the lists cannot produce (an old wording) holds those words itself, as a value; which form the exception takes is still to settle.",
   "type": "object",
   "additionalProperties": false,
   "properties": {

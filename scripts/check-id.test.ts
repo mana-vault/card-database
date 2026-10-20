@@ -125,6 +125,7 @@ function sound(): Tree {
         lang: "ja",
         card_id: "lightning-bolt",
         name: "稲妻",
+        type_line: { card_types: ["instant"] },
         rules_text: {
           abilities: [
             { ability_id: "spell", text: "３点のダメージを与える。" },
@@ -138,6 +139,7 @@ function sound(): Tree {
         lang: "en",
         card_id: "lightning-bolt",
         name: "Lightning Bolt",
+        type_line: { card_types: ["instant"] },
         rules_text: {
           abilities: [
             {
@@ -239,18 +241,28 @@ test("a subtype cannot be paired with an unrelated card type", () => {
 
 test("a subtype is valid when the type line includes an allowed card type", () => {
   const tree = sound();
-  at(tree, "data/oracle/card/normal/li/lightning-bolt.json").type_line = {
+  const typeLine = {
     card_types: ["creature"],
     subtypes: ["creature_wizard"],
   };
+  at(tree, "data/oracle/card/normal/li/lightning-bolt.json").type_line =
+    typeLine;
+  at(tree, "data/print/ja/card/base/entity/li/lightning-bolt.json").type_line =
+    typeLine;
+  at(tree, "data/print/en/card/base/entity/li/lightning-bolt.json").type_line =
+    typeLine;
   expect(check(tree)).toEqual([]);
 });
 
 test("a type line may include more than one card type", () => {
   const tree = sound();
-  at(tree, "data/oracle/card/normal/li/lightning-bolt.json").type_line = {
-    card_types: ["creature", "instant"],
-  };
+  const typeLine = { card_types: ["creature", "instant"] };
+  at(tree, "data/oracle/card/normal/li/lightning-bolt.json").type_line =
+    typeLine;
+  at(tree, "data/print/ja/card/base/entity/li/lightning-bolt.json").type_line =
+    typeLine;
+  at(tree, "data/print/en/card/base/entity/li/lightning-bolt.json").type_line =
+    typeLine;
   expect(check(tree)).toEqual([]);
 });
 
@@ -646,6 +658,24 @@ test("a card's base words that do not live where their values say are reported",
   tree.set("data/print/ja/card/base/entity/xx/lightning-bolt.json", words);
   expect(problemsOf(tree)).toContain(
     "the folder does not match the id lightning-bolt",
+  );
+});
+
+test("base words that hold no type line are reported", () => {
+  const tree = sound();
+  delete at(tree, "data/print/ja/card/base/entity/li/lightning-bolt.json")
+    .type_line;
+  expect(problemsOf(tree)).toContain(
+    "data/print/ja/card/base/entity/li/lightning-bolt.json: the base words must hold type_line",
+  );
+});
+
+test("base words whose type line differs from the card's are reported", () => {
+  const tree = sound();
+  at(tree, "data/print/en/card/base/entity/li/lightning-bolt.json").type_line =
+    { card_types: ["creature"] };
+  expect(problemsOf(tree)).toContain(
+    "data/print/en/card/base/entity/li/lightning-bolt.json: the base words' type line must match the card's",
   );
 });
 

@@ -4,14 +4,6 @@
   "set_code": "LRW",
   "number": "159",
   "name": "Chandra Nalaar",
-  "type_line": {
-    "card_types": [
-      "Planeswalker"
-    ],
-    "subtypes": [
-      "Chandra"
-    ]
-  },
   "rules_text": {
     "abilities": [
       {

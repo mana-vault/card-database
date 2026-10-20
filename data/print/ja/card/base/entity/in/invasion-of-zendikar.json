@@ -5,10 +5,10 @@
     "name": "ゼンディカーへの侵攻",
     "type_line": {
       "card_types": [
-        "バトル"
+        "battle"
       ],
       "subtypes": [
-        "包囲戦"
+        "battle_siege"
       ]
     },
     "rules_text": {
@@ -24,10 +24,10 @@
     "name": "覚醒したスカイクレイブ",
     "type_line": {
       "card_types": [
-        "クリーチャー"
+        "creature"
       ],
       "subtypes": [
-        "エレメンタル"
+        "creature_elemental"
       ]
     },
     "rules_text": {

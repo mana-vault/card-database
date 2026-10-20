@@ -1,0 +1,7 @@
+[
+  { "id": "battle_siege", "value": "包囲戦" },
+  { "id": "creature_artificer", "value": "工匠" },
+  { "id": "creature_elemental", "value": "エレメンタル" },
+  { "id": "creature_human", "value": "人間" },
+  { "id": "planeswalker_chandra", "value": "チャンドラ" }
+]

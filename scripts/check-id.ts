@@ -88,6 +88,25 @@ function stringField(record: JsonRecord, key: string): string | undefined {
   return typeof value === "string" ? value : undefined;
 }
 
+/** The words file converted so that deep equality is key-order independent. */
+function canonical(value: unknown): unknown {
+  if (Array.isArray(value)) return value.map(canonical);
+  if (isRecord(value)) {
+    const sorted: JsonRecord = {};
+    for (const key of Object.keys(value).sort())
+      sorted[key] = canonical(value[key]);
+    return sorted;
+  }
+  return value;
+}
+
+/** The face field names of the layouts that hold several faces. */
+const FACES: Record<string, string[]> = {
+  normal: [""],
+  split: ["left", "right"],
+  nonmodal_double_faced: ["front", "back"],
+};
+
 function records(value: unknown): JsonRecord[] {
   return Array.isArray(value) ? value.filter(isRecord) : [];
 }
@@ -210,6 +229,8 @@ export function check(files: FileTree): string[] {
 
   const cardIds = new Set<string>();
   const cardAbilityIds = new Map<string, Set<string>>();
+  const cardLayouts = new Map<string, string>();
+  const cardTypeLines = new Map<string, Record<string, unknown>>();
   for (const path of paths) {
     const match = CARD.exec(path);
     if (!match) continue;
@@ -233,6 +254,14 @@ export function check(files: FileTree): string[] {
     const abilityIds = new Set<string>();
     collectAbilityIds(card, abilityIds);
     cardAbilityIds.set(cardID, abilityIds);
+
+    const typeLines: Record<string, unknown> = {};
+    for (const face of FACES[layout] ?? []) {
+      const faceRecord = face === "" ? card : card[face];
+      typeLines[face] = isRecord(faceRecord) ? faceRecord.type_line : undefined;
+    }
+    cardLayouts.set(cardID, layout);
+    cardTypeLines.set(cardID, typeLines);
   }
 
   for (const path of paths) {
@@ -288,6 +317,24 @@ export function check(files: FileTree): string[] {
         add(path, `the base words must not hold ${field}`);
     }
     baseWords.add(`${lang}|${cardID}`);
+    const typeLines = cardTypeLines.get(cardID);
+    const layout = cardLayouts.get(cardID);
+    if (typeLines && layout) {
+      for (const face of FACES[layout] ?? [""]) {
+        const target = face === "" ? words : words[face];
+        if (!isRecord(target)) continue;
+        if (target.type_line === undefined) {
+          add(path, "the base words must hold type_line");
+          continue;
+        }
+        if (
+          JSON.stringify(canonical(target.type_line)) !==
+          JSON.stringify(canonical(typeLines[face]))
+        ) {
+          add(path, "the base words' type line must match the card's");
+        }
+      }
+    }
     const visitBase = (value: unknown): void => {
       if (!isRecord(value)) return;
       const rulesText = value.rules_text;

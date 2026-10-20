@@ -4,11 +4,11 @@
   "name": "マリオネットの見習い",
   "type_line": {
     "card_types": [
-      "クリーチャー"
+      "creature"
     ],
     "subtypes": [
-      "人間",
-      "工匠"
+      "creature_human",
+      "creature_artificer"
     ]
   },
   "rules_text": {
